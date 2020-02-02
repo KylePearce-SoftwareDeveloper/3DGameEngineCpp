@@ -19,15 +19,25 @@
 void FreeMove::ProcessInput(const Input& input, float delta)
 {
 	float movAmt = m_speed * delta;
-
+	Vector3f movementVector(0.0f, 0.0f,0.0f);
+	//movementVector.add
 	if(input.GetKey(m_forwardKey))
-		Move(GetTransform()->GetRot()->GetForward(), movAmt);
+		movementVector += GetTransform()->GetRot()->GetForward();//Move(GetTransform()->GetRot()->GetForward(), movAmt);
 	if(input.GetKey(m_backKey))
-		Move(GetTransform()->GetRot()->GetBack(), movAmt);
+		movementVector -= GetTransform()->GetRot()->GetForward();//Move(GetTransform()->GetRot()->GetBack(), movAmt);
 	if(input.GetKey(m_leftKey))
-		Move(GetTransform()->GetRot()->GetLeft(), movAmt);
+		movementVector += GetTransform()->GetRot()->GetLeft();//Move(GetTransform()->GetRot()->GetLeft(), movAmt);
 	if(input.GetKey(m_rightKey))
-		Move(GetTransform()->GetRot()->GetRight(), movAmt);
+		movementVector += GetTransform()->GetRot()->GetRight();//Move(GetTransform()->GetRot()->GetRight(), movAmt);
+
+	movementVector.SetY(0.0f);
+	if (movementVector.Length() > 0)
+		movementVector.Normalized();
+
+	Move(movementVector, movAmt);
+
+	if(input.GetKey(input.KEY_ESCAPE))
+		exit(0);
 }
 
 void FreeMove::Move(const Vector3f& direction, float amt)
