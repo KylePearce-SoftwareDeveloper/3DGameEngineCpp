@@ -15,6 +15,7 @@
  */
 
 #include "freeMove.h"
+#include "../core/game.h"//2/2/20 test
 	
 void FreeMove::ProcessInput(const Input& input, float delta)
 {
@@ -43,4 +44,9 @@ void FreeMove::ProcessInput(const Input& input, float delta)
 void FreeMove::Move(const Vector3f& direction, float amt)
 {
 	GetTransform()->SetPos(*GetTransform()->GetPos() + (direction * amt));
+}
+
+void FreeMove::Update(float delta) {//2/2/20 test
+	GetParent()->GetEngine()->GetGame()->CheckTerrainHeight();
+	//EntityComponent::GetParent()->GetEngine->GetGame->CheckTerrainHeight;// .getEngine().getGame().checkTerraineHeight();
 }

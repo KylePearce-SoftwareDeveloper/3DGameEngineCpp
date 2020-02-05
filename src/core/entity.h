@@ -46,6 +46,7 @@ public:
 	
 	inline Transform* GetTransform() { return &m_transform; }
 	void SetEngine(CoreEngine* engine);
+	virtual CoreEngine* GetEngine() { return m_coreEngine; }//2/2/20 test
 protected:
 private:
 	std::vector<Entity*>          m_children;

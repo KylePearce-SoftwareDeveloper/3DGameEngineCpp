@@ -32,6 +32,7 @@ public:
 	void Stop();  //Stops running the game, and disables all subsystems.
 	
 	inline RenderingEngine* GetRenderingEngine() { return m_renderingEngine; }
+	virtual Game* GetGame() { return m_game; }//2/2/20 test
 protected:
 private:
 	bool             m_isRunning;       //Whether or not the engine is running

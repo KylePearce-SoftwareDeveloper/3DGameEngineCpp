@@ -108,6 +108,8 @@ public:
 	virtual ~Mesh();
 
 	void Draw() const;
+	virtual std::vector<Vector3f> getMeshVertices();// {}//2/2/20 test
+	//virtual std::vector<unsigned int> getMeshIndices();// {}//4/2/20 test
 protected:
 private:
 	static std::map<std::string, MeshData*> s_resourceMap;

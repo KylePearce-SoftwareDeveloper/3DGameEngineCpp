@@ -40,6 +40,7 @@ public:
 	inline const Transform& GetTransform() const { return *m_parent->GetTransform(); }
 	
 	virtual void SetParent(Entity* parent) { m_parent = parent; }
+	virtual Entity* GetParent() { return m_parent; }//2/2/20 test
 private:
 	Entity* m_parent;
 	

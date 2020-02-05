@@ -29,6 +29,8 @@
 #include <assimp/postprocess.h>
 
 std::map<std::string, MeshData*> Mesh::s_resourceMap;
+std::vector<Vector3f> meshVertices;//2/2/20 test
+//std::vector<unsigned int> meshIndices;//4/2/20 test
 
 bool IndexedModel::IsValid() const
 {
@@ -298,12 +300,42 @@ Mesh::Mesh(const std::string& fileName) :
 			indices.push_back(face.mIndices[1]);
 			indices.push_back(face.mIndices[2]);
 		}
-		
+		//meshVertices = positions;//2/2/20 test
+		for (Vector3f currentVertex : positions) {//2/2/20 test, bit more reliable than above approach
+			meshVertices.push_back(currentVertex);
+		}
+		/*
+		for (int i = 0; i < meshVertices.size(); i++) {//5/2/20 test, bit more reliable than above approach
+			meshVertices[i].SetX(meshVertices[i].GetX() * 2.0f);
+			meshVertices[i].SetY(meshVertices[i].GetY() * 2.0f);
+			meshVertices[i].SetZ(meshVertices[i].GetZ() * 2.0f);
+		}
+		*/
+		//4/2/20 test
+		/*
+		for (unsigned int currentindex : indices) {//2/2/20 test, bit more reliable than above approach
+			meshIndices.push_back(currentindex);
+		}
+		*/
+		//5/2/20 test
+		//for (unsigned int currentindex : model->mNumFaces) {//2/2/20 test, bit more reliable than above approach
+			//meshIndices.push_back(currentindex);
+		//}
 		m_meshData = new MeshData(IndexedModel(indices, positions, texCoords, normals, tangents));
 		s_resourceMap.insert(std::pair<std::string, MeshData*>(fileName, m_meshData));
 	}
 }
 
+std::vector<Vector3f> Mesh::getMeshVertices()//2/2/20
+{
+	return meshVertices;
+}
+/*
+std::vector<unsigned int> Mesh::getMeshIndices()//4/2/20
+{
+	return meshIndices;
+}
+*/
 Mesh::Mesh(const Mesh& mesh) :
 	m_fileName(mesh.m_fileName),
 	m_meshData(mesh.m_meshData)
