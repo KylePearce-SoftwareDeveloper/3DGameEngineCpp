@@ -110,6 +110,7 @@ public:
 	void Draw() const;
 	virtual std::vector<Vector3f> getMeshVertices();// {}//2/2/20 test
 	//virtual std::vector<unsigned int> getMeshIndices();// {}//4/2/20 test
+	//virtual Vector3f checkMeshVertices(Vector3f* playerPos);//5/2/20
 protected:
 private:
 	static std::map<std::string, MeshData*> s_resourceMap;

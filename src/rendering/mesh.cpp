@@ -331,6 +331,12 @@ std::vector<Vector3f> Mesh::getMeshVertices()//2/2/20
 	return meshVertices;
 }
 /*
+Vector3f Mesh::checkMeshVertices(Vector3f* playerPos)//5/2/20
+{
+	return std::find(meshVertices.begin(), meshVertices.end(), playerPos) != meshVertices.end();//meshVertices.get(playerPos);
+}
+*/
+/*
 std::vector<unsigned int> Mesh::getMeshIndices()//4/2/20
 {
 	return meshIndices;

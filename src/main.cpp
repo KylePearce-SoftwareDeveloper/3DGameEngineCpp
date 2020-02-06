@@ -65,7 +65,7 @@ void TestGame::Init(const Window& window)
 	//	->AddComponent(new MeshRenderer(Mesh("terrain02.obj"), Material("bricks"))));
 
 	Entity *terrainObject = new Entity(Vector3f(0, 0, 0), Quaternion(), 1.0f);
-	Mesh *terrainMesh = new Mesh("terrain02.obj");
+	Mesh *terrainMesh = new Mesh("terrainBigger.obj");
 	meshObjects.push_back(terrainMesh);
 	Material *terraineMaterial = new Material("magenta");
 	MeshRenderer *terrainRenderer = new MeshRenderer(*terrainMesh, *terraineMaterial);
@@ -143,7 +143,7 @@ void TestGame::Init(const Window& window)
     */
 	//Now have handles for FreeMove and it is stored in array
 	Entity *player = new Entity(Vector3f(0, 0, 0), Quaternion(), 1.0f);//Vector3f(10.0f, 10.0f, 10.0f), Quaternion(0, 0, 0, 1), 1.0f);// = new Entity();
-	FreeMove *playerMovement = new FreeMove(0.3f);//5/2/20 (10.0f);
+	FreeMove *playerMovement = new FreeMove(10.0f);//5/2/20 (10.0f);
 	freeMoveObjects.push_back(playerMovement);
 	FreeLook *playerLook = new FreeLook(window.GetCenter());// (window.GetCenter());
 	CameraComponent *playerCamera = new CameraComponent(Matrix4f().InitPerspective(ToRadians(70.0f), window.GetAspect(), 0.1f, 1000.0f));// (Matrix4f().InitPerspective(ToRadians(70.0f), window.GetAspect(), 0.1f, 1000.0f));
@@ -194,155 +194,41 @@ void TestGame::Init(const Window& window)
 
 void TestGame::CheckTerrainHeight() 
 {
-	//freeMoveObjects[0]->GetParent()->GetTransform()->GetPos()->SetY(100.0f);//this worked in setting me to height 100
-	/*
-	for (FreeMove *currentFreeMove : freeMoveObjects) {
-		Vector3f *playerPos = currentFreeMove->GetParent()->GetTransform()->GetPos();//currentFreeMove.getParent().getTransform().getPos();
-		float playerXPos = playerPos->GetX();//.getX();
-		float playerZPos = playerPos->GetZ();//.getZ();
-
-		//float terrainHeight = terrainObjects[0];//.get(0).getHeightOfTerraine(playerXPos, playerZPos);
-		//currentFreeMove->GetParent()->GetTransform()->GetPos()->SetY(terrainHeight + 2.0f);//.getParent().getTransform().getPos().setY(terrainHeight + 2.0f);
-		//for (Mesh *currentMesh : meshObjects) {
-			//currentMesh->getMeshVertices();
-		//}
-		for (Vector3f currentVector : meshObjects[0]->getMeshVertices()) {
-			if (currentVector.GetX() == playerXPos & currentVector.GetZ() == playerZPos) {
-				currentFreeMove->GetParent()->GetTransform()->GetPos()->SetY(currentVector.GetY());
-				printf("REVIEVED_NEW_HEIGHT");
-			}
-			
-		}
-	}
-	*/
-	/*current best
-	Vector3f *playerPos = freeMoveObjects[0]->GetParent()->GetTransform()->GetPos();
-	float playerXPos = playerPos->GetX();
-	float playerZPos = playerPos->GetZ();
-	int playerXPosInt = (int)playerXPos;
-	int playerZPosInt = (int)playerZPos;
-	//float epsilon = 0.0005f;
+	//Vector3f test = meshObjects[0]->checkMeshVertices(freeMoveObjects[0]->GetParent()->GetTransform()->GetPos())
+	float playerHeight = 5.0f;//2.0f for small terrain
 	
 	for (Vector3f currentVector : meshObjects[0]->getMeshVertices()) {
-		int meshHeightXInt = (int)currentVector.GetX();
-		int meshHeightZInt = (int)currentVector.GetZ();
-		if (meshHeightXInt == playerXPosInt & meshHeightZInt == playerZPosInt){//currentVector.GetX() <= playerXPos & currentVector.GetZ() <= playerZPos) {
-			freeMoveObjects[0]->GetParent()->GetTransform()->GetPos()->SetY(currentVector.GetY());
-			//printf("REVIEVED_NEW_HEIGHT");
-		}
-
-	}
-	*/
-	//4/2/20 tests
-	/*
-	std::vector<Vector3f> test = meshObjects[0]->getMeshVertices();
-	test.size();
-	std::vector<Vector3f> test2;
-	for (Vector3f currentVector : meshObjects[0]->getMeshVertices()) {
-		test2.push_back(currentVector);
-	}
-	test2.size();
-	*/
-
-	//current best 4/2/20
-	//5/2/20 test
-	/*
-	float vertexPosX = currentVector.GetX() * 32.0f;
-	float vertexPosY = currentVector.GetY() * 32.0f;
-	float vertexPosZ = currentVector.GetZ() * 32.0f;
-	Vector3f vertexPos(vertexPosX, vertexPosY, vertexPosZ);// = new Vector3f(vertexPosX, vertexPosY, vertexPosZ);
-	*/
-
-	//5/2/20(13:35) current best
-	for (Vector3f currentVector : meshObjects[0]->getMeshVertices()) {
 		Vector3f vertexPos = currentVector;
-		Vector3f vertexScale(0.05f, 0.05f, 0.05f);
+		Vector3f vertexScale(2.0f, 2.0f, 2.0f);//1.0f for big terrain
 		Vector3f *testPlayerPos = freeMoveObjects[0]->GetParent()->GetTransform()->GetPos();
-		Vector3f testPlayerScale(0.05f, 0.05f, 0.05f);
+		Vector3f testPlayerScale(2.0f, 2.0f, 2.0f);//1.0f for big terrain
 
 		Vector3f tmp(testPlayerPos->GetX(), testPlayerPos->GetY() - 1.0f, testPlayerPos->GetZ());
 		//check the X axis
 		if (abs(tmp.GetX() - vertexPos.GetX()) < testPlayerScale.GetX() + (vertexScale.GetX()) / 1.0f) {
 				//check the Z axis
 				if (abs(tmp.GetZ() - vertexPos.GetZ()) < testPlayerScale.GetZ() + (vertexScale.GetZ()) / 1.0f) {
-					freeMoveObjects[0]->GetParent()->GetTransform()->GetPos()->SetY(vertexPos.GetY()+0.2f);
-					//printf("colission");
+					freeMoveObjects[0]->GetParent()->GetTransform()->GetPos()->SetY(vertexPos.GetY()+ playerHeight);
+					//printf("Y-Pos:                             %f\n", freeMoveObjects[0]->GetParent()->GetTransform()->GetPos()->GetY());
 				}
 		}
 	}
 	
-	/*5/2/20 int approach
+	/*
 	Vector3f *playerPos = freeMoveObjects[0]->GetParent()->GetTransform()->GetPos();
 	float playerXPos = playerPos->GetX();
 	float playerZPos = playerPos->GetZ();
 	int playerXPosInt = (int)playerXPos;
 	int playerZPosInt = (int)playerZPos;
-	Vector3f testPlayerScale(1.0f, 1.0f, 1.0f);
 	for (Vector3f currentVector : meshObjects[0]->getMeshVertices()) {
-		int meshHeightXInt = (int)currentVector.GetX();
-		int meshHeightZInt = (int)currentVector.GetZ();
-		//check the X axis
-		if (meshHeightXInt == playerXPosInt & meshHeightZInt == playerZPosInt){
-            freeMoveObjects[0]->GetParent()->GetTransform()->GetPos()->SetY(currentVector.GetY());
-        }
-	}
-	*/
-	/*
-	for (unsigned int currentVector : meshObjects[0]->getMeshIndices()) {
 		Vector3f vertexPos = currentVector;
-		Vector3f vertexScale(1.0f, 1.0f, 1.0f);//currentMeshRenderer.getScaleAttrib();//new Vector3f(2.0f, 2.0f, 2.0f);
-		Vector3f *testPlayerPos = freeMoveObjects[0]->GetParent()->GetTransform()->GetPos();
-		//Vector3f test = testPlayerPos;
-		Vector3f testPlayerScale(1.0f, 1.0f, 1.0f);
-
-		Vector3f tmp(testPlayerPos->GetX(), testPlayerPos->GetY() - 1.0f, testPlayerPos->GetZ());
-		//check the X axis
-		if (abs(tmp.GetX() - vertexPos.GetX()) < testPlayerScale.GetX() + (vertexScale.GetX()) / 1.0) {
-			//check the Y axis
-			//if (abs(tmp.GetY() - vertexPos.GetY()) < testPlayerScale.GetY() + (vertexScale.GetY()) / 1.0) {
-				//check the Z axis
-			if (abs(tmp.GetZ() - vertexPos.GetZ()) < testPlayerScale.GetZ() + (vertexScale.GetZ()) / 1.0) {
-				freeMoveObjects[0]->GetParent()->GetTransform()->GetPos()->SetY(currentVector.GetY());
-				//printf("colission");
-			}
-			//}
-		}
-	}
-	*/
-	/*
-	//4/2/20 test
-	for (Vector3f currentVector : meshObjects[0]->getMeshVertices()) {
-		for (Vector3f currentFreeMove : freeMoveObjects[0]->GetParent()->GetTransform()->GetPos()) {
-			Vector3f vertexPos = currentVector;
-			Vector3f vertexScale(1.0f, 1.0f, 1.0f);//currentMeshRenderer.getScaleAttrib();//new Vector3f(2.0f, 2.0f, 2.0f);
-			Vector3f testPlayerPos = currentFreeMove;//freeMoveObjects[0]->GetParent()->GetTransform()->GetPos();
-			//Vector3f test = testPlayerPos;
-			Vector3f testPlayerScale(1.0f, 1.0f, 1.0f);
-
-			Vector3f tmp(testPlayerPos->GetX(), testPlayerPos->GetY() - 1.0f, testPlayerPos->GetZ());
-			//check the X axis
-			if (abs(tmp.GetX() - vertexPos.GetX()) < testPlayerScale.GetX() + (vertexScale.GetX()) / 1.0) {
-				//check the Y axis
-				//if (abs(tmp.GetY() - vertexPos.GetY()) < testPlayerScale.GetY() + (vertexScale.GetY()) / 1.0) {
-					//check the Z axis
-				if (abs(tmp.GetZ() - vertexPos.GetZ()) < testPlayerScale.GetZ() + (vertexScale.GetZ()) / 1.0) {
-					freeMoveObjects[0]->GetParent()->GetTransform()->GetPos()->SetY(currentVector.GetY());
-					printf("colission");
-				}
-				//}
-			}
-		}
-	}
-	*/
-	/*
-	for (std::vector<Vector3f> currentVector : meshObjects[0]->getMeshVertices()) {
 		int meshHeightXInt = (int)currentVector.GetX();
 		int meshHeightZInt = (int)currentVector.GetZ();
-		if (meshHeightXInt == playerXPosInt & meshHeightZInt == playerZPosInt) {//currentVector.GetX() <= playerXPos & currentVector.GetZ() <= playerZPos) {
+		if (meshHeightXInt == playerXPosInt & meshHeightZInt == playerZPosInt) {
 			freeMoveObjects[0]->GetParent()->GetTransform()->GetPos()->SetY(currentVector.GetY());
-			//printf("REVIEVED_NEW_HEIGHT");
 		}
-		*/
+	}
+	*/
 }
 
 
