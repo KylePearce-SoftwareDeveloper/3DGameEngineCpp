@@ -30,7 +30,7 @@ void Game::ProcessInput(const Input& input, float delta)
 void Game::Update(float delta)
 {
 	m_updateTimer.StartInvocation();
-	m_root.UpdateAll(delta);
+	m_root.UpdateAll(delta);//6/2/20 test
 	m_updateTimer.StopInvocation();
 }
 

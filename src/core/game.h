@@ -38,6 +38,7 @@ public:
 	inline void SetEngine(CoreEngine* engine) { m_root.SetEngine(engine); }
 
 	virtual void CheckTerrainHeight() {}
+	virtual void checkTreeHeight(Entity* treePos){}//6/2/20
 protected:
 	void AddToScene(Entity* child) { m_root.AddChild(child); }
 private:

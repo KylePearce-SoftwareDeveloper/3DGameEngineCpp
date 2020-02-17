@@ -31,7 +31,7 @@ public:
 		m_rightKey(rightKey) {}
 	
 	virtual void ProcessInput(const Input& input, float delta);
-	virtual void Update(float delta);//2/2/20 test
+	virtual void Update(float delta);//6/2/20 test
 	//virtual Entity* GetParent();//2/2/20 test
 protected:
 private:

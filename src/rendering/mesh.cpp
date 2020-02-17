@@ -30,7 +30,16 @@
 
 std::map<std::string, MeshData*> Mesh::s_resourceMap;
 std::vector<Vector3f> meshVertices;//2/2/20 test
+std::vector<int> meshVerticesX;//6/2/20 test
+std::vector<int> meshVerticesZ;//6/2/20 test
+std::vector<int> meshVerticesY;//15/2/20 test
 //std::vector<unsigned int> meshIndices;//4/2/20 test
+std::vector<Vector3i> meshVerticesInts;//17/2/20 -  new terrain collision method
+std::vector<Vector3f> meshVerticesFloats;//17/2/20 -  new terrain collision method (FLOAT VERSION)
+//-------------------------------------------------------------float version-------------------16/2/20
+std::vector<float> meshVerticesXFloat;//6/2/20 test
+std::vector<float> meshVerticesZFloat;//6/2/20 test
+std::vector<float> meshVerticesYFloat;//15/2/20 test
 
 bool IndexedModel::IsValid() const
 {
@@ -300,10 +309,40 @@ Mesh::Mesh(const std::string& fileName) :
 			indices.push_back(face.mIndices[1]);
 			indices.push_back(face.mIndices[2]);
 		}
+
+		//17/2/20 -  new terrain collision method
+		for (int i = 0; i < positions.size(); i++) {
+			meshVerticesInts.push_back(Vector3i((int)positions[i].GetX(), (int)positions[i].GetY(), (int)positions[i].GetZ()));
+		}
+		//17/2/20 -  new terrain collision method (FLOAT VERSION)
+		for (int i = 0; i < positions.size(); i++) {
+			meshVerticesFloats.push_back(positions[i]);
+		}
+
 		//meshVertices = positions;//2/2/20 test
 		for (Vector3f currentVertex : positions) {//2/2/20 test, bit more reliable than above approach
 			meshVertices.push_back(currentVertex);
 		}
+		for (Vector3f currentVertex : meshVertices) {//6/2/20 
+			meshVerticesX.push_back((int)currentVertex.GetX());
+		}
+		for (Vector3f currentVertex : meshVertices) {//6/2/20
+			meshVerticesZ.push_back((int)currentVertex.GetZ());
+		}
+		for (Vector3f currentVertex : meshVertices) {//15/2/20
+			meshVerticesY.push_back((int)currentVertex.GetY());
+		}
+		//-------------------------------------------------------------float version-------------------16/2/20
+		for (Vector3f currentVertex : meshVertices) { 
+			meshVerticesXFloat.push_back(currentVertex.GetX());
+		}
+		for (Vector3f currentVertex : meshVertices) {
+			meshVerticesZFloat.push_back(currentVertex.GetZ());
+		}
+		for (Vector3f currentVertex : meshVertices) {
+			meshVerticesYFloat.push_back(currentVertex.GetY());
+		}
+
 		/*
 		for (int i = 0; i < meshVertices.size(); i++) {//5/2/20 test, bit more reliable than above approach
 			meshVertices[i].SetX(meshVertices[i].GetX() * 2.0f);
@@ -336,6 +375,124 @@ Vector3f Mesh::checkMeshVertices(Vector3f* playerPos)//5/2/20
 	return std::find(meshVertices.begin(), meshVertices.end(), playerPos) != meshVertices.end();//meshVertices.get(playerPos);
 }
 */
+
+/*
+Vector3f& Mesh::checkMeshVertices(Vector3f* playerPos)
+{
+	auto it = std::find(meshVertices.begin(), meshVertices.end(), playerPos);
+	if (it != meshVertices.end()) return *it;
+	//else return nullptr;//throw std::out_of_range();
+}
+*/
+bool Mesh::checkMeshVerticesX(int playerPosX)
+{
+	//auto it = std::find(meshVerticesX.begin(), meshVerticesX.end(), playerPosX);
+	//if (it != meshVerticesX.end()) return *it;
+	//else return nullptr;//throw std::out_of_range();
+	return std::find(meshVerticesX.begin(), meshVerticesX.end(), playerPosX) != meshVerticesX.end();
+}
+bool Mesh::checkMeshVerticesZ(int playerPosZ)
+{
+	//auto it = std::find(meshVerticesZ.begin(), meshVerticesZ.end(), playerPosZ);
+	//if (it != meshVerticesZ.end()) return *it;
+	//else return nullptr;//throw std::out_of_range();
+	return std::find(meshVerticesZ.begin(), meshVerticesZ.end(), playerPosZ) != meshVerticesZ.end();
+}
+
+int Mesh::getMeshYHeight(int playerXPos, int playerZPos) {//15/2/20
+	auto iterX = std::find(meshVerticesX.begin(), meshVerticesX.end(), playerXPos);//std::find(meshVerticesX.begin(), meshVerticesX.end(), playerXPos) != meshVerticesX.end();
+	auto iterZ = std::find(meshVerticesZ.begin(), meshVerticesZ.end(), playerZPos);//std::find(meshVerticesZ.begin(), meshVerticesZ.end(), playerZPos) != meshVerticesZ.end();
+	if (iterX != meshVerticesX.end() & iterZ != meshVerticesZ.end()) {
+		int indexX = std::distance(meshVerticesX.begin(), iterX);
+		int indexZ = std::distance(meshVerticesZ.begin(), iterZ);
+		if (indexX - indexZ >=-1 | indexX - indexZ <=1)//indexX == indexZ)
+		{
+			printf("Getting_Height\n");
+			return meshVerticesY[indexX];//indexX];
+		}
+		else {
+			printf("Not_Getting_Height_1\n");
+			return 10000;//the terrain is never this height
+		}
+	}
+	else {
+		printf("Not_Getting_Height_2\n");
+		return 10000;//the terrain is never this height
+	}
+}
+//-------------------------------------------------------------float version------------------------------------------16/2/20
+bool Mesh::checkMeshVerticesXFloat(float playerPosX)
+{
+	return std::find(meshVerticesX.begin(), meshVerticesX.end(), playerPosX<0.005f) != meshVerticesX.end();
+}
+bool Mesh::checkMeshVerticesZFloat(float playerPosZ)
+{
+	return std::find(meshVerticesZ.begin(), meshVerticesZ.end(), playerPosZ<0.005f) != meshVerticesZ.end();
+}
+
+float Mesh::getMeshYHeightFloat(float playerXPos, float playerZPos) {
+	auto iterX = std::find(meshVerticesXFloat.begin(), meshVerticesXFloat.end(), playerXPos<0.005f);
+	auto iterZ = std::find(meshVerticesZFloat.begin(), meshVerticesZFloat.end(), playerZPos<0.005f);
+	if (iterX != meshVerticesXFloat.end() & iterZ != meshVerticesZFloat.end()) {
+		int indexX = std::distance(meshVerticesXFloat.begin(), iterX);
+		int indexZ = std::distance(meshVerticesZFloat.begin(), iterZ);
+		if (indexX - indexZ >= -1 | indexX - indexZ <= 1)
+		{
+			//printf("gettingHeight");
+			return meshVerticesYFloat[indexX];
+		}
+		else {
+			printf("seccond if failed");
+			return 10000.0f;
+		}
+	}
+	else {
+		printf("first if failed");
+		return 10000.0f;
+	}
+}
+
+//17/2/20 -  new terrain collision method
+int Mesh::newTerrainheightFunc(Vector3i playerPos) {
+	auto testIterator = std::find_if(meshVerticesInts.begin(), meshVerticesInts.end(), [&](Vector3i pos) {return pos.GetX() == playerPos.GetX() & pos.GetZ() == playerPos.GetZ(); });//return pos.GetX() == playerPos.GetX() & pos.GetZ() == playerPos.GetZ(); });
+	if (testIterator != meshVerticesInts.end()) {
+		int testIndex = std::distance(meshVerticesInts.begin(), testIterator);
+		return meshVerticesInts[testIndex].GetY();
+	}
+	else {
+		return 10000;//test value - no mesh vertex y value is ever 10000
+	}
+}
+
+//17/2/20 -  new terrain collision method (FLOAT VERSION)
+float Mesh::newTerrainHeightFuncFloat(Vector3f playerPos) {
+	auto testIterator = std::find_if(meshVerticesFloats.begin(), meshVerticesFloats.end(), [&](Vector3f pos)
+	{
+		//check the X axis
+		if (abs(playerPos.GetX() - pos.GetX()) < 1.0f + 1.0f / 1.0f) {
+			//check the Z axis
+			if (abs(playerPos.GetZ() - pos.GetZ()) < 1.0f + 1.0f / 1.0f) {
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
+		else {
+			return false;
+		}
+	});
+	if (testIterator != meshVerticesFloats.end()) {
+		int testIndex = std::distance(meshVerticesFloats.begin(), testIterator);
+		return meshVerticesFloats[testIndex].GetY();
+		printf("GETTING_NEW_HEIGHT\N");
+	}
+	else {
+		printf("NOT_GETTING_NEW_HEIGHT\N");
+		return 10000.0f;//test value - no mesh vertex y value is ever 10000
+	}
+}
+
 /*
 std::vector<unsigned int> Mesh::getMeshIndices()//4/2/20
 {

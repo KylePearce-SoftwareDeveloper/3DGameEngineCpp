@@ -44,6 +44,7 @@ void FreeMove::ProcessInput(const Input& input, float delta)
 void FreeMove::Move(const Vector3f& direction, float amt)
 {
 	GetTransform()->SetPos(*GetTransform()->GetPos() + (direction * amt));
+	//GetParent()->GetEngine()->GetGame()->CheckTerrainHeight();//6/2/20
 }
 
 void FreeMove::Update(float delta) {//2/2/20 test

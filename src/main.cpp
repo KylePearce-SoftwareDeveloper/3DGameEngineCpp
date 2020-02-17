@@ -29,13 +29,17 @@ public:
 	TestGame() {}
 	
 	virtual void Init(const Window& window);
-	virtual void CheckTerrainHeight();
+	virtual void CheckTerrainHeight(); 
+	virtual void checkTreeHeight(Entity* treePos);
 protected:
 private:
 	//Vector3f vertexPos;
 	TestGame(const TestGame& other) {}
 	void operator=(const TestGame& other) {}
 	std::vector<FreeMove*> freeMoveObjects;// = new ArrayList<FreeMove>();
+	std::vector<MeshRenderer*> trees;//6/2/20
+	//trees.reserve(600);
+	std::vector<Entity*> treeObjects;//6/2/20
 	std::vector<MeshRenderer*> terrainObjects;
 	std::vector<Mesh*> meshObjects;
 };
@@ -48,6 +52,8 @@ void TestGame::Init(const Window& window)
 			Texture("bricks2_normal.png"), Texture("bricks2_disp.jpg"), 0.04f, -1.0f);
 	Material magenta("magenta", Texture("magenta.jpg"), 0.0f, 0, 
 			Texture("magenta.jpg"), Texture("magenta_disp.jpg"), 0.04f, -1.0f);
+	Material black("black", Texture("black.jpg"), 0.0f, 0,
+		Texture("black.jpg"), Texture("black_disp.jpg"), 0.04f, -1.0f);
 	//Material magenta("magenta.jpg");
 	/*
 	IndexedModel square;
@@ -143,7 +149,7 @@ void TestGame::Init(const Window& window)
     */
 	//Now have handles for FreeMove and it is stored in array
 	Entity *player = new Entity(Vector3f(0, 0, 0), Quaternion(), 1.0f);//Vector3f(10.0f, 10.0f, 10.0f), Quaternion(0, 0, 0, 1), 1.0f);// = new Entity();
-	FreeMove *playerMovement = new FreeMove(10.0f);//5/2/20 (10.0f);
+	FreeMove *playerMovement = new FreeMove(30.0f);//5/2/20 (10.0f);
 	freeMoveObjects.push_back(playerMovement);
 	FreeLook *playerLook = new FreeLook(window.GetCenter());// (window.GetCenter());
 	CameraComponent *playerCamera = new CameraComponent(Matrix4f().InitPerspective(ToRadians(70.0f), window.GetAspect(), 0.1f, 1000.0f));// (Matrix4f().InitPerspective(ToRadians(70.0f), window.GetAspect(), 0.1f, 1000.0f));
@@ -152,7 +158,39 @@ void TestGame::Init(const Window& window)
 	player->AddComponent(playerCamera);
 	AddToScene(player);
 
-
+	//6/2/20
+	
+	trees.reserve(40);
+	treeObjects.reserve(40);
+	for (int i = 0; i < 40; i++) {
+		trees.push_back(new MeshRenderer(Mesh("Lowpoly_tree_sample.obj"), Material("black")));
+	}
+	//for (int i = 20; i < 40; i++) {
+	//	trees.push_back(new MeshRenderer(Mesh("fir.obj"), Material("black")));
+	//}
+	for (int i = 0; i < 40; i++) {
+		treeObjects.push_back((new Entity(Vector3f(rand() % 200 + (-200), 0.0f, rand() % 200 + (-200)), Quaternion(Vector3f(0, 1, 0), ToRadians(rand() % 360 + (0))), 1.0f))->AddComponent(trees[i]));
+		checkTreeHeight(treeObjects[i]);
+	}
+	for (int i = 0; i < 40; i++) {
+		AddToScene(treeObjects[i]);
+	}
+	
+	
+	/*
+	trees.reserve(1);
+	treeObjects.reserve(1);
+	for (int i = 0; i < 1; i++) {
+		trees.push_back(new MeshRenderer(Mesh("Lowpoly_tree_sample.obj"), Material("magenta")));
+	}
+	for (int i = 0; i < 1; i++) {
+		treeObjects.push_back((new Entity(Vector3f(rand() % 20 + (-20), 0.0f, rand() % 20 + (-20)), Quaternion(Vector3f(0, 1, 0), ToRadians(rand() % 360 + (0))), 1.0f))->AddComponent(trees[i]));
+		checkTreeHeight(treeObjects[i]);
+	}
+	for (int i = 0; i < 1; i++) {
+		AddToScene(treeObjects[i]);
+	}
+	*/
 
 	//static const int CUBE_SIZE = 3;
 
@@ -194,14 +232,14 @@ void TestGame::Init(const Window& window)
 
 void TestGame::CheckTerrainHeight() 
 {
-	//Vector3f test = meshObjects[0]->checkMeshVertices(freeMoveObjects[0]->GetParent()->GetTransform()->GetPos())
-	float playerHeight = 5.0f;//2.0f for small terrain
+	/*
+	float playerHeight = 5.0f;
 	
 	for (Vector3f currentVector : meshObjects[0]->getMeshVertices()) {
 		Vector3f vertexPos = currentVector;
-		Vector3f vertexScale(2.0f, 2.0f, 2.0f);//1.0f for big terrain
+		Vector3f vertexScale(2.0f, 2.0f, 2.0f);
 		Vector3f *testPlayerPos = freeMoveObjects[0]->GetParent()->GetTransform()->GetPos();
-		Vector3f testPlayerScale(2.0f, 2.0f, 2.0f);//1.0f for big terrain
+		Vector3f testPlayerScale(2.0f, 2.0f, 2.0f);
 
 		Vector3f tmp(testPlayerPos->GetX(), testPlayerPos->GetY() - 1.0f, testPlayerPos->GetZ());
 		//check the X axis
@@ -209,26 +247,104 @@ void TestGame::CheckTerrainHeight()
 				//check the Z axis
 				if (abs(tmp.GetZ() - vertexPos.GetZ()) < testPlayerScale.GetZ() + (vertexScale.GetZ()) / 1.0f) {
 					freeMoveObjects[0]->GetParent()->GetTransform()->GetPos()->SetY(vertexPos.GetY()+ playerHeight);
-					//printf("Y-Pos:                             %f\n", freeMoveObjects[0]->GetParent()->GetTransform()->GetPos()->GetY());
 				}
 		}
 	}
-	
+	*/
+
+	//Vector3f vertexPos = meshObjects[0]->checkMeshVertices(freeMoveObjects[0]->GetParent()->GetTransform()->GetPos());
+	//printf("vertexPosX:   %f", vertexPos.GetX());
+
 	/*
-	Vector3f *playerPos = freeMoveObjects[0]->GetParent()->GetTransform()->GetPos();
-	float playerXPos = playerPos->GetX();
-	float playerZPos = playerPos->GetZ();
-	int playerXPosInt = (int)playerXPos;
-	int playerZPosInt = (int)playerZPos;
-	for (Vector3f currentVector : meshObjects[0]->getMeshVertices()) {
-		Vector3f vertexPos = currentVector;
-		int meshHeightXInt = (int)currentVector.GetX();
-		int meshHeightZInt = (int)currentVector.GetZ();
-		if (meshHeightXInt == playerXPosInt & meshHeightZInt == playerZPosInt) {
-			freeMoveObjects[0]->GetParent()->GetTransform()->GetPos()->SetY(currentVector.GetY());
+	//Optimazation test(int)
+	int playerPosX = (int) freeMoveObjects[0]->GetParent()->GetTransform()->GetPos()->GetX();
+	int playerPosZ = (int) freeMoveObjects[0]->GetParent()->GetTransform()->GetPos()->GetZ();
+	bool x = meshObjects[0]->checkMeshVerticesX(playerPosX);
+	bool z = meshObjects[0]->checkMeshVerticesZ(playerPosZ);
+	if (x == true & z == true) {
+		int terrainVertexYHeight = meshObjects[0]->getMeshYHeight(playerPosX, playerPosZ);
+		if (terrainVertexYHeight == 10000) {//test value, no height is ever 10000
+			printf("heightWas10000");
+			return;
+		}
+		else {
+			//printf("collision");
+			freeMoveObjects[0]->GetParent()->GetTransform()->GetPos()->SetY(terrainVertexYHeight+3);
 		}
 	}
 	*/
+	/*
+
+	//17/2/20 -  new terrain collision method 
+	Vector3f *playerPos = freeMoveObjects[0]->GetParent()->GetTransform()->GetPos();
+	Vector3i playerPosInt((int)playerPos->GetX(), (int)playerPos->GetY(), (int)playerPos->GetZ());
+	int terrainheightAtPlayerPos = meshObjects[0]->newTerrainheightFunc(playerPosInt);
+	if (terrainheightAtPlayerPos == 10000) {//test value - function dident find vertex player position
+		//printf("NO_COLLISION\n");
+		return;
+	}
+	else {
+		//printf("COLLISION\n");
+		freeMoveObjects[0]->GetParent()->GetTransform()->GetPos()->SetY(terrainheightAtPlayerPos + 6);
+	}
+	*/
+	//17/2/20 -  new terrain collision method (FLOAT VERSION)
+	Vector3f *testPlayerPos = freeMoveObjects[0]->GetParent()->GetTransform()->GetPos();
+	Vector3f playerPos(testPlayerPos->GetX(), testPlayerPos->GetY() - 1.0f, testPlayerPos->GetZ());
+	float terrainheightAtPlayerPos = meshObjects[0]->newTerrainHeightFuncFloat(playerPos);
+	if (terrainheightAtPlayerPos == 10000.0f) {//test value - function dident find vertex player position
+		//printf("NO_COLLISION\n");
+		return;
+	}
+	else {
+		//printf("COLLISION\n");
+		freeMoveObjects[0]->GetParent()->GetTransform()->GetPos()->SetY(terrainheightAtPlayerPos + 6.0f);
+	}
+
+	/*
+	//Optimazation test(float)
+	float playerPosX = freeMoveObjects[0]->GetParent()->GetTransform()->GetPos()->GetX();
+	float playerPosZ = freeMoveObjects[0]->GetParent()->GetTransform()->GetPos()->GetZ();
+	bool x = meshObjects[0]->checkMeshVerticesXFloat(playerPosX);
+	bool z = meshObjects[0]->checkMeshVerticesZFloat(playerPosZ);
+	if (x == true & z == true) {
+		float terrainVertexYHeight = meshObjects[0]->getMeshYHeightFloat(playerPosX, playerPosZ);
+		if (terrainVertexYHeight == 10000.0f) {//test value, no height is ever 10000
+			printf("heightWas10000");
+			return;
+		}
+		else {
+			//printf("collision");
+			printf("terrainHeight: %f", terrainVertexYHeight);
+			freeMoveObjects[0]->GetParent()->GetTransform()->GetPos()->SetY(terrainVertexYHeight + 1.0f);
+		}
+	}
+	else {
+		printf("not at all");
+		return;
+	}
+	*/
+}
+
+void TestGame::checkTreeHeight(Entity* treeObject)
+{
+	float treeHeight = 5.0f;
+
+	for (Vector3f currentVector : meshObjects[0]->getMeshVertices()) {
+		Vector3f vertexPos = currentVector;
+		Vector3f vertexScale(2.0f, 2.0f, 2.0f);
+		Vector3f *treePos = treeObject->GetTransform()->GetPos();
+		Vector3f testPlayerScale(2.0f, 2.0f, 2.0f);
+
+		Vector3f tmp(treePos->GetX(), treePos->GetY() - 1.0f, treePos->GetZ());
+		//check the X axis
+		if (abs(tmp.GetX() - vertexPos.GetX()) < testPlayerScale.GetX() + (vertexScale.GetX()) / 1.0f) {
+			//check the Z axis
+			if (abs(tmp.GetZ() - vertexPos.GetZ()) < testPlayerScale.GetZ() + (vertexScale.GetZ()) / 1.0f) {
+				treeObject->GetTransform()->GetPos()->SetY(vertexPos.GetY());
+			}
+		}
+	}
 }
 
 
