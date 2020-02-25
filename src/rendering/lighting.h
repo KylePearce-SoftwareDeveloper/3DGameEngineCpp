@@ -79,6 +79,7 @@ public:
 	
 	inline const Vector3f& GetColor()        const { return m_color; }
 	inline const float GetIntensity()        const { return m_intensity; }
+	inline const void SetIntensity(float intensity)         {  m_intensity = intensity; }//25/2/20
 	inline const Shader& GetShader()         const { return m_shader; }
 	inline const ShadowInfo& GetShadowInfo() const { return m_shadowInfo; }
 protected:

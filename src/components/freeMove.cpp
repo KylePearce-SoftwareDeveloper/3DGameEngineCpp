@@ -50,4 +50,5 @@ void FreeMove::Move(const Vector3f& direction, float amt)
 void FreeMove::Update(float delta) {//2/2/20 test
 	GetParent()->GetEngine()->GetGame()->CheckTerrainHeight();
 	//EntityComponent::GetParent()->GetEngine->GetGame->CheckTerrainHeight;// .getEngine().getGame().checkTerraineHeight();
+	GetParent()->GetEngine()->GetGame()->updateSunAngle();
 }
