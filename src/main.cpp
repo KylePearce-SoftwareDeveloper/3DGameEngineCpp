@@ -55,6 +55,8 @@ void TestGame::Init(const Window& window)
 			Texture("magenta.jpg"), Texture("magenta_disp.jpg"), 0.04f, -1.0f);
 	Material black("black", Texture("black.jpg"), 0.0f, 0,
 		Texture("black.jpg"), Texture("black_disp.jpg"), 0.04f, -1.0f);
+	Material cyan("cyan", Texture("cyan.png"), 0.0f, 0,
+		Texture("cyan.png"), Texture("cyan_disp.png"), 0.04f, -1.0f);
 
 	/*
 	Entity *terrainObject = new Entity(Vector3f(0, 0, 0), Quaternion(), 1.0f);
@@ -76,6 +78,14 @@ void TestGame::Init(const Window& window)
 	terrainObjects.push_back(newTerrainRenderer);
 	newTerrainObject->AddComponent(newTerrainRenderer);
 	AddToScene(newTerrainObject);
+
+	//25/2/20 test - water
+	Entity *waterObject = new Entity(Vector3f(0, 0, 0), Quaternion(), 1.0f);
+	Mesh *waterMesh = new Mesh("water19.obj");
+	Material *waterMaterial = new Material("cyan");
+	MeshRenderer *waterRenderer = new MeshRenderer(*waterMesh, *waterMaterial);
+	waterObject->AddComponent(waterRenderer);
+	AddToScene(waterObject);
 	
 	//AddToScene((new Entity(Vector3f(), Quaternion(Vector3f(1,0,0), ToRadians(-90))))
 	//	->AddComponent(new DirectionalLight(Vector3f(1,1,1), 0.4f, 10, 80.0f, 1.0f)));
@@ -91,7 +101,7 @@ void TestGame::Init(const Window& window)
 		->AddComponent(new MeshRenderer(Mesh("sphere.obj"), Material("bricks"))));
 		
 	Entity *player = new Entity(Vector3f(0, 0, 0), Quaternion(), 1.0f);
-	FreeMove *playerMovement = new FreeMove(30.0f);
+	FreeMove *playerMovement = new FreeMove(50.0f);
 	freeMoveObjects.push_back(playerMovement);
 	FreeLook *playerLook = new FreeLook(window.GetCenter());
 	CameraComponent *playerCamera = new CameraComponent(Matrix4f().InitPerspective(ToRadians(70.0f), window.GetAspect(), 0.1f, 1000.0f));
