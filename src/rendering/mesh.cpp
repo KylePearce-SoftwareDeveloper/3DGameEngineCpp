@@ -35,7 +35,7 @@ std::vector<int> meshVerticesZ;//6/2/20 test
 std::vector<int> meshVerticesY;//15/2/20 test
 //std::vector<unsigned int> meshIndices;//4/2/20 test
 std::vector<Vector3i> meshVerticesInts;//17/2/20 -  new terrain collision method
-std::vector<Vector3f> meshVerticesFloats;//17/2/20 -  new terrain collision method (FLOAT VERSION)
+//std::vector<Vector3f> meshVerticesFloats;//17/2/20 -  new terrain collision method (FLOAT VERSION)
 //-------------------------------------------------------------float version-------------------16/2/20
 std::vector<float> meshVerticesXFloat;//6/2/20 test
 std::vector<float> meshVerticesZFloat;//6/2/20 test

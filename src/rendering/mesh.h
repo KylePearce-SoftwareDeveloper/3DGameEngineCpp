@@ -126,6 +126,8 @@ private:
 
 	std::string m_fileName;
 	MeshData* m_meshData;
+
+	std::vector<Vector3f> meshVerticesFloats;//26/2/19 test
 	
 	void operator=(Mesh& mesh) {}
 };
