@@ -19,6 +19,7 @@
 	
 void FreeMove::ProcessInput(const Input& input, float delta)
 {
+	SetOldPos(Vector3f(GetTransform()->GetPos()->GetX(), GetTransform()->GetPos()->GetY(), GetTransform()->GetPos()->GetZ()));//27/2/20
 	float movAmt = m_speed * delta;
 	Vector3f movementVector(0.0f, 0.0f,0.0f);
 	//movementVector.add
@@ -52,3 +53,8 @@ void FreeMove::Update(float delta) {//2/2/20 test
 	//EntityComponent::GetParent()->GetEngine->GetGame->CheckTerrainHeight;// .getEngine().getGame().checkTerraineHeight();
 	GetParent()->GetEngine()->GetGame()->updateSunAngle();
 }
+/*
+Vector3f* FreeMove::getOldPos() {
+	return &oldPos;
+}
+*/

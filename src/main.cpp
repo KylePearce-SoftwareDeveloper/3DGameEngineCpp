@@ -71,7 +71,7 @@ void TestGame::Init(const Window& window)
 
 	//24/2/20 test - new terrain
 	Entity *newTerrainObject = new Entity(Vector3f(0, 0, 0), Quaternion(), 1.0f);
-	Mesh *newTerrainMesh = new Mesh("TerrainLarge.obj");
+	Mesh *newTerrainMesh = new Mesh("terrainFinished.obj");
 	meshObjects.push_back(newTerrainMesh);
 	Material *terraineMaterial = new Material("magenta");
 	MeshRenderer *newTerrainRenderer = new MeshRenderer(*newTerrainMesh, *terraineMaterial);
@@ -80,7 +80,7 @@ void TestGame::Init(const Window& window)
 	AddToScene(newTerrainObject);
 
 	//25/2/20 test - water
-	Entity *waterObject = new Entity(Vector3f(0, 0, 0), Quaternion(), 1.0f);
+	Entity *waterObject = new Entity(Vector3f(0, -5.0f, 0), Quaternion(), 1.0f);
 	Mesh *waterMesh = new Mesh("water19.obj");
 	Material *waterMaterial = new Material("cyan");
 	MeshRenderer *waterRenderer = new MeshRenderer(*waterMesh, *waterMaterial);
@@ -131,10 +131,10 @@ void TestGame::CheckTerrainHeight()
 	Vector3f playerPos(testPlayerPos->GetX(), testPlayerPos->GetY() - 1.0f, testPlayerPos->GetZ());
 	float terrainheightAtPlayerPos = meshObjects[0]->newTerrainHeightFuncFloat(playerPos);
 	if (terrainheightAtPlayerPos == 10000.0f) {
-		return;
+		freeMoveObjects[0]->GetParent()->GetTransform()->SetPos(Vector3f(freeMoveObjects[0]->getOldPos()->GetX(), freeMoveObjects[0]->getOldPos()->GetY(), freeMoveObjects[0]->getOldPos()->GetZ()));//return;
 	}
 	else {
-		freeMoveObjects[0]->GetParent()->GetTransform()->GetPos()->SetY(terrainheightAtPlayerPos + 6.0f);
+		freeMoveObjects[0]->GetParent()->GetTransform()->GetPos()->SetY(terrainheightAtPlayerPos + 8.0f);
 	}
 }
 
