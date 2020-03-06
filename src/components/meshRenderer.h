@@ -35,11 +35,11 @@ public:
 		shader.Bind();
 		//shader.UpdateUniforms(GetTransform(), m_material, renderingEngine, camera);//5/3/20
 		if (isTree) {//1/3/20
-			shader.UpdateUniforms(GetTransform(), m_material, renderingEngine, camera, true);//5/3/20
+			shader.UpdateUniforms(GetTransform(), m_material, renderingEngine, camera, true, translations);//6/3/20
 			m_mesh.DrawTree();
 		}
 		else {
-			shader.UpdateUniforms(GetTransform(), m_material, renderingEngine, camera, false);//5/3/20
+			shader.UpdateUniforms(GetTransform(), m_material, renderingEngine, camera, false, NULL);//6/3/20
 			m_mesh.Draw();
 		}
 	}
@@ -47,11 +47,19 @@ public:
 	virtual void setIsTree(bool isTreeArg) {//1/3/20
 		isTree = isTreeArg;
 	}
+
+	virtual void setTranslations(glm::vec3 translationsArg[]) {//6/3/20
+		//translations = translationsArg;
+		for (int i = 0; i < 1000; i++) {
+			translations[i] = translationsArg[i];
+		}
+	}
 protected:
 private:
 	Mesh m_mesh;
 	Material m_material;
 	bool isTree = false;//1/3/20
+	glm::vec3 translations[1000];//6/3/20
 };
 
 #endif // MESHRENDERER_H_INCLUDED

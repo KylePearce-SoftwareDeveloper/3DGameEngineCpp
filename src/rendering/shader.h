@@ -102,7 +102,7 @@ public:
 	virtual ~Shader();
 
 	void Bind() const;
-	virtual void UpdateUniforms(const Transform& transform, const Material& material, const RenderingEngine& renderingEngine, const Camera& camera, bool isTree) const;//5/3/20
+	virtual void UpdateUniforms(const Transform& transform, const Material& material, const RenderingEngine& renderingEngine, const Camera& camera, bool isTree, const glm::vec3 translationsArg[]) const;//6/3/20
 
 	void SetUniformi(const std::string& uniformName, int value) const;
 	void SetUniformf(const std::string& uniformName, float value) const;

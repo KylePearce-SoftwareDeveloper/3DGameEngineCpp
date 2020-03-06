@@ -128,7 +128,7 @@ void RenderingEngine::ApplyFilter(const Shader& filter, const Texture& source, c
 
 	glClear(GL_DEPTH_BUFFER_BIT);
 	filter.Bind();
-	filter.UpdateUniforms(m_planeTransform, m_planeMaterial, *this, m_altCamera, false);//5/3/20
+	filter.UpdateUniforms(m_planeTransform, m_planeMaterial, *this, m_altCamera, false, NULL);//6/3/20
 	m_plane.Draw();
 	
 //	m_mainCamera = temp;

@@ -32,6 +32,7 @@ public:
 	virtual void CheckTerrainHeight(); 
 	virtual void checkTreeHeight(Entity* treePos);
 	virtual void updateSunAngle();
+	virtual float checkTreeHeightForShader(glm::vec3 treePos);//6/3/20
 protected:
 private:
 	TestGame(const TestGame& other) {}
@@ -126,11 +127,20 @@ void TestGame::Init(const Window& window)
 		AddToScene(treeObjects[i]);
 	}
 	*/
+
+	glm::vec3 translations[1000];//6/3/20
+	for (int i = 0; i < 1000; i++) {
+		translations[i] = glm::vec3(-550 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (550 - (-550)))), 0, -550 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (550 - (-550)))));
+		float height = checkTreeHeightForShader(translations[i]);
+		translations[i].y = height;
+	}
+
 	//1/3/20
 	Entity *treeObject = new Entity(Vector3f(0, 0, 0), Quaternion(), 1.0f);
 	Mesh *treeMesh = new Mesh("Lowpoly_tree_sample.obj");
 	Material *treeMaterial = new Material("black");
 	MeshRenderer *treeRenderer = new MeshRenderer(*treeMesh, *treeMaterial);//, false);
+	treeRenderer->setTranslations(translations);//6/3/20
 	treeRenderer->setIsTree(true);
 	checkTreeHeight(treeObject);
 	treeObject->AddComponent(treeRenderer);
@@ -183,6 +193,21 @@ void TestGame::checkTreeHeight(Entity* treeObject)
 		treeObject->GetTransform()->GetPos()->SetY(terrainheightAtTreePos);
 	}
 	
+}
+
+float TestGame::checkTreeHeightForShader(glm::vec3 treePosArg)//6/3/20
+{
+	//Vector3f *testTreePos = treeObject->GetTransform()->GetPos();
+	Vector3f treePos(treePosArg.x, treePosArg.y, treePosArg.z);
+	float terrainheightAtTreePos = meshObjects[0]->newTerrainHeightFuncFloat(treePos);
+	if (terrainheightAtTreePos == 10000.0f) {
+		return 0;
+	}
+	else {
+		//treePosArg.y = terrainheightAtTreePos;
+		return terrainheightAtTreePos;
+	}
+
 }
 
 void TestGame::updateSunAngle()

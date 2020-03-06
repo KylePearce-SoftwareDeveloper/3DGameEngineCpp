@@ -40,7 +40,7 @@ std::map<std::string, ShaderData*> Shader::s_resourceMap;
 int ShaderData::s_supportedOpenGLLevel = 0;
 std::string ShaderData::s_glslVersion = "";
 
-glm::vec3 translations[1000];//4/3/20
+//glm::vec3 translations[1000];//4/3/20
 
 //--------------------------------------------------------------------------------
 // Forward declarations
@@ -142,12 +142,13 @@ ShaderData::~ShaderData()
 Shader::Shader(const std::string& fileName)
 {
 	m_fileName = fileName;
+	/*
 	if (fileName == "forward-ambient") {//4/3/30
 		for (int i = 0; i < 1000; i++) {
 			translations[i] = glm::vec3(-550 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (550 - (-550)))), 0, -550 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (550 - (-550)))));
 		}
 	}
-
+	*/
 	std::map<std::string, ShaderData*>::const_iterator it = s_resourceMap.find(fileName);
 	if(it != s_resourceMap.end())
 	{
@@ -188,7 +189,7 @@ void Shader::Bind() const
 	glUseProgram(m_shaderData->GetProgram());
 }
 
-void Shader::UpdateUniforms(const Transform& transform, const Material& material, const RenderingEngine& renderingEngine, const Camera& camera, bool isTree) const//5/3/20
+void Shader::UpdateUniforms(const Transform& transform, const Material& material, const RenderingEngine& renderingEngine, const Camera& camera, bool isTree, const glm::vec3 translationsArg[]) const//6/3/20
 {
 	Matrix4f worldMatrix = transform.GetTransformation();
 	Matrix4f projectedMatrix = camera.GetViewProjection() * worldMatrix;
@@ -256,7 +257,9 @@ void Shader::UpdateUniforms(const Transform& transform, const Material& material
 				SetUniformVector3fv(uniformName, translations[i]);
 			}
 			*/
-			SetUniformVector3fv(uniformName, translations);
+			if (isTree) {//6/3/20
+				SetUniformVector3fv(uniformName, translationsArg);
+			}
 		}
 		else if (uniformName.substr(0, 2) == "B_") {//5/3/20
 			//std::cout << "B_ uniform detected" << std::endl;
