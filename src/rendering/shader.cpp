@@ -28,6 +28,10 @@
 #include <cstdlib>
 #include <cstring>
 #include <sstream>
+//#include <glm>
+//#include<math.h>
+//#include <glm/glm.hpp>//4/3/20
+
 
 //--------------------------------------------------------------------------------
 // Variable Initializations
@@ -35,6 +39,8 @@
 std::map<std::string, ShaderData*> Shader::s_resourceMap;
 int ShaderData::s_supportedOpenGLLevel = 0;
 std::string ShaderData::s_glslVersion = "";
+
+glm::vec3 translations[1000];//4/3/20
 
 //--------------------------------------------------------------------------------
 // Forward declarations
@@ -119,7 +125,7 @@ ShaderData::ShaderData(const std::string& fileName)
 	AddAllAttributes(vertexShaderText, attributeKeyword);
 	
 	CompileShader();
-	
+	//std::cout << shaderText;//3/3/20
 	AddShaderUniforms(shaderText);
 }
 
@@ -136,6 +142,11 @@ ShaderData::~ShaderData()
 Shader::Shader(const std::string& fileName)
 {
 	m_fileName = fileName;
+	if (fileName == "forward-ambient") {//4/3/30
+		for (int i = 0; i < 1000; i++) {
+			translations[i] = glm::vec3(-550 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (550 - (-550)))), 0, -550 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (550 - (-550)))));
+		}
+	}
 
 	std::map<std::string, ShaderData*>::const_iterator it = s_resourceMap.find(fileName);
 	if(it != s_resourceMap.end())
@@ -148,6 +159,7 @@ Shader::Shader(const std::string& fileName)
 		m_shaderData = new ShaderData(fileName);
 		s_resourceMap.insert(std::pair<std::string, ShaderData*>(fileName, m_shaderData));
 	}
+	//SetUniformVector3f(m_shaderData->GetUniformNames(), material.GetVector3f(uniformName));//3/3/20
 }
 
 Shader::Shader(const Shader& other) :
@@ -176,7 +188,7 @@ void Shader::Bind() const
 	glUseProgram(m_shaderData->GetProgram());
 }
 
-void Shader::UpdateUniforms(const Transform& transform, const Material& material, const RenderingEngine& renderingEngine, const Camera& camera) const
+void Shader::UpdateUniforms(const Transform& transform, const Material& material, const RenderingEngine& renderingEngine, const Camera& camera, bool isTree) const//5/3/20
 {
 	Matrix4f worldMatrix = transform.GetTransformation();
 	Matrix4f projectedMatrix = camera.GetViewProjection() * worldMatrix;
@@ -233,6 +245,28 @@ void Shader::UpdateUniforms(const Transform& transform, const Material& material
 			else
 				throw "Invalid Camera Uniform: " + uniformName;
 		}
+		else if (uniformName.substr(0, 2) == "A_") {//3/3/20
+			//std::cout << "A_ uniform detected" << std::endl;
+			/*
+			for (int i = 0; i < 1000; i++) {
+				std::stringstream ss;
+				std::string index;
+				ss << i;
+				index = ss.str();
+				SetUniformVector3fv(uniformName, translations[i]);
+			}
+			*/
+			SetUniformVector3fv(uniformName, translations);
+		}
+		else if (uniformName.substr(0, 2) == "B_") {//5/3/20
+			//std::cout << "B_ uniform detected" << std::endl;
+			if (isTree) {
+				SetUniformi(uniformName, 1);
+			}
+			else {
+				SetUniformi(uniformName, 0);
+			}
+		}
 		else
 		{
 			if(uniformType == "vec3")
@@ -258,6 +292,16 @@ void Shader::SetUniformf(const std::string& uniformName, float value) const
 void Shader::SetUniformVector3f(const std::string& uniformName, const Vector3f& value) const
 {
 	glUniform3f(m_shaderData->GetUniformMap().at(uniformName), value.GetX(), value.GetY(), value.GetZ());
+}
+
+void Shader::SetUniformVector3fv(const std::string& uniformName, const glm::vec3 test[]) const//3/3/20
+{
+		//glUniform3fv(glGetUniformLocation(s_resourceMap.find(m_fileName), uniformName.c_str()), 1, &value);
+	//glUniform3fv(m_shaderData->GetUniformMap().at(uniformName), 1, value.GetX(), value.GetY(), value.GetZ());
+	//glUniform3fv(glGetUniformLocation(m_shaderData->GetUniformMap().at(uniformName), "offsets["+i+"]"), 1, 1.0f);
+
+	//glUniform3fv(m_shaderData->GetUniformMap().at(uniformName), 1, &value[0]);
+	glUniform3fv(m_shaderData->GetUniformMap().at(uniformName), 1000, (const GLfloat *)&test[0]);
 }
 
 void Shader::SetUniformMatrix4f(const std::string& uniformName, const Matrix4f& value) const
@@ -381,11 +425,15 @@ void ShaderData::AddAllAttributes(const std::string& vertexShaderText, const std
 
 void ShaderData::AddShaderUniforms(const std::string& shaderText)
 {
+	char testForArray = ']';//3/3/20
+	std::string compareForArray = "offsets";//3/3/20
+
 	static const std::string UNIFORM_KEY = "uniform";
 		
 	std::vector<UniformStruct> structs = FindUniformStructs(shaderText);
 
 	size_t uniformLocation = shaderText.find(UNIFORM_KEY);
+	//std::cout << "***NUM OF UNIFORMS***: " << uniformLocation << std::endl;//3/3/20
 	while(uniformLocation != std::string::npos)
 	{
 		bool isCommented = false;
@@ -406,11 +454,19 @@ void ShaderData::AddShaderUniforms(const std::string& shaderText)
 			
 			begin = uniformLine.find(" ");
 			std::string uniformName = uniformLine.substr(begin + 1);
+			if (uniformName.back() == testForArray)//testForArray.compare(uniformName.back()) == 0)//3/3/30
+				uniformName.erase(uniformName.find('['));
 			std::string uniformType = uniformLine.substr(0, begin);
 			
 			m_uniformNames.push_back(uniformName);
+			//std::cout << "***NAME OF UNIFORM***: " << uniformName << std::endl;//3/3/20
 			m_uniformTypes.push_back(uniformType);
+			//std::cout << "***TYPE OF UNIFORM***: " << uniformType << std::endl;//3/3/20
 			AddUniform(uniformName, uniformType, structs);
+
+			//if (compareForArray == uniformName) {//3/3/20
+			//	SetUniformVector3f(m_shaderData->GetUniformNames(), material.GetVector3f(uniformName));
+			//}
 		}
 		uniformLocation = shaderText.find(UNIFORM_KEY, uniformLocation + UNIFORM_KEY.length());
 	}

@@ -38,6 +38,8 @@ CoreEngine::CoreEngine(double frameRate, Window* window, RenderingEngine* render
 	//are initialized, and so creating meshes/textures/etc. will not fail due
 	//to missing context.
 	m_game->Init(*m_window);
+	//m_game->Render(m_renderingEngine);//28/2/20 test
+	//m_window->SwapBuffers();//29/2/20 test
 }
 
 void CoreEngine::Start()
@@ -121,12 +123,12 @@ void CoreEngine::Start()
 
 		if(render)
 		{
-			m_game->Render(m_renderingEngine);
+			m_game->Render(m_renderingEngine);//28/2/20 test
 			
 			//The newly rendered image will be in the window's backbuffer,
 			//so the buffers must be swapped to display the new image.
 			swapBufferTimer.StartInvocation();
-			m_window->SwapBuffers();
+			m_window->SwapBuffers();//29/2/20 test
 			swapBufferTimer.StopInvocation();
 			frames++;
 		}

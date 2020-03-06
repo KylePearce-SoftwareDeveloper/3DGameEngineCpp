@@ -236,6 +236,15 @@ void MeshData::Draw() const
 	#endif
 }
 
+void MeshData::DrawTree() const//1/3/20
+{
+	glBindVertexArray(m_vertexArrayObject);
+
+#if PROFILING_DISABLE_MESH_DRAWING == 0
+	glDrawElementsInstanced(GL_TRIANGLES, m_drawCount, GL_UNSIGNED_INT, 0, 1000);
+#endif
+}
+
 
 Mesh::Mesh(const std::string& meshName, const IndexedModel& model) :
 	m_fileName(meshName)
@@ -522,4 +531,9 @@ Mesh::~Mesh()
 void Mesh::Draw() const
 {
 	m_meshData->Draw();
+}
+
+void Mesh::DrawTree() const//1/3/20
+{
+	m_meshData->DrawTree();
 }

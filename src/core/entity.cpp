@@ -102,7 +102,24 @@ void Entity::Update(float delta)
 
 void Entity::Render(const Shader& shader, const RenderingEngine& renderingEngine, const Camera& camera) const
 {
+	/*
 	for(unsigned int i = 0; i < m_components.size(); i++)
+	{
+		if (m_components[i]->GetDynamicRender()==false) {
+			if (m_components[i]->GetHasBeenRendered() == false) {
+				m_components[i]->Render(shader, renderingEngine, camera);
+				m_components[i]->SetHasBeenRendered(true);
+			}
+			else {
+				return;
+			}
+		}
+		else {
+			m_components[i]->Render(shader, renderingEngine, camera);
+		}
+	}
+	*/
+	for (unsigned int i = 0; i < m_components.size(); i++)
 	{
 		m_components[i]->Render(shader, renderingEngine, camera);
 	}

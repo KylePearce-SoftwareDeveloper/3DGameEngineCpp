@@ -23,20 +23,35 @@
 class MeshRenderer : public EntityComponent
 {
 public:
-	MeshRenderer(const Mesh& mesh, const Material& material) :
+	MeshRenderer(const Mesh& mesh, const Material& material)://, bool isDynamicRender) :
 		m_mesh(mesh),
 		m_material(material) {}
+	//{
+	//	SetDynamicRender(isDynamicRender);//28/2/20
+	//}
 
 	virtual void Render(const Shader& shader, const RenderingEngine& renderingEngine, const Camera& camera) const
 	{
 		shader.Bind();
-		shader.UpdateUniforms(GetTransform(), m_material, renderingEngine, camera);
-		m_mesh.Draw();
+		//shader.UpdateUniforms(GetTransform(), m_material, renderingEngine, camera);//5/3/20
+		if (isTree) {//1/3/20
+			shader.UpdateUniforms(GetTransform(), m_material, renderingEngine, camera, true);//5/3/20
+			m_mesh.DrawTree();
+		}
+		else {
+			shader.UpdateUniforms(GetTransform(), m_material, renderingEngine, camera, false);//5/3/20
+			m_mesh.Draw();
+		}
+	}
+
+	virtual void setIsTree(bool isTreeArg) {//1/3/20
+		isTree = isTreeArg;
 	}
 protected:
 private:
 	Mesh m_mesh;
 	Material m_material;
+	bool isTree = false;//1/3/20
 };
 
 #endif // MESHRENDERER_H_INCLUDED

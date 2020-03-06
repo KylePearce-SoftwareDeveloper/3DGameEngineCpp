@@ -41,11 +41,19 @@ public:
 	
 	virtual void SetParent(Entity* parent) { m_parent = parent; }
 	virtual Entity* GetParent() { return m_parent; }//2/2/20 test
+
+	//inline void SetDynamicRender(bool isDynamicRender) { dynamicRender = isDynamicRender; }//28/2/20
+	//inline bool GetDynamicRender() { return dynamicRender; }//28/2/20
+	//inline void SetHasBeenRendered(bool isHasBeenRendered) { hasBeenRendered = isHasBeenRendered; }//28/2/20
+	//inline bool GetHasBeenRendered() { return hasBeenRendered; }//28/2/20
 private:
 	Entity* m_parent;
 	
 	EntityComponent(const EntityComponent& other) {}
 	void operator=(const EntityComponent& other) {}
+
+	//bool dynamicRender = true;//28/2/20
+	//bool hasBeenRendered = false;//28/2/20
 };
 
 #endif // GAMECOMPONENT_H_INCLUDED

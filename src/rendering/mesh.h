@@ -77,6 +77,7 @@ public:
 	virtual ~MeshData();
 	
 	void Draw() const;
+	void DrawTree() const;//1/3/20
 protected:	
 private:
 	MeshData(MeshData& other) {}
@@ -108,6 +109,7 @@ public:
 	virtual ~Mesh();
 
 	void Draw() const;
+	void DrawTree() const;//1/3/20
 	virtual std::vector<Vector3f> getMeshVertices();// {}//2/2/20 test
 	//virtual std::vector<unsigned int> getMeshIndices();// {}//4/2/20 test
 	//virtual Vector3f& checkMeshVertices(Vector3f* playerPos);//5/2/20

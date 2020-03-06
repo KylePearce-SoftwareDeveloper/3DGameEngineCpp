@@ -28,10 +28,17 @@ attribute vec3 tangent;
 
 uniform mat4 T_model;
 uniform mat4 T_MVP;
+uniform vec3 A_offsets[1000];
+uniform bool B_tree;//5/3/20
 
 void main()
 {
-    gl_Position = T_MVP * vec4(position, 1.0);
+	if(B_tree){//5/3/20
+		vec3 offset = A_offsets[gl_InstanceID];
+		gl_Position = T_MVP * vec4(position + offset, 1.0);
+	}else{
+		gl_Position = T_MVP * vec4(position, 1.0);
+	}
     texCoord0 = texCoord; 
     worldPos0 = (T_model * vec4(position, 1.0)).xyz;
     

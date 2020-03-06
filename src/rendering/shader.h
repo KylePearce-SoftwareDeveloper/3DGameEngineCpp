@@ -27,6 +27,9 @@
 #include "material.h"
 #include "camera.h"
 
+#include <glm/glm.hpp>//4/3/20
+#include <glm/gtc/type_ptr.hpp>//4/3/20
+
 class RenderingEngine;
 class DirectionalLight;
 class PointLight;
@@ -99,12 +102,14 @@ public:
 	virtual ~Shader();
 
 	void Bind() const;
-	virtual void UpdateUniforms(const Transform& transform, const Material& material, const RenderingEngine& renderingEngine, const Camera& camera) const;
+	virtual void UpdateUniforms(const Transform& transform, const Material& material, const RenderingEngine& renderingEngine, const Camera& camera, bool isTree) const;//5/3/20
 
 	void SetUniformi(const std::string& uniformName, int value) const;
 	void SetUniformf(const std::string& uniformName, float value) const;
 	void SetUniformMatrix4f(const std::string& uniformName, const Matrix4f& value) const;
 	void SetUniformVector3f(const std::string& uniformName, const Vector3f& value) const;
+	//void SetUniformVector3fv(const std::string& uniformName, const glm::vec3& value) const;//3/3/20
+	void SetUniformVector3fv(const std::string& uniformName, const glm::vec3 test[]) const;//4/3/20
 protected:
 private:
 	static std::map<std::string, ShaderData*> s_resourceMap;
