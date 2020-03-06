@@ -33,6 +33,7 @@ public:
 	virtual void checkTreeHeight(Entity* treePos);
 	virtual void updateSunAngle();
 	virtual float checkTreeHeightForShader(glm::vec3 treePos);//6/3/20
+	virtual void CheckTreeCollision();//6/3/20
 protected:
 private:
 	TestGame(const TestGame& other) {}
@@ -44,6 +45,7 @@ private:
 	std::vector<Mesh*> meshObjects;
 	std::vector<DirectionalLight*> directionalLightObjects;
 	float sunCount = 0;
+	glm::vec3 translations[1000];//6/3/20
 };
 
 void TestGame::Init(const Window& window)
@@ -128,7 +130,7 @@ void TestGame::Init(const Window& window)
 	}
 	*/
 
-	glm::vec3 translations[1000];//6/3/20
+	//glm::vec3 translations[1000];//6/3/20
 	for (int i = 0; i < 1000; i++) {
 		translations[i] = glm::vec3(-550 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (550 - (-550)))), 0, -550 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (550 - (-550)))));
 		float height = checkTreeHeightForShader(translations[i]);
@@ -208,6 +210,19 @@ float TestGame::checkTreeHeightForShader(glm::vec3 treePosArg)//6/3/20
 		return terrainheightAtTreePos;
 	}
 
+}
+
+void TestGame::CheckTreeCollision()//6/3/20
+{
+	Vector3f *testPlayerPos = freeMoveObjects[0]->GetParent()->GetTransform()->GetPos();
+	Vector3f playerPos(testPlayerPos->GetX(), testPlayerPos->GetY() - 1.0f, testPlayerPos->GetZ());
+	for (int i = 0; i < 1000; i++) {
+		if (abs(playerPos.GetX() - translations[i].x) < 5.0f + 5.0f / 2.0f) 
+			if (abs(playerPos.GetZ() - translations[i].z) < 5.0f + 5.0f / 2.0f) {
+				freeMoveObjects[0]->GetParent()->GetTransform()->SetPos(Vector3f(freeMoveObjects[0]->getOldPos()->GetX(), freeMoveObjects[0]->getOldPos()->GetY(), freeMoveObjects[0]->getOldPos()->GetZ()));
+				return;
+			}
+	}
 }
 
 void TestGame::updateSunAngle()

@@ -40,6 +40,7 @@ public:
 	virtual void CheckTerrainHeight() {}
 	virtual void checkTreeHeight(Entity* treePos){}//6/2/20
 	virtual void updateSunAngle() {}
+	virtual void CheckTreeCollision() {}//6/3/20
 protected:
 	void AddToScene(Entity* child) { m_root.AddChild(child); }
 private:
