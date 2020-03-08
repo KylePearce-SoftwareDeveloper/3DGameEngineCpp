@@ -77,7 +77,7 @@ void TestGame::Init(const Window& window)
 	Mesh *newTerrainMesh = new Mesh("terrainFinished.obj");
 	meshObjects.push_back(newTerrainMesh);
 	Material *terraineMaterial = new Material("magenta");
-	MeshRenderer *newTerrainRenderer = new MeshRenderer(*newTerrainMesh, *terraineMaterial);//, false);
+	MeshRenderer *newTerrainRenderer = new MeshRenderer(*newTerrainMesh, *terraineMaterial);
 	terrainObjects.push_back(newTerrainRenderer);
 	newTerrainObject->AddComponent(newTerrainRenderer);
 	AddToScene(newTerrainObject);
@@ -86,12 +86,9 @@ void TestGame::Init(const Window& window)
 	Entity *waterObject = new Entity(Vector3f(0, -5.0f, 0), Quaternion(), 1.0f);
 	Mesh *waterMesh = new Mesh("water19.obj");
 	Material *waterMaterial = new Material("cyan");
-	MeshRenderer *waterRenderer = new MeshRenderer(*waterMesh, *waterMaterial);//, false);
+	MeshRenderer *waterRenderer = new MeshRenderer(*waterMesh, *waterMaterial);
 	waterObject->AddComponent(waterRenderer);
 	AddToScene(waterObject);
-	
-	//AddToScene((new Entity(Vector3f(), Quaternion(Vector3f(1,0,0), ToRadians(-90))))
-	//	->AddComponent(new DirectionalLight(Vector3f(1,1,1), 0.4f, 10, 80.0f, 1.0f)));
 
 	//Directional light handel
 	Entity *sun = new Entity(Vector3f(), Quaternion(Vector3f(1, 0, 0), ToRadians(0)));
@@ -101,7 +98,7 @@ void TestGame::Init(const Window& window)
 	AddToScene(sun);
 
 	AddToScene((new Entity(Vector3f(24, -12, 5), Quaternion(Vector3f(0, 1, 0), ToRadians(30.0f))))
-		->AddComponent(new MeshRenderer(Mesh("sphere.obj"), Material("bricks"))));//, false)));
+		->AddComponent(new MeshRenderer(Mesh("sphere.obj"), Material("bricks"))));
 		
 	Entity *player = new Entity(Vector3f(0, 0, 0), Quaternion(), 1.0f);
 	FreeMove *playerMovement = new FreeMove(50.0f);
@@ -141,12 +138,28 @@ void TestGame::Init(const Window& window)
 	Entity *treeObject = new Entity(Vector3f(0, 0, 0), Quaternion(), 1.0f);
 	Mesh *treeMesh = new Mesh("Lowpoly_tree_sample.obj");
 	Material *treeMaterial = new Material("black");
-	MeshRenderer *treeRenderer = new MeshRenderer(*treeMesh, *treeMaterial);//, false);
+	MeshRenderer *treeRenderer = new MeshRenderer(*treeMesh, *treeMaterial);
 	treeRenderer->setTranslations(translations);//6/3/20
 	treeRenderer->setIsTree(true);
 	checkTreeHeight(treeObject);
 	treeObject->AddComponent(treeRenderer);
 	AddToScene(treeObject);
+
+	//7/3/20 - tree shells for shadows
+	/*
+	trees.reserve(1000);
+	treeObjects.reserve(1000);
+	for (int i = 0; i < 1000; i++) {
+		trees.push_back(new MeshRenderer(Mesh("Lowpoly_tree_sample.obj"), Material("black"), false));
+	}
+
+	for (int i = 0; i < 1000; i++) {
+		treeObjects.push_back((new Entity(Vector3f(translations[i].x, translations[i].y, translations[i].z), Quaternion(), 1.0f))->AddComponent(trees[i]));
+	}
+	for (int i = 0; i < 1000; i++) {
+		AddToScene(treeObjects[i]);
+	}
+	*/
 }
 
 void TestGame::CheckTerrainHeight() 

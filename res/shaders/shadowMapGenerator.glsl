@@ -20,10 +20,18 @@
 attribute vec3 position;
 
 uniform mat4 T_MVP;
+uniform vec3 A_offsets[1000];//8/3/20
+uniform bool B_tree;//8/3/20
 
 void main()
 {
-    gl_Position = T_MVP * vec4(position, 1.0);
+    //gl_Position = T_MVP * vec4(position, 1.0);
+	if(B_tree){//5/3/20
+		vec3 offset = A_offsets[gl_InstanceID];
+		gl_Position = T_MVP * vec4(position + offset, 1.0);
+	}else{
+		gl_Position = T_MVP * vec4(position, 1.0);
+	}
 }
 #elif defined(FS_BUILD)
 DeclareFragOutput(0, vec4);
