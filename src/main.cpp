@@ -92,7 +92,7 @@ void TestGame::Init(const Window& window)
 
 	//Directional light handel
 	Entity *sun = new Entity(Vector3f(), Quaternion(Vector3f(1, 0, 0), ToRadians(0)));
-	DirectionalLight *directionalLight = new DirectionalLight(Vector3f(1, 1, 1), 0.4f, 10, 80.0f, 1.0f);
+	DirectionalLight *directionalLight = new DirectionalLight(Vector3f(1, 1, 1), 0.4f, 10, 320.0f, 1.0f);//, 0.4f, 0.4f);
 	directionalLightObjects.push_back(directionalLight);
 	sun->AddComponent(directionalLight);
 	AddToScene(sun);
