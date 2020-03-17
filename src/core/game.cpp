@@ -36,5 +36,5 @@ void Game::Update(float delta)
 
 void Game::Render(RenderingEngine* renderingEngine)
 {
-	renderingEngine->Render(m_root);
+	renderingEngine->Render(m_root, textRendererObject);//15/3/20
 }

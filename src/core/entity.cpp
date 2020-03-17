@@ -121,7 +121,12 @@ void Entity::Render(const Shader& shader, const RenderingEngine& renderingEngine
 	*/
 	for (unsigned int i = 0; i < m_components.size(); i++)
 	{
-		m_components[i]->Render(shader, renderingEngine, camera);
+		//if (m_components[i]->GetIsTextRenderer()==true) {//12/3/20
+		//	m_components[i]->RenderTextRenderer(shader, renderingEngine, camera);
+		//}
+		//else {
+			m_components[i]->Render(shader, renderingEngine, camera);
+		//}
 	}
 }
 

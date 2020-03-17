@@ -21,6 +21,10 @@
 #include <GL/glew.h>
 #include <string>
 #include <map>
+//#include <ft2build.h>//10/3/20 - HUD
+//#include FT_FREETYPE_H//10/3/20 - HUD
+//#include <glm/glm.hpp>//11/3/20
+//#include <glm/gtc/type_ptr.hpp>//11/3/20
 
 class TextureData : public ReferenceCounter
 {
@@ -57,6 +61,7 @@ public:
 	Texture(const std::string& fileName, GLenum textureTarget = GL_TEXTURE_2D, GLfloat filter = GL_LINEAR_MIPMAP_LINEAR, GLenum internalFormat = GL_RGBA, GLenum format = GL_RGBA, bool clamp = false, GLenum attachment = GL_NONE);
 	Texture(int width = 0, int height = 0, unsigned char* data = 0, GLenum textureTarget = GL_TEXTURE_2D, GLfloat filter = GL_LINEAR_MIPMAP_LINEAR, GLenum internalFormat = GL_RGBA, GLenum format = GL_RGBA, bool clamp = false, GLenum attachment = GL_NONE);
 	Texture(const Texture& texture);
+	//Texture(bool isHUD);//11/3/20
 	void operator=(Texture texture);
 	virtual ~Texture();
 
@@ -68,6 +73,7 @@ public:
 	
 	bool operator==(const Texture& texture) const { return m_textureData == texture.m_textureData; }
 	bool operator!=(const Texture& texture) const { return !operator==(texture); }
+	//virtual void setUpFreeType();//11/3/20
 protected:
 private:
 	static std::map<std::string, TextureData*> s_resourceMap;

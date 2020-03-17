@@ -22,6 +22,7 @@
 #include "material.h"
 #include "mesh.h"
 #include "window.h"
+#include "TextRenderer.h"//15/3/20
 
 #include "../core/mappedValues.h"
 #include "../core/profiling.h"
@@ -36,7 +37,7 @@ public:
 	RenderingEngine(const Window& window);
 	virtual ~RenderingEngine() {}
 	
-	void Render(const Entity& object);
+	void Render(const Entity& object, TextRenderer* textrendereObjectArg);//15/3/20
 	
 	inline void AddLight(const BaseLight& light) { m_lights.push_back(&light); }
 	inline void SetMainCamera(const Camera& camera) { m_mainCamera = &camera; }

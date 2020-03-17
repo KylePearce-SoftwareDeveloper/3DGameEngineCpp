@@ -18,6 +18,7 @@
 #include "window.h"
 #include "mesh.h"
 #include "shader.h"
+//#include "TextRenderer.h"//15/3/20
 
 #include "../core/entity.h"
 
@@ -56,6 +57,8 @@ RenderingEngine::RenderingEngine(const Window& window) :
 	SetSamplerSlot("shadowMap", 3);
 	
 	SetSamplerSlot("filterTexture", 0);
+
+	SetSamplerSlot("H_text", 4);
 	
 	SetVector3f("ambient", Vector3f(0.2f, 0.2f, 0.2f));
 	
@@ -135,7 +138,7 @@ void RenderingEngine::ApplyFilter(const Shader& filter, const Texture& source, c
 	SetTexture("filterTexture", 0);
 }
 
-void RenderingEngine::Render(const Entity& object)
+void RenderingEngine::Render(const Entity& object, TextRenderer* textrendereObjectArg)
 {
 	m_renderProfileTimer.StartInvocation();
 	GetTexture("displayTexture").BindAsRenderTarget();
@@ -145,6 +148,7 @@ void RenderingEngine::Render(const Entity& object)
 	glClearColor(1.0f,0.0f,1.0f,1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	object.RenderAll(m_defaultShader, *this, *m_mainCamera);
+	//textrendereObjectArg->RenderTextRenderer(m_defaultShader,*this, *m_mainCamera);//15/3/20
 	
 	for(unsigned int i = 0; i < m_lights.size(); i++)
 	{
@@ -228,6 +232,8 @@ void RenderingEngine::Render(const Entity& object)
 		
 //		glDisable(GL_SCISSOR_TEST);
 	}
+
+	textrendereObjectArg->RenderTextRenderer(m_defaultShader, *this, *m_mainCamera);//16/3/20
 	
 	float displayTextureAspect = (float)GetTexture("displayTexture").GetWidth()/(float)GetTexture("displayTexture").GetHeight();
 	float displayTextureHeightAdditive = displayTextureAspect * GetFloat("fxaaAspectDistortion");

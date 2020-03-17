@@ -125,7 +125,7 @@ ShaderData::ShaderData(const std::string& fileName)
 	AddAllAttributes(vertexShaderText, attributeKeyword);
 	
 	CompileShader();
-	//std::cout << shaderText;//3/3/20
+	//std::cout << fileName<< ": \n"<< shaderText;//3/3/20
 	AddShaderUniforms(shaderText);
 }
 
@@ -193,6 +193,9 @@ void Shader::UpdateUniforms(const Transform& transform, const Material& material
 {
 	Matrix4f worldMatrix = transform.GetTransformation();
 	Matrix4f projectedMatrix = camera.GetViewProjection() * worldMatrix;
+
+	//glm::mat4 projection;
+	//projection = glm::perspective(glm::radians(70.0f), 800.0f / 600.0f, 0.1f, 1000.0f);//17/3/20 test
 	
 	for(unsigned int i = 0; i < m_shaderData->GetUniformNames().size(); i++)
 	{
@@ -224,7 +227,7 @@ void Shader::UpdateUniforms(const Transform& transform, const Material& material
 			else
 				renderingEngine.UpdateUniformStruct(transform, material, *this, uniformName, uniformType);
 		}
-		else if(uniformType == "sampler2D")
+		else if(uniformType == "sampler2D" & uniformName != "H_text")
 		{
 			int samplerSlot = renderingEngine.GetSamplerSlot(uniformName);
 			material.GetTexture(uniformName).Bind(samplerSlot);
@@ -232,8 +235,8 @@ void Shader::UpdateUniforms(const Transform& transform, const Material& material
 		}
 		else if(uniformName.substr(0, 2) == "T_")
 		{
-			if(uniformName == "T_MVP")
-				SetUniformMatrix4f(uniformName, projectedMatrix);
+			if (uniformName == "T_MVP")
+				SetUniformMatrix4f(uniformName, projectedMatrix);//setMat4(uniformName, projection); //17/3/20
 			else if(uniformName == "T_model")
 				SetUniformMatrix4f(uniformName, worldMatrix);
 			else
@@ -270,6 +273,15 @@ void Shader::UpdateUniforms(const Transform& transform, const Material& material
 				SetUniformi(uniformName, 0);
 			}
 		}
+		else if (uniformName.substr(0, 2) == "H_") {//11/3/20
+			if (uniformName == "H_text") {
+				int samplerSlot = renderingEngine.GetSamplerSlot(uniformName);
+				//material.GetTexture(uniformName).Bind(samplerSlot);
+				SetUniformi(uniformName, samplerSlot);//	SetUniformi("H_text", 0);
+			}
+		    else if (uniformName == "H_textColor")
+				SetUniformVector3f("H_textColor", Vector3f(0,1,0));
+		}
 		else
 		{
 			if(uniformType == "vec3")
@@ -278,6 +290,70 @@ void Shader::UpdateUniforms(const Transform& transform, const Material& material
 				SetUniformf(uniformName, material.GetFloat(uniformName));
 			else
 				throw uniformType + " is not supported by the Material class";
+		}
+	}
+}
+
+void Shader::UpdateUniformsTextRenderer(const RenderingEngine& renderingEngine)//Transform* transform, const RenderingEngine& renderingEngine, const Camera& camera)
+{//12/3/20
+	//Matrix4f worldMatrix = transform->GetTransformation();
+	//Matrix4f projectedMatrix = camera.GetViewProjection() * worldMatrix;
+
+	glm::mat4 projectionOrtho = glm::ortho(0.0f, 800.0f, 0.0f, 600.0f);
+	glm::vec3 colour = glm::vec3(0.0f, 1.0f, 0.0f);//16/3/20
+	Matrix4f userOrtho = Matrix4f().InitOrthographic(0.0f, 800.0f, 0.0f, 600.0f, 0, 10.0f);
+
+	for (unsigned int i = 0; i < m_shaderData->GetUniformNames().size(); i++)
+	{
+		std::string uniformName = m_shaderData->GetUniformNames()[i];
+		std::string uniformType = m_shaderData->GetUniformTypes()[i];
+
+		 if (uniformName.substr(0, 2) == "T_")
+		{
+			 if (uniformName == "T_MVP")
+				 SetUniformMatrix4f(uniformName, Matrix4f().InitOrthographic(0.0f, 800.0f, 0.0f, 600.0f, 0, 10.0f));//setMat4(uniformName, projectionOrtho);//SetUniformMatrix4f(uniformName, userOrtho);
+			else
+				throw "Invalid Transform Uniform: " + uniformName;
+		}
+		else if (uniformName.substr(0, 2) == "H_") {
+			 if (uniformName == "H_text") {
+				 int samplerSlot = renderingEngine.GetSamplerSlot(uniformName);
+				 SetUniformi(uniformName, samplerSlot);
+			 }
+			 else if (uniformName == "H_textColor")
+				 SetUniformVector3f("H_textColor", Vector3f(0, 1, 0));//setVec3(uniformName, colour.x, colour.y, colour.z);//SetUniformVector3f("H_textColor", Vector3f(0, 1, 0));
+			else
+				throw "Invalid Transform Uniform: " + uniformName;
+		}
+	}
+}
+
+void Shader::UpdateUniforms(bool isTextRen, Matrix4f ortho, Vector3f colour) 
+{//11/3/20
+	Matrix4f worldMatrix = ortho;//transform.GetTransformation();
+	Matrix4f projectedMatrix = ortho;//camera.GetViewProjection() * worldMatrix;
+	for (unsigned int i = 0; i < m_shaderData->GetUniformNames().size(); i++)
+	{
+		std::string uniformName = m_shaderData->GetUniformNames()[i];
+		std::string uniformType = m_shaderData->GetUniformTypes()[i];
+
+		if (uniformName.substr(0, 2) == "T_")
+		{
+			if (uniformName == "T_MVP")
+				SetUniformMatrix4f(uniformName, projectedMatrix);
+			else if (uniformName == "T_model")
+				SetUniformMatrix4f(uniformName, worldMatrix);
+			else
+				throw "Invalid Transform Uniform: " + uniformName;
+		}
+		else if (uniformName.substr(0, 2) == "R_") {
+			if (uniformName == "R_text")
+				SetUniformMatrix4f(uniformName, projectedMatrix);
+			else if (uniformName == "R_textColor")
+				printf("test");//SetUniformVector3f("R_textColor", colour);
+			else
+				throw "Invalid Transform Uniform: " + uniformName;
+
 		}
 	}
 }
@@ -297,6 +373,11 @@ void Shader::SetUniformVector3f(const std::string& uniformName, const Vector3f& 
 	glUniform3f(m_shaderData->GetUniformMap().at(uniformName), value.GetX(), value.GetY(), value.GetZ());
 }
 
+void Shader::setVec3(const std::string& uniformName, float x, float y, float z) const//16/3/20
+{
+	glUniform3f(m_shaderData->GetUniformMap().at(uniformName), x, y, z);
+}
+
 void Shader::SetUniformVector3fv(const std::string& uniformName, const glm::vec3 test[]) const//3/3/20
 {
 		//glUniform3fv(glGetUniformLocation(s_resourceMap.find(m_fileName), uniformName.c_str()), 1, &value);
@@ -310,6 +391,11 @@ void Shader::SetUniformVector3fv(const std::string& uniformName, const glm::vec3
 void Shader::SetUniformMatrix4f(const std::string& uniformName, const Matrix4f& value) const
 {
 	glUniformMatrix4fv(m_shaderData->GetUniformMap().at(uniformName), 1, GL_FALSE, &(value[0][0]));
+}
+
+void Shader::setMat4(const std::string& uniformName, const glm::mat4 &mat) const//14/3/20
+{
+	glUniformMatrix4fv(m_shaderData->GetUniformMap().at(uniformName), 1, GL_FALSE, &mat[0][0]);
 }
 
 void Shader::SetUniformDirectionalLight(const std::string& uniformName, const DirectionalLight& directionalLight) const

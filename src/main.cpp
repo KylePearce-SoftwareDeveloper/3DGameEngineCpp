@@ -22,6 +22,18 @@
 #include "components/physicsEngineComponent.h"
 #include "components/physicsObjectComponent.h"
 #include "physics/boundingSphere.h"
+#include "rendering/TextRenderer.h"
+//#include <ft2build.h>//10/3/20 - HUD
+//#include FT_FREETYPE_H//10/3/20 - HUD
+
+//10/3/20 - HUD
+//struct Character {
+//	GLuint     TextureID;  // ID handle of the glyph texture
+//	glm::ivec2 Size;       // Size of glyph
+//	glm::ivec2 Bearing;    // Offset from baseline to left/top of glyph
+//	GLuint     Advance;    // Offset to advance to next glyph
+//};
+//std::map<GLchar, Character> Characters;
 
 class TestGame : public Game
 {
@@ -34,6 +46,7 @@ public:
 	virtual void updateSunAngle();
 	virtual float checkTreeHeightForShader(glm::vec3 treePos);//6/3/20
 	virtual void CheckTreeCollision();//6/3/20
+	//virtual void renderText();//11/3/20
 protected:
 private:
 	TestGame(const TestGame& other) {}
@@ -46,10 +59,82 @@ private:
 	std::vector<DirectionalLight*> directionalLightObjects;
 	float sunCount = 0;
 	glm::vec3 translations[1000];//6/3/20
+	//TextRenderer  *Text;//11/3/20
+	//std::vector<TextRenderer*> textRendererObjects;//11/3/20
 };
 
 void TestGame::Init(const Window& window)
 {
+	//10/3/20 - HUD ------------------------------------------------------------------------------------------------------------------------------------------
+	//FT_Library ft;
+	//if (FT_Init_FreeType(&ft))
+	//	printf("ERROR::FREETYPE: Could not init FreeType Library\n");//std::cout << "ERROR::FREETYPE: Could not init FreeType Library" << std::endl;
+
+	//FT_Face face;
+	//if (FT_New_Face(ft, "font/arial.ttf", 0, &face))
+	//	printf("ERROR::FREETYPE: Failed to load font\n");//std::cout << "ERROR::FREETYPE: Failed to load font" << std::endl;
+
+	//FT_Set_Pixel_Sizes(face, 0, 48);
+
+	//if (FT_Load_Char(face, 'X', FT_LOAD_RENDER))
+	//	printf("ERROR::FREETYTPE: Failed to load Glyph\n");//std::cout << "ERROR::FREETYTPE: Failed to load Glyph" << std::endl;
+
+	//glPixelStorei(GL_UNPACK_ALIGNMENT, 1); // Disable byte-alignment restriction
+
+	//for (GLubyte c = 0; c < 128; c++)
+	//{
+	//	// Load character glyph 
+	//	if (FT_Load_Char(face, c, FT_LOAD_RENDER))
+	//	{
+	//		printf("ERROR::FREETYTPE: Failed to load Glyph\n");//std::cout << "ERROR::FREETYTPE: Failed to load Glyph" << std::endl;
+	//		continue;
+	//	}
+	//	// Generate texture
+	//	GLuint texture;
+	//	glGenTextures(1, &texture);
+	//	glBindTexture(GL_TEXTURE_2D, texture);
+	//	glTexImage2D(
+	//		GL_TEXTURE_2D,
+	//		0,
+	//		GL_RED,
+	//		face->glyph->bitmap.width,
+	//		face->glyph->bitmap.rows,
+	//		0,
+	//		GL_RED,
+	//		GL_UNSIGNED_BYTE,
+	//		face->glyph->bitmap.buffer
+	//	);
+	//	// Set texture options
+	//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	//	// Now store character for later use
+	//	Character character = {
+	//		texture,
+	//		glm::ivec2(face->glyph->bitmap.width, face->glyph->bitmap.rows),
+	//		glm::ivec2(face->glyph->bitmap_left, face->glyph->bitmap_top),
+	//		face->glyph->advance.x
+	//	};
+	//	Characters.insert(std::pair<GLchar, Character>(c, character));
+	//}
+	//FT_Done_Face(face);
+	//FT_Done_FreeType(ft);
+	//10/3/20 - HUD ------------------------------------------------------------------------------------------------------------------------------------------
+	//Texture hudTexture = Texture(true);
+	//Material HUD("bricks", hudTexture, 0.0f, 0,
+		//hudTexture, hudTexture, 0.03f, -0.5f);
+
+	////11/3/20
+	//Entity *textRendererObject = new Entity(Vector3f(0, 0, 0), Quaternion(), 1.0f);
+	//Text = new TextRenderer(50, 50);
+	//Text->Load("font/arial.ttf", 5);
+	////Vector3f colour = Vector3f(0,1,0);
+	////Text->RenderText("Lives:", 50.0f, 50.0f, 1.0f, colour);
+	////textRendererObjects.push_back(Text);
+	//textRendererObject->AddComponent(Text);
+	//AddToScene(textRendererObject);
+
 	Material bricks("bricks", Texture("bricks.jpg"), 0.0f, 0, 
 			Texture("bricks_normal.jpg"), Texture("bricks_disp.png"), 0.03f, -0.5f);
 	Material bricks2("bricks2", Texture("bricks2.jpg"), 0.0f, 0, 
@@ -160,6 +245,18 @@ void TestGame::Init(const Window& window)
 		AddToScene(treeObjects[i]);
 	}
 	*/
+
+	//14/3/20
+	/*Entity *textRendererObject = new Entity(Vector3f(0, 0, 0), Quaternion(), 1.0f);
+	Text = new TextRenderer(50, 50);
+	Text->Load("font/arial.ttf", 5);
+	textRendererObject->AddComponent(Text);
+	AddToScene(textRendererObject);*/
+
+	//15/3/20
+	TextRenderer *textRenderer = new TextRenderer();
+	textRenderer->Load("font/arial.ttf", 50);
+	AddTextOnScreen(textRenderer);
 }
 
 void TestGame::CheckTerrainHeight() 
@@ -259,6 +356,10 @@ void TestGame::updateSunAngle()
 	
 }
 
+//void TestGame::renderText() {
+//	textRendererObjects[0]->RenderText("Lives:", 50.0f, 50.0f, 1.0f, Vector3f(0,1,0));
+//	//printf("IN_RENDER_TEXT");
+//}
 
 #include <iostream>
 

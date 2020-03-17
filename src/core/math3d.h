@@ -623,6 +623,13 @@ public:
 		(*this)[0][3] = T(0);       (*this)[1][3] = T(0);        (*this)[2][3] = T(0);        (*this)[3][3] = T(1); 
 		
 		return *this;
+		////tmat4x4<T, defaultp> Result(static_cast<T>(1));
+		//(*this)[0][0] = static_cast<T>(2) / (right - left);
+		//(*this)[1][1] = static_cast<T>(2) / (top - bottom);
+		//(*this)[2][2] = -static_cast<T>(1);
+		//(*this)[3][0] = -(right + left) / (right - left);
+		//(*this)[3][1] = -(top + bottom) / (top - bottom);
+		//return *this;
 	}
 protected:
 private:

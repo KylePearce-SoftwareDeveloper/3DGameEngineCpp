@@ -494,10 +494,10 @@ float Mesh::newTerrainHeightFuncFloat(Vector3f playerPos) {
 	if (testIterator != meshVerticesFloats.end()) {
 		int testIndex = std::distance(meshVerticesFloats.begin(), testIterator);
 		return meshVerticesFloats[testIndex].GetY();
-		printf("GETTING_NEW_HEIGHT\N");
+		printf("GETTING_NEW_HEIGHT\n");
 	}
 	else {
-		printf("NOT_GETTING_NEW_HEIGHT\N");
+		printf("NOT_GETTING_NEW_HEIGHT\n");
 		return 10000.0f;//test value - no mesh vertex y value is ever 10000
 	}
 }

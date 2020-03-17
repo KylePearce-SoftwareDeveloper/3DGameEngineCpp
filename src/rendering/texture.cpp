@@ -27,6 +27,15 @@
 
 std::map<std::string, TextureData*> Texture::s_resourceMap;
 
+////11/3/20
+//struct Character {
+//	GLuint     TextureID;  // ID handle of the glyph texture
+//	glm::ivec2 Size;       // Size of glyph
+//	glm::ivec2 Bearing;    // Offset from baseline to left/top of glyph
+//	GLuint     Advance;    // Offset to advance to next glyph
+//};
+//std::map<GLchar, Character> Characters;
+
 TextureData::TextureData(GLenum textureTarget, int width, int height, int numTextures, unsigned char** data, GLfloat* filters, GLenum* internalFormat, GLenum* format, bool clamp, GLenum* attachments)
 {
 	m_textureID = new GLuint[numTextures];
@@ -168,27 +177,27 @@ Texture::Texture(const std::string& fileName, GLenum textureTarget, GLfloat filt
 {
  	m_fileName = fileName;
 
-	std::map<std::string, TextureData*>::const_iterator it = s_resourceMap.find(fileName);
-	if(it != s_resourceMap.end())
-	{
-		m_textureData = it->second;
-		m_textureData->AddReference();
-	}
-	else
-	{
-		int x, y, bytesPerPixel;
-		unsigned char* data = stbi_load(("../res/textures/" + fileName).c_str(), &x, &y, &bytesPerPixel, 4);
-
-		if(data == NULL)
+		std::map<std::string, TextureData*>::const_iterator it = s_resourceMap.find(fileName);
+		if (it != s_resourceMap.end())
 		{
-			std::cerr << "Unable to load texture: " << fileName << std::endl;
+			m_textureData = it->second;
+			m_textureData->AddReference();
 		}
+		else
+		{
+			int x, y, bytesPerPixel;
+			unsigned char* data = stbi_load(("../res/textures/" + fileName).c_str(), &x, &y, &bytesPerPixel, 4);
 
-		m_textureData = new TextureData(textureTarget, x, y, 1, &data, &filter, &internalFormat, &format, clamp, &attachment);
-		stbi_image_free(data);
-		
-		s_resourceMap.insert(std::pair<std::string, TextureData*>(fileName, m_textureData));
-	}
+			if (data == NULL)
+			{
+				std::cerr << "Unable to load texture: " << fileName << std::endl;
+			}
+
+			m_textureData = new TextureData(textureTarget, x, y, 1, &data, &filter, &internalFormat, &format, clamp, &attachment);
+			stbi_image_free(data);
+
+			s_resourceMap.insert(std::pair<std::string, TextureData*>(fileName, m_textureData));
+		}
 }
 
 Texture::Texture(int width, int height, unsigned char* data, GLenum textureTarget, GLfloat filter, GLenum internalFormat, GLenum format, bool clamp, GLenum attachment)
@@ -203,6 +212,64 @@ Texture::Texture(const Texture& texture) :
 {
 	m_textureData->AddReference();
 }
+
+//Texture::Texture(bool isHUD) {//11/3/20
+//		FT_Library ft;
+//		if (FT_Init_FreeType(&ft))
+//			printf("ERROR::FREETYPE: Could not init FreeType Library\n");//std::cout << "ERROR::FREETYPE: Could not init FreeType Library" << std::endl;
+//
+//		FT_Face face;
+//		if (FT_New_Face(ft, "font/arial.ttf", 0, &face))
+//			printf("ERROR::FREETYPE: Failed to load font\n");//std::cout << "ERROR::FREETYPE: Failed to load font" << std::endl;
+//
+//		FT_Set_Pixel_Sizes(face, 0, 48);
+//
+//		if (FT_Load_Char(face, 'X', FT_LOAD_RENDER))
+//			printf("ERROR::FREETYTPE: Failed to load Glyph\n");//std::cout << "ERROR::FREETYTPE: Failed to load Glyph" << std::endl;
+//
+//		glPixelStorei(GL_UNPACK_ALIGNMENT, 1); // Disable byte-alignment restriction
+//
+//		for (GLubyte c = 0; c < 128; c++)
+//		{
+//			// Load character glyph 
+//			if (FT_Load_Char(face, c, FT_LOAD_RENDER))
+//			{
+//				printf("ERROR::FREETYTPE: Failed to load Glyph\n");//std::cout << "ERROR::FREETYTPE: Failed to load Glyph" << std::endl;
+//				continue;
+//			}
+//			// Generate texture
+//			GLuint texture;
+//			glGenTextures(1, &texture);
+//			glBindTexture(GL_TEXTURE_2D, texture);
+//			glTexImage2D(
+//				GL_TEXTURE_2D,
+//				0,
+//				GL_RED,
+//				face->glyph->bitmap.width,
+//				face->glyph->bitmap.rows,
+//				0,
+//				GL_RED,
+//				GL_UNSIGNED_BYTE,
+//				face->glyph->bitmap.buffer
+//			);
+//			// Set texture options
+//			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+//			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+//			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+//			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+//			// Now store character for later use
+//			Character character = {
+//				texture,
+//				glm::ivec2(face->glyph->bitmap.width, face->glyph->bitmap.rows),
+//				glm::ivec2(face->glyph->bitmap_left, face->glyph->bitmap_top),
+//				face->glyph->advance.x
+//			};
+//			Characters.insert(std::pair<GLchar, Character>(c, character));
+//		}
+//		FT_Done_Face(face);
+//		FT_Done_FreeType(ft);
+//		printf("FREE_TYPE_SET-UP");
+//}
 
 void Texture::operator=(Texture texture)
 {
@@ -234,3 +301,60 @@ void Texture::BindAsRenderTarget() const
 {
 	m_textureData->BindAsRenderTarget();
 }
+
+//void Texture::setUpFreeType() {//11/3/20
+//	FT_Library ft;
+//	if (FT_Init_FreeType(&ft))
+//		printf("ERROR::FREETYPE: Could not init FreeType Library\n");//std::cout << "ERROR::FREETYPE: Could not init FreeType Library" << std::endl;
+//
+//	FT_Face face;
+//	if (FT_New_Face(ft, "font/arial.ttf", 0, &face))
+//		printf("ERROR::FREETYPE: Failed to load font\n");//std::cout << "ERROR::FREETYPE: Failed to load font" << std::endl;
+//
+//	FT_Set_Pixel_Sizes(face, 0, 48);
+//
+//	if (FT_Load_Char(face, 'X', FT_LOAD_RENDER))
+//		printf("ERROR::FREETYTPE: Failed to load Glyph\n");//std::cout << "ERROR::FREETYTPE: Failed to load Glyph" << std::endl;
+//
+//	glPixelStorei(GL_UNPACK_ALIGNMENT, 1); // Disable byte-alignment restriction
+//
+//	for (GLubyte c = 0; c < 128; c++)
+//	{
+//		// Load character glyph 
+//		if (FT_Load_Char(face, c, FT_LOAD_RENDER))
+//		{
+//			printf("ERROR::FREETYTPE: Failed to load Glyph\n");//std::cout << "ERROR::FREETYTPE: Failed to load Glyph" << std::endl;
+//			continue;
+//		}
+//		// Generate texture
+//		GLuint texture;
+//		glGenTextures(1, &texture);
+//		glBindTexture(GL_TEXTURE_2D, texture);
+//		glTexImage2D(
+//			GL_TEXTURE_2D,
+//			0,
+//			GL_RED,
+//			face->glyph->bitmap.width,
+//			face->glyph->bitmap.rows,
+//			0,
+//			GL_RED,
+//			GL_UNSIGNED_BYTE,
+//			face->glyph->bitmap.buffer
+//		);
+//		// Set texture options
+//		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+//		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+//		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+//		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+//		// Now store character for later use
+//		Character character = {
+//			texture,
+//			glm::ivec2(face->glyph->bitmap.width, face->glyph->bitmap.rows),
+//			glm::ivec2(face->glyph->bitmap_left, face->glyph->bitmap_top),
+//			face->glyph->advance.x
+//		};
+//		Characters.insert(std::pair<GLchar, Character>(c, character));
+//	}
+//	FT_Done_Face(face);
+//	FT_Done_FreeType(ft);
+//}

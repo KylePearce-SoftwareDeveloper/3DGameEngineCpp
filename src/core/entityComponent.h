@@ -33,6 +33,8 @@ public:
 	virtual void ProcessInput(const Input& input, float delta) {}
 	virtual void Update(float delta) {}
 	virtual void Render(const Shader& shader, const RenderingEngine& renderingEngine, const Camera& camera) const {}
+
+	//virtual void RenderTextRenderer(const Shader& shader, const RenderingEngine& renderingEngine, const Camera& camera) {}//12/3/20
 	
 	virtual void AddToEngine(CoreEngine* engine) const { }
 	
@@ -46,6 +48,8 @@ public:
 	//inline bool GetDynamicRender() { return dynamicRender; }//28/2/20
 	//inline void SetHasBeenRendered(bool isHasBeenRendered) { hasBeenRendered = isHasBeenRendered; }//28/2/20
 	//inline bool GetHasBeenRendered() { return hasBeenRendered; }//28/2/20
+	//inline void SetIsTextRenderer(bool isTextRendererArg) { isTextRenderer = isTextRendererArg; }//12/3/20
+	//inline bool GetIsTextRenderer() { return isTextRenderer; }//12/3/20
 private:
 	Entity* m_parent;
 	
@@ -54,6 +58,7 @@ private:
 
 	//bool dynamicRender = true;//28/2/20
 	//bool hasBeenRendered = false;//28/2/20
+	//bool isTextRenderer = false;//12/3/20
 };
 
 #endif // GAMECOMPONENT_H_INCLUDED
