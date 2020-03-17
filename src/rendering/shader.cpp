@@ -294,15 +294,8 @@ void Shader::UpdateUniforms(const Transform& transform, const Material& material
 	}
 }
 
-void Shader::UpdateUniformsTextRenderer(const RenderingEngine& renderingEngine)//Transform* transform, const RenderingEngine& renderingEngine, const Camera& camera)
-{//12/3/20
-	//Matrix4f worldMatrix = transform->GetTransformation();
-	//Matrix4f projectedMatrix = camera.GetViewProjection() * worldMatrix;
-
-	glm::mat4 projectionOrtho = glm::ortho(0.0f, 800.0f, 0.0f, 600.0f);
-	glm::vec3 colour = glm::vec3(0.0f, 1.0f, 0.0f);//16/3/20
-	Matrix4f userOrtho = Matrix4f().InitOrthographic(0.0f, 800.0f, 0.0f, 600.0f, 0, 10.0f);
-
+void Shader::UpdateUniformsTextRenderer(const RenderingEngine& renderingEngine, Matrix4f ortho, Vector3f colour)//17/3/20
+{
 	for (unsigned int i = 0; i < m_shaderData->GetUniformNames().size(); i++)
 	{
 		std::string uniformName = m_shaderData->GetUniformNames()[i];
@@ -311,7 +304,7 @@ void Shader::UpdateUniformsTextRenderer(const RenderingEngine& renderingEngine)/
 		 if (uniformName.substr(0, 2) == "T_")
 		{
 			 if (uniformName == "T_MVP")
-				 SetUniformMatrix4f(uniformName, Matrix4f().InitOrthographic(0.0f, 800.0f, 0.0f, 600.0f, 0, 10.0f));//setMat4(uniformName, projectionOrtho);//SetUniformMatrix4f(uniformName, userOrtho);
+				 SetUniformMatrix4f(uniformName, ortho);
 			else
 				throw "Invalid Transform Uniform: " + uniformName;
 		}
@@ -321,7 +314,7 @@ void Shader::UpdateUniformsTextRenderer(const RenderingEngine& renderingEngine)/
 				 SetUniformi(uniformName, samplerSlot);
 			 }
 			 else if (uniformName == "H_textColor")
-				 SetUniformVector3f("H_textColor", Vector3f(0, 1, 0));//setVec3(uniformName, colour.x, colour.y, colour.z);//SetUniformVector3f("H_textColor", Vector3f(0, 1, 0));
+				 SetUniformVector3f("H_textColor", colour);
 			else
 				throw "Invalid Transform Uniform: " + uniformName;
 		}

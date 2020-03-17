@@ -104,7 +104,7 @@ public:
 	void Bind() const;
 	virtual void UpdateUniforms(const Transform& transform, const Material& material, const RenderingEngine& renderingEngine, const Camera& camera, bool isTree, const glm::vec3 translationsArg[]) const;//6/3/20
 	virtual void UpdateUniforms(bool isTextRen, Matrix4f ortho, Vector3f colour);//11/3/20
-	virtual void UpdateUniformsTextRenderer(const RenderingEngine& renderingEngine);//Transform* transform, const RenderingEngine& renderingEngine, const Camera& camera);//12/3/20
+	virtual void UpdateUniformsTextRenderer(const RenderingEngine& renderingEngine, Matrix4f ortho, Vector3f colour);//17/3/20
 
 	void SetUniformi(const std::string& uniformName, int value) const;
 	void SetUniformf(const std::string& uniformName, float value) const;
@@ -114,6 +114,8 @@ public:
 	void SetUniformVector3f(const std::string& uniformName, const Vector3f& value) const;
 	//void SetUniformVector3fv(const std::string& uniformName, const glm::vec3& value) const;//3/3/20
 	void SetUniformVector3fv(const std::string& uniformName, const glm::vec3 test[]) const;//4/3/20
+
+	inline ShaderData* GetShaderData() { return m_shaderData; }//17/3/20
 protected:
 private:
 	static std::map<std::string, ShaderData*> s_resourceMap;

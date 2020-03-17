@@ -33,7 +33,7 @@ void TextRenderer::Load(std::string font, GLuint fontSize)
 		printf("ERROR::FREETYPE: Could not init FreeType Library");//std::cout << "ERROR::FREETYPE: Could not init FreeType Library" << std::endl;
 	// Load font as face
 	FT_Face face;
-	if (FT_New_Face(ft, "arial.ttf", 0, &face))
+	if (FT_New_Face(ft, font.c_str(), 0, &face))
 		printf("ERROR::FREETYPE: Failed to load font");//std::cout << "ERROR::FREETYPE: Failed to load font" << std::endl;
 	// Set size to load glyphs as
 	FT_Set_Pixel_Sizes(face, 0, fontSize);
@@ -123,13 +123,13 @@ void TextRenderer::RenderText(std::string text, GLfloat x, GLfloat y, GLfloat sc
 		GLfloat h = ch.Size.y * scale;
 		// Update VBO for each character
 		GLfloat vertices[6][4] = {
-			{ xpos,     ypos + h,   0.0, 1.0 },
-			{ xpos + w, ypos,       1.0, 0.0 },
-			{ xpos,     ypos,       0.0, 0.0 },
+			{ xpos,     ypos + h,   0.0, 0.0 },
+			{ xpos,     ypos,       0.0, 1.0 },
+			{ xpos + w, ypos,       1.0, 1.0 },
 
-			{ xpos,     ypos + h,   0.0, 1.0 },
-			{ xpos + w, ypos + h,   1.0, 1.0 },
-			{ xpos + w, ypos,       1.0, 0.0 }
+			{ xpos,     ypos + h,   0.0, 0.0 },
+			{ xpos + w, ypos,       1.0, 1.0 },
+			{ xpos + w, ypos + h,   1.0, 0.0 }
 		};
 
 		// Render glyph texture over quad
@@ -151,16 +151,19 @@ void TextRenderer::RenderText(std::string text, GLfloat x, GLfloat y, GLfloat sc
 void TextRenderer::RenderTextRenderer(const Shader& shader, const RenderingEngine& renderingEngine, const Camera& camera) {//12/3/20
 	//glClear(GL_DEPTH_BUFFER_BIT);
 
-	//glDisable(GL_CULL_FACE);
+	glDisable(GL_CULL_FACE);
 
 	glEnable(GL_BLEND);
-	//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); //This currently makes "text" disappear 
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); //This currently makes "text" disappear 
 	glDisable(GL_DEPTH_TEST);
 	this->TextShader.Bind();
-	this->TextShader.UpdateUniformsTextRenderer(renderingEngine);//GetTransform(), renderingEngine, camera);
+	this->TextShader.UpdateUniformsTextRenderer(renderingEngine, ortho, colour);//GetTransform(), renderingEngine, camera);
+
+	glUniform1i(glGetUniformLocation(TextShader.GetShaderData()->GetProgram(), "H_text"), 0);
+
 	RenderText("TEST testpqli", 20, 20, 1);
 	glEnable(GL_DEPTH_TEST);
 	glDisable(GL_BLEND);
 
-	//glEnable(GL_CULL_FACE);
+	glEnable(GL_CULL_FACE);
 }

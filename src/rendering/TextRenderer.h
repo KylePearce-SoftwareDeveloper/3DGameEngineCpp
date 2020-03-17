@@ -53,8 +53,9 @@ public:
 private:
 	// Render state
 	GLuint VAO, VBO;
-	Matrix4f ortho;
-	Material m_material;
+	Matrix4f ortho = Matrix4f().InitOrthographic(0.0f, 800.0f, 0.0f, 600.0f, 0, 10.0f);//17/3/20
+	Vector3f colour = Vector3f(0, 1, 0);
+	//Material m_material;
 };
 
 #endif 

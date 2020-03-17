@@ -255,7 +255,7 @@ void TestGame::Init(const Window& window)
 
 	//15/3/20
 	TextRenderer *textRenderer = new TextRenderer();
-	textRenderer->Load("font/arial.ttf", 50);
+	textRenderer->Load("arial.ttf", 50);
 	AddTextOnScreen(textRenderer);
 }
 
