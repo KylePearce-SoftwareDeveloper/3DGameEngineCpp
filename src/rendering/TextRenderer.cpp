@@ -124,13 +124,13 @@ void TextRenderer::RenderText(std::string text, GLfloat x, GLfloat y, GLfloat sc
 		// Update VBO for each character
 		GLfloat vertices[6][4] = {
 			{ xpos,     ypos + h,   0.0, 0.0 },
-			{ xpos,     ypos,       0.0, 1.0 },
 			{ xpos + w, ypos,       1.0, 1.0 },
+			{ xpos,     ypos,       0.0, 1.0 },
 
 			{ xpos,     ypos + h,   0.0, 0.0 },
-			{ xpos + w, ypos,       1.0, 1.0 },
-			{ xpos + w, ypos + h,   1.0, 0.0 }
-		};
+			{ xpos + w, ypos + h,   1.0, 0.0 },
+			{ xpos + w, ypos,       1.0, 1.0 }
+			};
 
 		// Render glyph texture over quad
 		glBindTexture(GL_TEXTURE_2D, ch.TextureID);
@@ -151,7 +151,7 @@ void TextRenderer::RenderText(std::string text, GLfloat x, GLfloat y, GLfloat sc
 void TextRenderer::RenderTextRenderer(const Shader& shader, const RenderingEngine& renderingEngine, const Camera& camera) {//12/3/20
 	//glClear(GL_DEPTH_BUFFER_BIT);
 
-	glDisable(GL_CULL_FACE);
+	//glDisable(GL_CULL_FACE);
 
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); //This currently makes "text" disappear 
@@ -165,5 +165,5 @@ void TextRenderer::RenderTextRenderer(const Shader& shader, const RenderingEngin
 	glEnable(GL_DEPTH_TEST);
 	glDisable(GL_BLEND);
 
-	glEnable(GL_CULL_FACE);
+	//glEnable(GL_CULL_FACE);
 }
