@@ -161,7 +161,7 @@ void TextRenderer::RenderTextRenderer(const Shader& shader, const RenderingEngin
 
 	glUniform1i(glGetUniformLocation(TextShader.GetShaderData()->GetProgram(), "H_text"), 0);
 
-	RenderText("TEST testpqli", 20, 20, 1);
+	RenderText(text, 20, 25, 1);//18/3/20
 	glEnable(GL_DEPTH_TEST);
 	glDisable(GL_BLEND);
 

@@ -23,17 +23,6 @@
 #include "components/physicsObjectComponent.h"
 #include "physics/boundingSphere.h"
 #include "rendering/TextRenderer.h"
-//#include <ft2build.h>//10/3/20 - HUD
-//#include FT_FREETYPE_H//10/3/20 - HUD
-
-//10/3/20 - HUD
-//struct Character {
-//	GLuint     TextureID;  // ID handle of the glyph texture
-//	glm::ivec2 Size;       // Size of glyph
-//	glm::ivec2 Bearing;    // Offset from baseline to left/top of glyph
-//	GLuint     Advance;    // Offset to advance to next glyph
-//};
-//std::map<GLchar, Character> Characters;
 
 class TestGame : public Game
 {
@@ -44,9 +33,9 @@ public:
 	virtual void CheckTerrainHeight(); 
 	virtual void checkTreeHeight(Entity* treePos);
 	virtual void updateSunAngle();
-	virtual float checkTreeHeightForShader(glm::vec3 treePos);//6/3/20
-	virtual void CheckTreeCollision();//6/3/20
-	//virtual void renderText();//11/3/20
+	virtual float checkTreeHeightForShader(glm::vec3 treePos);
+	virtual void CheckTreeCollision();
+	virtual void ChangeText();//18/3/20
 protected:
 private:
 	TestGame(const TestGame& other) {}
@@ -58,83 +47,13 @@ private:
 	std::vector<Mesh*> meshObjects;
 	std::vector<DirectionalLight*> directionalLightObjects;
 	float sunCount = 0;
-	glm::vec3 translations[1000];//6/3/20
-	//TextRenderer  *Text;//11/3/20
-	//std::vector<TextRenderer*> textRendererObjects;//11/3/20
+	glm::vec3 translations[1000];
+	TextRenderer  *textRenderer;//18/3/20
+	Vector3f *textChangePos = new Vector3f(-75, 10, -200);
 };
 
 void TestGame::Init(const Window& window)
 {
-	//10/3/20 - HUD ------------------------------------------------------------------------------------------------------------------------------------------
-	//FT_Library ft;
-	//if (FT_Init_FreeType(&ft))
-	//	printf("ERROR::FREETYPE: Could not init FreeType Library\n");//std::cout << "ERROR::FREETYPE: Could not init FreeType Library" << std::endl;
-
-	//FT_Face face;
-	//if (FT_New_Face(ft, "font/arial.ttf", 0, &face))
-	//	printf("ERROR::FREETYPE: Failed to load font\n");//std::cout << "ERROR::FREETYPE: Failed to load font" << std::endl;
-
-	//FT_Set_Pixel_Sizes(face, 0, 48);
-
-	//if (FT_Load_Char(face, 'X', FT_LOAD_RENDER))
-	//	printf("ERROR::FREETYTPE: Failed to load Glyph\n");//std::cout << "ERROR::FREETYTPE: Failed to load Glyph" << std::endl;
-
-	//glPixelStorei(GL_UNPACK_ALIGNMENT, 1); // Disable byte-alignment restriction
-
-	//for (GLubyte c = 0; c < 128; c++)
-	//{
-	//	// Load character glyph 
-	//	if (FT_Load_Char(face, c, FT_LOAD_RENDER))
-	//	{
-	//		printf("ERROR::FREETYTPE: Failed to load Glyph\n");//std::cout << "ERROR::FREETYTPE: Failed to load Glyph" << std::endl;
-	//		continue;
-	//	}
-	//	// Generate texture
-	//	GLuint texture;
-	//	glGenTextures(1, &texture);
-	//	glBindTexture(GL_TEXTURE_2D, texture);
-	//	glTexImage2D(
-	//		GL_TEXTURE_2D,
-	//		0,
-	//		GL_RED,
-	//		face->glyph->bitmap.width,
-	//		face->glyph->bitmap.rows,
-	//		0,
-	//		GL_RED,
-	//		GL_UNSIGNED_BYTE,
-	//		face->glyph->bitmap.buffer
-	//	);
-	//	// Set texture options
-	//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-	//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-	//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	//	// Now store character for later use
-	//	Character character = {
-	//		texture,
-	//		glm::ivec2(face->glyph->bitmap.width, face->glyph->bitmap.rows),
-	//		glm::ivec2(face->glyph->bitmap_left, face->glyph->bitmap_top),
-	//		face->glyph->advance.x
-	//	};
-	//	Characters.insert(std::pair<GLchar, Character>(c, character));
-	//}
-	//FT_Done_Face(face);
-	//FT_Done_FreeType(ft);
-	//10/3/20 - HUD ------------------------------------------------------------------------------------------------------------------------------------------
-	//Texture hudTexture = Texture(true);
-	//Material HUD("bricks", hudTexture, 0.0f, 0,
-		//hudTexture, hudTexture, 0.03f, -0.5f);
-
-	////11/3/20
-	//Entity *textRendererObject = new Entity(Vector3f(0, 0, 0), Quaternion(), 1.0f);
-	//Text = new TextRenderer(50, 50);
-	//Text->Load("font/arial.ttf", 5);
-	////Vector3f colour = Vector3f(0,1,0);
-	////Text->RenderText("Lives:", 50.0f, 50.0f, 1.0f, colour);
-	////textRendererObjects.push_back(Text);
-	//textRendererObject->AddComponent(Text);
-	//AddToScene(textRendererObject);
-
 	Material bricks("bricks", Texture("bricks.jpg"), 0.0f, 0, 
 			Texture("bricks_normal.jpg"), Texture("bricks_disp.png"), 0.03f, -0.5f);
 	Material bricks2("bricks2", Texture("bricks2.jpg"), 0.0f, 0, 
@@ -145,17 +64,8 @@ void TestGame::Init(const Window& window)
 		Texture("black.jpg"), Texture("black_disp.jpg"), 0.04f, -1.0f);
 	Material cyan("cyan", Texture("cyan.png"), 0.0f, 0,
 		Texture("cyan.png"), Texture("cyan_disp.png"), 0.04f, -1.0f);
-
-	/*
-	Entity *terrainObject = new Entity(Vector3f(0, 0, 0), Quaternion(), 1.0f);
-	Mesh *terrainMesh = new Mesh("terrainBigger.obj");
-	meshObjects.push_back(terrainMesh);
-	Material *terraineMaterial = new Material("magenta");
-	MeshRenderer *terrainRenderer = new MeshRenderer(*terrainMesh, *terraineMaterial);
-	terrainObjects.push_back(terrainRenderer);
-	terrainObject->AddComponent(terrainRenderer);
-	AddToScene(terrainObject);
-	*/
+	Material grey("grey", Texture("grey.png"), 0.0f, 0,
+		Texture("grey.png"), Texture("grey_disp.png"), 0.04f, -1.0f);
 
 	//24/2/20 test - new terrain
 	Entity *newTerrainObject = new Entity(Vector3f(0, 0, 0), Quaternion(), 1.0f);
@@ -194,68 +104,47 @@ void TestGame::Init(const Window& window)
 	player->AddComponent(playerLook);
 	player->AddComponent(playerCamera);
 	AddToScene(player);
-	/*
-	trees.reserve(100);
-	treeObjects.reserve(100);
-	for (int i = 0; i < 100; i++) {
-		trees.push_back(new MeshRenderer(Mesh("Lowpoly_tree_sample.obj"), Material("black")));//, false));
-	}
 
-	for (int i = 0; i < 100; i++) {
-		treeObjects.push_back((new Entity(Vector3f(-550 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (550 - (-550)))), 0.0f, -550 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (550 - (-550))))), Quaternion(Vector3f(0, 1, 0), ToRadians(0 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (360 - 0))))), 1.0f))->AddComponent(trees[i]));//treeObjects.push_back((new Entity(Vector3f(rand() % 200 + (-200), 0.0f, rand() % 200 + (-200)), Quaternion(Vector3f(0, 1, 0), ToRadians(rand() % 360 + (0))), 1.0f))->AddComponent(trees[i]));
-		checkTreeHeight(treeObjects[i]);
-		//printf("Tree X Pos: %f\n", treeObjects[i]->GetTransform()->GetPos()->GetX());
-		//printf("Tree Z Pos: %f\n", treeObjects[i]->GetTransform()->GetPos()->GetZ());
-	}
-	for (int i = 0; i < 100; i++) {
-		AddToScene(treeObjects[i]);
-	}
-	*/
-
-	//glm::vec3 translations[1000];//6/3/20
 	for (int i = 0; i < 1000; i++) {
 		translations[i] = glm::vec3(-550 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (550 - (-550)))), 0, -550 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (550 - (-550)))));
 		float height = checkTreeHeightForShader(translations[i]);
 		translations[i].y = height;
 	}
 
-	//1/3/20
 	Entity *treeObject = new Entity(Vector3f(0, 0, 0), Quaternion(), 1.0f);
 	Mesh *treeMesh = new Mesh("Lowpoly_tree_sample.obj");
 	Material *treeMaterial = new Material("black");
 	MeshRenderer *treeRenderer = new MeshRenderer(*treeMesh, *treeMaterial);
-	treeRenderer->setTranslations(translations);//6/3/20
+	treeRenderer->setTranslations(translations);
 	treeRenderer->setIsTree(true);
 	checkTreeHeight(treeObject);
 	treeObject->AddComponent(treeRenderer);
 	AddToScene(treeObject);
 
-	//7/3/20 - tree shells for shadows
-	/*
-	trees.reserve(1000);
-	treeObjects.reserve(1000);
-	for (int i = 0; i < 1000; i++) {
-		trees.push_back(new MeshRenderer(Mesh("Lowpoly_tree_sample.obj"), Material("black"), false));
-	}
+	//18/3/20 - House
+	Entity *houseObject = new Entity(Vector3f(-75, 10, -200), Quaternion(Vector3f(0, 1, 0), ToRadians(-60.0f)), 1.0f);
+	Mesh *houseMesh = new Mesh("MyHouse4.obj");
+	Material *houseMaterial = new Material("grey");
+	MeshRenderer *houseRenderer = new MeshRenderer(*houseMesh, *houseMaterial);
+	houseObject->AddComponent(houseRenderer);
+	AddToScene(houseObject);
+	Entity *doorObject = new Entity(Vector3f(-65.75, 10, -184), Quaternion(Vector3f(0, 1, 0), ToRadians(-60.0f)), 1.0f);
+	Mesh *doorMesh = new Mesh("MyHouseDoor.obj");
+	Material *doorMaterial = new Material("grey");
+	MeshRenderer *doorRenderer = new MeshRenderer(*doorMesh, *doorMaterial);
+	doorObject->AddComponent(doorRenderer);
+	AddToScene(doorObject);
 
-	for (int i = 0; i < 1000; i++) {
-		treeObjects.push_back((new Entity(Vector3f(translations[i].x, translations[i].y, translations[i].z), Quaternion(), 1.0f))->AddComponent(trees[i]));
-	}
-	for (int i = 0; i < 1000; i++) {
-		AddToScene(treeObjects[i]);
-	}
-	*/
+	//18/3/20 - Point Light
+	Entity *lightBulb = new Entity(Vector3f(-75, 10, -200), Quaternion(), 1.0f);
+	PointLight *pointLight = new PointLight(Vector3f(1, 1, 1), 40, Attenuation(0, 0, 1));//, 0.4f, 0.4f);
+	lightBulb->AddComponent(pointLight);
+	AddToScene(lightBulb);
 
-	//14/3/20
-	/*Entity *textRendererObject = new Entity(Vector3f(0, 0, 0), Quaternion(), 1.0f);
-	Text = new TextRenderer(50, 50);
-	Text->Load("font/arial.ttf", 5);
-	textRendererObject->AddComponent(Text);
-	AddToScene(textRendererObject);*/
-
-	//15/3/20
-	TextRenderer *textRenderer = new TextRenderer();
-	textRenderer->Load("arial.ttf", 50);
+	//18/3/20
+	textRenderer = new TextRenderer();
+	textRenderer->Load("Gputeks-Regular.ttf", 25);
+	textRenderer->setText("Objective: Visit the Engine Learning Center");
 	AddTextOnScreen(textRenderer);
 }
 
@@ -273,28 +162,7 @@ void TestGame::CheckTerrainHeight()
 }
 
 void TestGame::checkTreeHeight(Entity* treeObject)
-{
-	/*
-	float treeHeight = 5.0f;
-
-	for (Vector3f currentVector : meshObjects[0]->getMeshVertices()) {
-		Vector3f vertexPos = currentVector;
-		Vector3f vertexScale(2.0f, 2.0f, 2.0f);
-		Vector3f *treePos = treeObject->GetTransform()->GetPos();
-		Vector3f testPlayerScale(2.0f, 2.0f, 2.0f);
-
-		Vector3f tmp(treePos->GetX(), treePos->GetY() - 1.0f, treePos->GetZ());
-		//check the X axis
-		if (abs(tmp.GetX() - vertexPos.GetX()) < testPlayerScale.GetX() + (vertexScale.GetX()) / 1.0f) {
-			//check the Z axis
-			if (abs(tmp.GetZ() - vertexPos.GetZ()) < testPlayerScale.GetZ() + (vertexScale.GetZ()) / 1.0f) {
-				treeObject->GetTransform()->GetPos()->SetY(vertexPos.GetY());
-			}
-		}
-	}
-	*/
-
-	
+{	
 	Vector3f *testTreePos = treeObject->GetTransform()->GetPos();
 	Vector3f treePos(testTreePos->GetX(), testTreePos->GetY() - 1.0f, testTreePos->GetZ());
 	float terrainheightAtTreePos = meshObjects[0]->newTerrainHeightFuncFloat(treePos);
@@ -307,22 +175,20 @@ void TestGame::checkTreeHeight(Entity* treeObject)
 	
 }
 
-float TestGame::checkTreeHeightForShader(glm::vec3 treePosArg)//6/3/20
+float TestGame::checkTreeHeightForShader(glm::vec3 treePosArg)
 {
-	//Vector3f *testTreePos = treeObject->GetTransform()->GetPos();
 	Vector3f treePos(treePosArg.x, treePosArg.y, treePosArg.z);
 	float terrainheightAtTreePos = meshObjects[0]->newTerrainHeightFuncFloat(treePos);
 	if (terrainheightAtTreePos == 10000.0f) {
 		return 0;
 	}
 	else {
-		//treePosArg.y = terrainheightAtTreePos;
 		return terrainheightAtTreePos;
 	}
 
 }
 
-void TestGame::CheckTreeCollision()//6/3/20
+void TestGame::CheckTreeCollision()
 {
 	Vector3f *testPlayerPos = freeMoveObjects[0]->GetParent()->GetTransform()->GetPos();
 	Vector3f playerPos(testPlayerPos->GetX(), testPlayerPos->GetY() - 1.0f, testPlayerPos->GetZ());
@@ -335,14 +201,17 @@ void TestGame::CheckTreeCollision()//6/3/20
 	}
 }
 
+void TestGame::ChangeText()//18/3/20
+{
+	Vector3f *testPlayerPos = freeMoveObjects[0]->GetParent()->GetTransform()->GetPos();
+	Vector3f playerPos(testPlayerPos->GetX(), testPlayerPos->GetY() - 1.0f, testPlayerPos->GetZ());
+	if (abs(playerPos.GetX() - textChangePos->GetX()) < 5.0f + 5.0f / 2.0f)
+		if (abs(playerPos.GetZ() - textChangePos->GetZ()) < 5.0f + 5.0f / 2.0f)
+			textRenderer->setText("WELCOME");
+}
+
 void TestGame::updateSunAngle()
 {
-	/*
-	directionalLightObjects[0]->GetParent()->GetTransform()->GetRot()->SetX(directionalLightObjects[0]->GetParent()->GetTransform()->GetRot()->GetX() + 0.0001f);
-	directionalLightObjects[0]->GetParent()->GetTransform()->GetRot()->SetY(directionalLightObjects[0]->GetParent()->GetTransform()->GetRot()->GetY() + 0.0001f);
-	directionalLightObjects[0]->GetParent()->GetTransform()->GetRot()->SetZ(directionalLightObjects[0]->GetParent()->GetTransform()->GetRot()->GetZ() + 0.0001f);
-	directionalLightObjects[0]->GetParent()->GetTransform()->GetRot()->SetW(directionalLightObjects[0]->GetParent()->GetTransform()->GetRot()->GetW() + 0.0001f);
-	*/
 	sunCount-=0.1f;
 	if (sunCount <= -135.0f) {
 		sunCount = -135.0f;
@@ -356,13 +225,7 @@ void TestGame::updateSunAngle()
 	
 }
 
-//void TestGame::renderText() {
-//	textRendererObjects[0]->RenderText("Lives:", 50.0f, 50.0f, 1.0f, Vector3f(0,1,0));
-//	//printf("IN_RENDER_TEXT");
-//}
-
 #include <iostream>
-
 int main()
 {
 	Testing::RunAllTests();

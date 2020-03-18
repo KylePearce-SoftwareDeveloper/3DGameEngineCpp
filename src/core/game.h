@@ -43,6 +43,7 @@ public:
 	virtual void updateSunAngle() {}
 	virtual void CheckTreeCollision() {}//6/3/20
 	//virtual void renderText() {}//11/3/20
+	virtual void ChangeText() {}//18/3/20
 protected:
 	void AddToScene(Entity* child) { m_root.AddChild(child); }
 	void AddTextOnScreen(TextRenderer *textRendererObjectArg) { textRendererObject = textRendererObjectArg; }//15/3/20

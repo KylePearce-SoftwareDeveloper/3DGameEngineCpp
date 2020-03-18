@@ -50,11 +50,15 @@ public:
 	/*{
 		RenderText("Lives:", 50.0f, 50.0f, 1.0f, Vector3f(0, 1, 0));
 	}*/
+
+	inline std::string getText() { return text; }//18/3/20
+	inline void setText(std::string textArg) { text = textArg; }//18/3/20
 private:
 	// Render state
 	GLuint VAO, VBO;
 	Matrix4f ortho = Matrix4f().InitOrthographic(0.0f, 800.0f, 0.0f, 600.0f, 0, 10.0f);//17/3/20
-	Vector3f colour = Vector3f(0, 1, 0);
+	Vector3f colour = Vector3f(1, 1, 1);
+	std::string text;//18/3/20
 	//Material m_material;
 };
 
