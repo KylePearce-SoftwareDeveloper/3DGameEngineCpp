@@ -55,6 +55,7 @@ void FreeMove::Update(float delta) {//2/2/20 test
 	GetParent()->GetEngine()->GetGame()->CheckTreeCollision();//6/3/20
 	//GetParent()->GetEngine()->GetGame()->renderText();//11/3/20
 	GetParent()->GetEngine()->GetGame()->ChangeText();//18/3/20
+	GetParent()->GetEngine()->GetGame()->CheckCollisionWithModel();//19/3/20
 }
 /*
 Vector3f* FreeMove::getOldPos() {

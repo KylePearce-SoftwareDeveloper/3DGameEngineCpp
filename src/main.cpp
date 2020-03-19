@@ -36,6 +36,7 @@ public:
 	virtual float checkTreeHeightForShader(glm::vec3 treePos);
 	virtual void CheckTreeCollision();
 	virtual void ChangeText();//18/3/20
+	virtual void CheckCollisionWithModel();//19/3/20
 protected:
 private:
 	TestGame(const TestGame& other) {}
@@ -50,6 +51,9 @@ private:
 	glm::vec3 translations[1000];
 	TextRenderer  *textRenderer;//18/3/20
 	Vector3f *textChangePos = new Vector3f(-75, 10, -200);
+	std::vector<Mesh*> buildingMeshes;//19/3/20
+	std::vector<MeshRenderer*> meshRendererCollisionObjects;//19/3/20
+	std::vector<Vector3f> meshRendererCollisionScales;//19/3/20
 };
 
 void TestGame::Init(const Window& window)
@@ -122,18 +126,75 @@ void TestGame::Init(const Window& window)
 	AddToScene(treeObject);
 
 	//18/3/20 - House
-	Entity *houseObject = new Entity(Vector3f(-75, 10, -200), Quaternion(Vector3f(0, 1, 0), ToRadians(-60.0f)), 1.0f);
+	/*Entity *houseObject = new Entity(Vector3f(-75, 10, -200), Quaternion(Vector3f(0, 1, 0), ToRadians(-60.0f)), 1.0f);
 	Mesh *houseMesh = new Mesh("MyHouse4.obj");
+	buildingMeshes.push_back(houseMesh);
 	Material *houseMaterial = new Material("grey");
 	MeshRenderer *houseRenderer = new MeshRenderer(*houseMesh, *houseMaterial);
 	houseObject->AddComponent(houseRenderer);
 	AddToScene(houseObject);
 	Entity *doorObject = new Entity(Vector3f(-65.75, 10, -184), Quaternion(Vector3f(0, 1, 0), ToRadians(-60.0f)), 1.0f);
 	Mesh *doorMesh = new Mesh("MyHouseDoor.obj");
+	buildingMeshes.push_back(doorMesh);
 	Material *doorMaterial = new Material("grey");
 	MeshRenderer *doorRenderer = new MeshRenderer(*doorMesh, *doorMaterial);
 	doorObject->AddComponent(doorRenderer);
-	AddToScene(doorObject);
+	AddToScene(doorObject);*/
+	meshRendererCollisionScales.push_back(Vector3f(45, 10, 1));//wallType1.obj
+	meshRendererCollisionScales.push_back(Vector3f(45, 10, 1));//wallType1.obj
+	meshRendererCollisionScales.push_back(Vector3f(1, 10, 30));//wallType2.obj
+	//meshRendererCollisionScales.push_back(Vector3f());//roof.obj
+	meshRendererCollisionScales.push_back(Vector3f(1, 10, 12));//door.obj
+	meshRendererCollisionScales.push_back(Vector3f(1, 10, 12));//door.obj
+
+	Material *houseMaterial = new Material("grey");
+
+	Mesh *wall1Mesh = new Mesh("wallType1.obj");
+	Mesh *wall2Mesh = new Mesh("wallType1.obj");
+	Mesh *wallType2Mesh = new Mesh("wallType2.obj");
+	Mesh *roofMesh = new Mesh("roof.obj");
+	Mesh *door1Mesh = new Mesh("door.obj");
+	Mesh *door2Mesh = new Mesh("door.obj");
+
+	MeshRenderer *wall1Renderer = new MeshRenderer(*wall1Mesh, *houseMaterial);
+	meshRendererCollisionObjects.push_back(wall1Renderer);
+	MeshRenderer *wall2Renderer = new MeshRenderer(*wall2Mesh, *houseMaterial);
+	meshRendererCollisionObjects.push_back(wall2Renderer);
+	MeshRenderer *wall3Renderer = new MeshRenderer(*wallType2Mesh, *houseMaterial);
+	meshRendererCollisionObjects.push_back(wall3Renderer);
+	MeshRenderer *roofRenderer = new MeshRenderer(*roofMesh, *houseMaterial);
+	//meshRendererCollisionObjects.push_back();
+	MeshRenderer *door1Renderer = new MeshRenderer(*door1Mesh, *houseMaterial);
+	meshRendererCollisionObjects.push_back(door1Renderer);
+	MeshRenderer *door2Renderer = new MeshRenderer(*door2Mesh, *houseMaterial);
+	meshRendererCollisionObjects.push_back(door2Renderer);
+
+	Entity *wall1Entity = new Entity(Vector3f(-75, 10, -229), Quaternion(), 1.0f);
+	wall1Entity->AddComponent(wall1Renderer);
+	//AddToScene(wall1Entity);
+	Entity *wall2Entity = new Entity(Vector3f(-75, 10, -171), Quaternion(), 1.0f);
+	wall2Entity->AddComponent(wall2Renderer);
+	//AddToScene(wall2Entity);
+	Entity *wall3Entity = new Entity(Vector3f(-119, 10, -200), Quaternion(), 1.0f);
+	wall3Entity->AddComponent(wall3Renderer);
+	//AddToScene(wall3Entity);
+	Entity *roofEntity = new Entity(Vector3f(-75, 19, -200), Quaternion(), 1.0f);
+	roofEntity->AddComponent(roofRenderer);
+	//AddToScene(roofEntity);
+	Entity *door1Entity = new Entity(Vector3f(-31, 10, -218), Quaternion(), 1.0f);
+	door1Entity->AddComponent(door1Renderer);
+	//AddToScene(door1Entity);
+	Entity *door2Entity = new Entity(Vector3f(-31, 10, -182), Quaternion(), 1.0f);
+	door2Entity->AddComponent(door2Renderer);
+	//AddToScene(door2Entity);
+
+	AddToScene(wall1Entity);
+	AddToScene(wall2Entity);
+	AddToScene(wall3Entity);
+	AddToScene(roofEntity);
+	AddToScene(door1Entity);
+	AddToScene(door2Entity);
+	
 
 	//18/3/20 - Point Light
 	Entity *lightBulb = new Entity(Vector3f(-75, 10, -200), Quaternion(), 1.0f);
@@ -222,6 +283,40 @@ void TestGame::updateSunAngle()
 		directionalLightObjects[0]->SetIntensity(0.4f);
 	}
 	directionalLightObjects[0]->GetParent()->GetTransform()->SetRot(Quaternion(Vector3f(1, 0, 0), ToRadians(sunCount)));
+	
+}
+
+void TestGame::CheckCollisionWithModel()//19/3/20
+{
+	/*Vector3f *testPlayerPos = freeMoveObjects[0]->GetParent()->GetTransform()->GetPos();
+	Vector3f playerPos(testPlayerPos->GetX(), testPlayerPos->GetY() - 1.0f, testPlayerPos->GetZ());
+	Vector3f playerScale(1.0f, 1.0f, 1.0f);*/
+	/*bool isCollision1 = buildingMeshes[0]->checkCollisionWithMesh(playerPos, Vector3f(-75, 10, -200));
+	bool isCollision2 = buildingMeshes[1]->checkCollisionWithMesh(playerPos, Vector3f(-65.75, 10, -184));
+	if (isCollision1) {
+		freeMoveObjects[0]->GetParent()->GetTransform()->SetPos(Vector3f(freeMoveObjects[0]->getOldPos()->GetX(), freeMoveObjects[0]->getOldPos()->GetY(), freeMoveObjects[0]->getOldPos()->GetZ()));
+		return;
+	}
+	else if (isCollision2) {
+		freeMoveObjects[0]->GetParent()->GetTransform()->SetPos(Vector3f(freeMoveObjects[0]->getOldPos()->GetX(), freeMoveObjects[0]->getOldPos()->GetY(), freeMoveObjects[0]->getOldPos()->GetZ()));
+		return;
+	}
+	else {
+		return;
+	}*/
+
+	//19/3/20
+	Vector3f *testPlayerPos = freeMoveObjects[0]->GetParent()->GetTransform()->GetPos();
+	Vector3f playerPos(testPlayerPos->GetX(), testPlayerPos->GetY() - 1.0f, testPlayerPos->GetZ());
+	Vector3f playerScale(0.5f, 0.5f, 0.5f);
+	for (int i = 0; i < meshRendererCollisionObjects.size(); i++) {
+		Vector3f* meshPos = meshRendererCollisionObjects[i]->GetParent()->GetTransform()->GetPos();
+		if (abs(playerPos.GetX() - meshPos->GetX()) < playerScale.GetX() + meshRendererCollisionScales[i].GetX() / 1.0f)
+			if (abs(playerPos.GetZ() - meshPos->GetZ()) < playerScale.GetZ() + meshRendererCollisionScales[i].GetZ() / 1.0f) {
+				freeMoveObjects[0]->GetParent()->GetTransform()->SetPos(Vector3f(freeMoveObjects[0]->getOldPos()->GetX(), freeMoveObjects[0]->getOldPos()->GetY(), freeMoveObjects[0]->getOldPos()->GetZ()));
+				return;
+			}
+	}
 	
 }
 

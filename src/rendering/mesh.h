@@ -110,18 +110,19 @@ public:
 
 	void Draw() const;
 	void DrawTree() const;//1/3/20
-	virtual std::vector<Vector3f> getMeshVertices();// {}//2/2/20 test
+	//virtual std::vector<Vector3f> getMeshVertices();// {}//2/2/20 test
 	//virtual std::vector<unsigned int> getMeshIndices();// {}//4/2/20 test
 	//virtual Vector3f& checkMeshVertices(Vector3f* playerPos);//5/2/20
-	virtual bool checkMeshVerticesX(int playerPosX);//6/2/20
-	virtual bool checkMeshVerticesZ(int playerPosZ);//6/2/20
-	virtual int getMeshYHeight(int playerPosX, int playerPosZ);//15/2/20
+	//virtual bool checkMeshVerticesX(int playerPosX);//6/2/20
+	//virtual bool checkMeshVerticesZ(int playerPosZ);//6/2/20
+	//virtual int getMeshYHeight(int playerPosX, int playerPosZ);//15/2/20
 	//--------------------------------------------------------------------float version-----------------------16/2/20
-	virtual bool checkMeshVerticesXFloat(float playerPosX);//6/2/20
-	virtual bool checkMeshVerticesZFloat(float playerPosZ);//6/2/20
-	virtual float getMeshYHeightFloat(float playerPosX, float playerPosZ);//15/2/20
-	virtual int newTerrainheightFunc(Vector3i playerPos);//17/2/20 -  new terrain collision method
+	//virtual bool checkMeshVerticesXFloat(float playerPosX);//6/2/20
+	//virtual bool checkMeshVerticesZFloat(float playerPosZ);//6/2/20
+	//virtual float getMeshYHeightFloat(float playerPosX, float playerPosZ);//15/2/20
+	//virtual int newTerrainheightFunc(Vector3i playerPos);//17/2/20 -  new terrain collision method
 	virtual float newTerrainHeightFuncFloat(Vector3f playerPos);//17/2/20 -  new terrain collision method (FLOAT VERSION)
+	virtual bool checkCollisionWithMesh(Vector3f playerPos, Vector3f entityOffset);//19/3/20
 protected:
 private:
 	static std::map<std::string, MeshData*> s_resourceMap;
