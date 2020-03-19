@@ -70,6 +70,8 @@ void TestGame::Init(const Window& window)
 		Texture("cyan.png"), Texture("cyan_disp.png"), 0.04f, -1.0f);
 	Material grey("grey", Texture("grey.png"), 0.0f, 0,
 		Texture("grey.png"), Texture("grey_disp.png"), 0.04f, -1.0f);
+	Material red("red", Texture("red.png"), 0.0f, 0,
+		Texture("red.png"), Texture("red_disp.png"), 0.04f, -1.0f);
 
 	//24/2/20 test - new terrain
 	Entity *newTerrainObject = new Entity(Vector3f(0, 0, 0), Quaternion(), 1.0f);
@@ -194,6 +196,56 @@ void TestGame::Init(const Window& window)
 	AddToScene(roofEntity);
 	AddToScene(door1Entity);
 	AddToScene(door2Entity);
+	
+
+	//19/3/20 - Wall Pannels
+	Material *engineCoreMaterial = new Material("red");
+	Mesh *engineCore1Mesh = new Mesh("wallPannelType1.obj");
+	Mesh *engineCore2Mesh = new Mesh("wallPannelType1.obj");
+	Mesh *engineCore3Mesh = new Mesh("wallPannelType1.obj");
+	Mesh *engineCore4Mesh = new Mesh("wallPannelType1.obj");
+	Mesh *engineCore5Mesh = new Mesh("wallPannelType1.obj");
+	Mesh *engineCore6Mesh = new Mesh("wallPannelType1.obj");
+	Mesh *engineCore7Mesh = new Mesh("wallPannelType2.obj");
+	Mesh *engineCore8Mesh = new Mesh("wallPannelType2.obj");
+	MeshRenderer *engineCore1Renderer = new MeshRenderer(*engineCore1Mesh, *engineCoreMaterial);
+	MeshRenderer *engineCore2Renderer= new MeshRenderer(*engineCore2Mesh, *engineCoreMaterial);
+	MeshRenderer *engineCore3Renderer = new MeshRenderer(*engineCore3Mesh, *engineCoreMaterial);
+	MeshRenderer *engineCore4Renderer = new MeshRenderer(*engineCore4Mesh, *engineCoreMaterial);
+	MeshRenderer *engineCore5Renderer = new MeshRenderer(*engineCore5Mesh, *engineCoreMaterial);
+	MeshRenderer *engineCore6Renderer = new MeshRenderer(*engineCore6Mesh, *engineCoreMaterial);
+	MeshRenderer *engineCore7Renderer = new MeshRenderer(*engineCore7Mesh, *engineCoreMaterial);
+	MeshRenderer *engineCore8Renderer = new MeshRenderer(*engineCore8Mesh, *engineCoreMaterial);
+	Entity *engineCore1Entity = new Entity(Vector3f(-50, 8, -227), Quaternion(), 1.0f);
+	engineCore1Entity->AddComponent(engineCore1Renderer);
+	Entity *engineCore2Entity = new Entity(Vector3f(-75, 8, -227), Quaternion(), 1.0f);
+	engineCore2Entity->AddComponent(engineCore2Renderer);
+	Entity *engineCore3Entity = new Entity(Vector3f(-100, 8, -227), Quaternion(), 1.0f);
+	engineCore3Entity->AddComponent(engineCore3Renderer);
+	Entity *engineCore4Entity = new Entity(Vector3f(-50, 8, -173), Quaternion(), 1.0f);
+	engineCore4Entity->AddComponent(engineCore4Renderer);
+	Entity *engineCore5Entity = new Entity(Vector3f(-75, 8, -173), Quaternion(), 1.0f);
+	engineCore5Entity->AddComponent(engineCore5Renderer);
+	Entity *engineCore6Entity = new Entity(Vector3f(-100, 8, -173), Quaternion(), 1.0f);
+	engineCore6Entity->AddComponent(engineCore6Renderer);
+	Entity *engineCore7Entity = new Entity(Vector3f(-117, 8, -189), Quaternion(), 1.0f);
+	engineCore7Entity->AddComponent(engineCore7Renderer);
+	Entity *engineCore8Entity = new Entity(Vector3f(-117, 8, -215), Quaternion(), 1.0f);
+	engineCore8Entity->AddComponent(engineCore8Renderer);
+	AddToScene(engineCore1Entity);
+	AddToScene(engineCore2Entity);
+	AddToScene(engineCore3Entity);
+	AddToScene(engineCore4Entity);
+	AddToScene(engineCore5Entity);
+	AddToScene(engineCore6Entity);
+	AddToScene(engineCore7Entity);
+	AddToScene(engineCore8Entity);
+
+	/*Entity *engineCoreEntity = new Entity(Vector3f(-75, 10, -200), Quaternion(), 1.0f);
+	Mesh *engineCoreMesh = new Mesh("wallPannelBigger.obj");
+	MeshRenderer *engineCoreRenderer = new MeshRenderer(*engineCoreMesh, *engineCoreMaterial);
+	engineCoreEntity->AddComponent(engineCoreRenderer);
+	AddToScene(engineCoreEntity);*/
 	
 
 	//18/3/20 - Point Light
