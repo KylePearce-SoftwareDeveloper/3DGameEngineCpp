@@ -95,10 +95,29 @@ void TextRenderer::RenderText(std::string text, GLfloat x, GLfloat y, GLfloat sc
 	glActiveTexture(GL_TEXTURE0);
 	glBindVertexArray(this->VAO);
 
+	//NewLineLogic
+	GLfloat yOffset = 0;
+	GLfloat xOffset = 0;
+	bool draw;
+	//std::string checkToken;
+	//checkToken = "f";
+	const char checkToken = ';';
+
 	// Iterate through all characters
 	std::string::const_iterator c;
 	for (c = text.begin(); c != text.end(); c++)
 	{
+		if (*c == checkToken) {//NewLineLogic
+			yOffset += 25;
+			if (xOffset = x - 5)
+				xOffset = 0;
+			xOffset += x - 5;//400;//x - 5;
+			draw = false;
+		}
+		else {
+			draw = true;
+		}
+
 		Character ch = Characters[*c];
 
 		//GLfloat xpos = x + ch.Bearing.x * scale;
@@ -116,8 +135,8 @@ void TextRenderer::RenderText(std::string text, GLfloat x, GLfloat y, GLfloat sc
 		//	{ xpos + w, ypos + h,   1.0, 1.0 },
 		//	{ xpos + w, ypos,       1.0, 0.0 }
 		//};
-		GLfloat xpos = x + ch.Bearing.x * scale;
-		GLfloat ypos = y - (ch.Size.y - ch.Bearing.y) * scale;
+		GLfloat xpos = (x + ch.Bearing.x * scale) - xOffset;//NewLineLogic
+		GLfloat ypos = (y - (ch.Size.y - ch.Bearing.y) * scale) - yOffset;//NewLineLogic
 
 		GLfloat w = ch.Size.x * scale;
 		GLfloat h = ch.Size.y * scale;
@@ -140,7 +159,8 @@ void TextRenderer::RenderText(std::string text, GLfloat x, GLfloat y, GLfloat sc
 
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 		// Render quad
-		glDrawArrays(GL_TRIANGLES, 0, 6);
+		if(draw)
+			glDrawArrays(GL_TRIANGLES, 0, 6);
 		// Now advance cursors for next glyph
 		x += (ch.Advance >> 6) * scale; // Bitshift by 6 to get value in pixels (1/64th times 2^6 = 64)
 	}

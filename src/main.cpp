@@ -623,9 +623,29 @@ void TestGame::ChangeText()//18/3/20
 							textRenderer->setX(5);
 							touchedOncePostGamePlayOne = true;
 							if (freeMoveObjects[0]->GetParent()->GetEngine()->GetWindow()->GetInput().GetKey(Input::KEY_E)) {
-								textRenderer->setText("Learning Stuff (press 'R' to close info)");
-								textRenderer->setY(300);
-								textRenderer->setX(50);
+								textRenderer->setY(550);
+								textRenderer->setX(10);
+								textRenderer->setText("Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+									                  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+									                  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff");
 								currentlyLearning = true;
 								startGameplayTwo = true;
 								gameplayOneCurrentlyHappening = false;
@@ -765,9 +785,29 @@ void TestGame::ChangeText()//18/3/20
 							touchedOncePostGamePlayTwo = true;
 						}
 						if (freeMoveObjects[0]->GetParent()->GetEngine()->GetWindow()->GetInput().GetKey(Input::KEY_E) && !currentlyLearning) {
-							textRenderer->setText("Learning Stuff (press 'R' to close info)");
-							textRenderer->setY(300);
-							textRenderer->setX(50);
+							textRenderer->setText("Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+									                  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+									                  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff");
+							textRenderer->setY(550);
+							textRenderer->setX(10);
 							currentlyLearning = true;
 							startGameplayThree = true;
 							gameplayTwoCurrentlyHappening = false;
@@ -896,9 +936,29 @@ void TestGame::ChangeText()//18/3/20
 							touchedOncePostGamePlayThree = true;
 						}
 						if (freeMoveObjects[0]->GetParent()->GetEngine()->GetWindow()->GetInput().GetKey(Input::KEY_E) && !currentlyLearning) {
-							textRenderer->setText("Learning Stuff (press 'R' to close info)");
-							textRenderer->setY(300);
-							textRenderer->setX(50);
+							textRenderer->setText("Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+									                  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+									                  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff");
+							textRenderer->setY(550);
+							textRenderer->setX(10);
 							currentlyLearning = true;
 							startGameplayFour = true;
 							gameplayThreeCurrentlyHappening = false;
@@ -1027,9 +1087,29 @@ void TestGame::ChangeText()//18/3/20
 							touchedOncePostGamePlayFour = true;
 						}
 						if (freeMoveObjects[0]->GetParent()->GetEngine()->GetWindow()->GetInput().GetKey(Input::KEY_E) && !currentlyLearning) {
-							textRenderer->setText("Learning Stuff (press 'R' to close info)");
-							textRenderer->setY(300);
-							textRenderer->setX(50);
+							textRenderer->setText("Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+									                  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+									                  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff");
+							textRenderer->setY(550);
+							textRenderer->setX(10);
 							currentlyLearning = true;
 							startGameplayFive = true;
 							gameplayFourCurrentlyHappening = false;
@@ -1158,9 +1238,29 @@ void TestGame::ChangeText()//18/3/20
 							touchedOncePostGamePlayFive = true;
 						}
 						if (freeMoveObjects[0]->GetParent()->GetEngine()->GetWindow()->GetInput().GetKey(Input::KEY_E) && !currentlyLearning) {
-							textRenderer->setText("Learning Stuff (press 'R' to close info)");
-							textRenderer->setY(300);
-							textRenderer->setX(50);
+							textRenderer->setText("Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+									                  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+									                  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff");
+							textRenderer->setY(550);
+							textRenderer->setX(10);
 							currentlyLearning = true;
 							startGameplaySix = true;
 							gameplayFiveCurrentlyHappening = false;
@@ -1289,9 +1389,29 @@ void TestGame::ChangeText()//18/3/20
 							touchedOncePostGamePlaySix = true;
 						}
 						if (freeMoveObjects[0]->GetParent()->GetEngine()->GetWindow()->GetInput().GetKey(Input::KEY_E) && !currentlyLearning) {
-							textRenderer->setText("Learning Stuff (press 'R' to close info)");
-							textRenderer->setY(300);
-							textRenderer->setX(50);
+							textRenderer->setText("Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+									                  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+									                  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff");
+							textRenderer->setY(550);
+							textRenderer->setX(10);
 							currentlyLearning = true;
 							startGameplaySeven = true;
 							gameplaySixCurrentlyHappening = false;
@@ -1420,9 +1540,29 @@ void TestGame::ChangeText()//18/3/20
 							touchedOncePostGamePlaySeven = true;
 						}
 						if (freeMoveObjects[0]->GetParent()->GetEngine()->GetWindow()->GetInput().GetKey(Input::KEY_E) && !currentlyLearning) {
-							textRenderer->setText("Learning Stuff (press 'R' to close info)");
-							textRenderer->setY(300);
-							textRenderer->setX(50);
+							textRenderer->setText("Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+									                  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+									                  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff");
+							textRenderer->setY(550);
+							textRenderer->setX(10);
 							currentlyLearning = true;
 							startGameplayEight = true;
 							gameplaySevenCurrentlyHappening = false;
@@ -1551,9 +1691,29 @@ void TestGame::ChangeText()//18/3/20
 							touchedOncePostGamePlayEight = true;
 						}
 						if (freeMoveObjects[0]->GetParent()->GetEngine()->GetWindow()->GetInput().GetKey(Input::KEY_E) && !currentlyLearning) {
-							textRenderer->setText("Learning Stuff (press 'R' to close info)");
-							textRenderer->setY(300);
-							textRenderer->setX(50);
+							textRenderer->setText("Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+									                  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+									                  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff");
+							textRenderer->setY(550);
+							textRenderer->setX(10);
 							currentlyLearning = true;
 							gameplayEightCurrentlyHappening = false;
 							gameplayEightDead = true;
@@ -1591,9 +1751,29 @@ void TestGame::ChangeText()//18/3/20
 						textRenderer->setX(5);
 						touchedOncePostGamePlayOne = true;
 						if (freeMoveObjects[0]->GetParent()->GetEngine()->GetWindow()->GetInput().GetKey(Input::KEY_E)) {
-							textRenderer->setText("Learning Stuff (press 'R' to close info)");
-							textRenderer->setY(300);
-							textRenderer->setX(50);
+							textRenderer->setText("Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+									                  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+									                  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff");
+							textRenderer->setY(550);
+							textRenderer->setX(10);
 							currentlyLearning = true;
 						}
 					}
@@ -1627,9 +1807,29 @@ void TestGame::ChangeText()//18/3/20
 						textRenderer->setX(5);
 						touchedOncePostGamePlayTwo = true;
 						if (freeMoveObjects[0]->GetParent()->GetEngine()->GetWindow()->GetInput().GetKey(Input::KEY_E)) {
-							textRenderer->setText("Learning Stuff (press 'R' to close info)");
-							textRenderer->setY(300);
-							textRenderer->setX(50);
+							textRenderer->setText("Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+									                  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+									                  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff");
+							textRenderer->setY(550);
+							textRenderer->setX(10);
 							currentlyLearning = true;
 						}
 					}
@@ -1663,9 +1863,29 @@ void TestGame::ChangeText()//18/3/20
 						textRenderer->setX(5);
 						touchedOncePostGamePlayThree = true;
 						if (freeMoveObjects[0]->GetParent()->GetEngine()->GetWindow()->GetInput().GetKey(Input::KEY_E)) {
-							textRenderer->setText("Learning Stuff (press 'R' to close info)");
-							textRenderer->setY(300);
-							textRenderer->setX(50);
+							textRenderer->setText("Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+									                  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+									                  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff");
+							textRenderer->setY(550);
+							textRenderer->setX(10);
 							currentlyLearning = true;
 						}
 					}
@@ -1699,9 +1919,29 @@ void TestGame::ChangeText()//18/3/20
 						textRenderer->setX(5);
 						touchedOncePostGamePlayFour = true;
 						if (freeMoveObjects[0]->GetParent()->GetEngine()->GetWindow()->GetInput().GetKey(Input::KEY_E)) {
-							textRenderer->setText("Learning Stuff (press 'R' to close info)");
-							textRenderer->setY(300);
-							textRenderer->setX(50);
+							textRenderer->setText("Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+									                  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+									                  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff");
+							textRenderer->setY(550);
+							textRenderer->setX(10);
 							currentlyLearning = true;
 						}
 					}
@@ -1735,9 +1975,29 @@ void TestGame::ChangeText()//18/3/20
 						textRenderer->setX(5);
 						touchedOncePostGamePlayFive = true;
 						if (freeMoveObjects[0]->GetParent()->GetEngine()->GetWindow()->GetInput().GetKey(Input::KEY_E)) {
-							textRenderer->setText("Learning Stuff (press 'R' to close info)");
-							textRenderer->setY(300);
-							textRenderer->setX(50);
+							textRenderer->setText("Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+									                  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+									                  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff");
+							textRenderer->setY(550);
+							textRenderer->setX(10);
 							currentlyLearning = true;
 						}
 					}
@@ -1771,9 +2031,29 @@ void TestGame::ChangeText()//18/3/20
 						textRenderer->setX(5);
 						touchedOncePostGamePlaySix = true;
 						if (freeMoveObjects[0]->GetParent()->GetEngine()->GetWindow()->GetInput().GetKey(Input::KEY_E)) {
-							textRenderer->setText("Learning Stuff (press 'R' to close info)");
-							textRenderer->setY(300);
-							textRenderer->setX(50);
+							textRenderer->setText("Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+									                  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+									                  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff");
+							textRenderer->setY(550);
+							textRenderer->setX(10);
 							currentlyLearning = true;
 						}
 					}
@@ -1807,9 +2087,29 @@ void TestGame::ChangeText()//18/3/20
 						textRenderer->setX(5);
 						touchedOncePostGamePlaySeven = true;
 						if (freeMoveObjects[0]->GetParent()->GetEngine()->GetWindow()->GetInput().GetKey(Input::KEY_E)) {
-							textRenderer->setText("Learning Stuff (press 'R' to close info)");
-							textRenderer->setY(300);
-							textRenderer->setX(50);
+							textRenderer->setText("Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+									                  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+									                  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff");
+							textRenderer->setY(550);
+							textRenderer->setX(10);
 							currentlyLearning = true;
 						}
 					}
@@ -1843,9 +2143,29 @@ void TestGame::ChangeText()//18/3/20
 						textRenderer->setX(5);
 						touchedOncePostGamePlayEight = true;
 						if (freeMoveObjects[0]->GetParent()->GetEngine()->GetWindow()->GetInput().GetKey(Input::KEY_E)) {
-							textRenderer->setText("Learning Stuff (press 'R' to close info)");
-							textRenderer->setY(300);
-							textRenderer->setX(50);
+							textRenderer->setText("Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+									                  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+									                  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
+													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff");
+							textRenderer->setY(550);
+							textRenderer->setX(10);
 							currentlyLearning = true;
 						}
 					}
