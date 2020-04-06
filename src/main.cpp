@@ -50,10 +50,149 @@ private:
 	float sunCount = 0;
 	glm::vec3 translations[1000];
 	TextRenderer  *textRenderer;//18/3/20
-	Vector3f *textChangePos = new Vector3f(-75, 10, -200);
 	std::vector<Mesh*> buildingMeshes;//19/3/20
 	std::vector<MeshRenderer*> meshRendererCollisionObjects;//19/3/20
 	std::vector<Vector3f> meshRendererCollisionScales;//19/3/20
+
+	Vector3f *entranceToLearninCenterPos = new Vector3f(-31, 10, -200);
+	Vector3f firstPannelPos =  Vector3f(-50, 8, -228);
+	Vector3f seccondPannelPos = Vector3f(-75, 8, -228);
+	Vector3f thirdPannelPos = Vector3f(-100, 8, -228);
+	Vector3f fourthPannelPos = Vector3f(-118, 8, -215);
+	Vector3f fifthPannelPos = Vector3f(-118, 8, -189);
+	Vector3f sixthPannelPos = Vector3f(-100, 8, -172);
+	Vector3f seventhPannelPos = Vector3f(-75, 8, -172);
+	Vector3f eighthPannelPos = Vector3f(-50, 8, -172);
+	/*Vector3f fourthPannelPos = Vector3f(-50, 8, -172);
+	Vector3f fifthPannelPos = Vector3f(-75, 8, -172);
+	Vector3f sixthPannelPos = Vector3f(-100, 8, -172);
+	Vector3f seventhPannelPos = Vector3f(-118, 8, -189);
+	Vector3f eightPannelPos = Vector3f(-118, 8, -215);*/
+
+	bool hasHadWelcomeMessage = false;
+	bool touchedOnce = false;
+	bool touchedOnce2 = false;
+	bool touchedOnce3 = false;
+	bool touchedOnce4 = false;
+	bool touchedOnce5 = false;
+	bool touchedOnce6 = false;
+	bool touchedOnce7 = false;
+	bool touchedOnce8 = false;
+
+	bool pressedFirstButton = false;
+	bool pressedSeccondButton = false;
+	bool pressedThirdButton = false;
+	bool pressedFourthButton = false;
+	bool pressedFifthButton = false;
+	bool pressedSixthButton = false;
+	bool pressedSeventhButton = false;
+	bool pressedEighthButton = false;
+
+
+	bool spawnFirstEnergyCube = false;
+
+	MeshRenderer *engineCore1Renderer;
+	MeshRenderer *engineCore2Renderer;
+	MeshRenderer *engineCore3Renderer;
+	MeshRenderer *engineCore4Renderer;
+	MeshRenderer *engineCore5Renderer;
+	MeshRenderer *engineCore6Renderer;
+	MeshRenderer *engineCore7Renderer;
+	MeshRenderer *engineCore8Renderer;
+
+
+	MeshRenderer *energyCubeRenderer;
+	//MeshRenderer *seccondEnergyCubeRenderer;
+
+	MeshRenderer *enemyCube1Renderer;
+	MeshRenderer *enemyCube2Renderer;
+	MeshRenderer *enemyCube3Renderer;
+	MeshRenderer *enemyCube4Renderer;
+	MeshRenderer *enemyCube5Renderer;
+
+	int timmer = 1000;
+	bool checkCollisionsWithEnergyComponents = false;
+
+	bool checkTime = true;
+	bool checkTime2 = true;
+	bool checkTime3 = true;
+	bool checkTime4 = true;
+	bool checkTime5 = true;
+	bool checkTime6 = true;
+	bool checkTime7 = true;
+	bool checkTime8 = true;
+
+
+	bool gameplayOneFinished = false;
+	bool gameplayTwoFinished = false;
+	bool gameplayThreeFinished = false;
+	bool gameplayFourFinished = false;
+	bool gameplayFiveFinished = false;
+	bool gameplaySixFinished = false;
+	bool gameplaySevenFinished = false;
+	bool gameplayEightFinished = false;
+
+	bool hasHadPostGameplayOneMessage = false;
+	bool hasHadPostGameplayTwoMessage = false;
+	bool hasHadPostGameplayThreeMessage = false;
+	bool hasHadPostGameplayFourMessage = false;
+	bool hasHadPostGameplayFiveMessage = false;
+	bool hasHadPostGameplaySixMessage = false;
+	bool hasHadPostGameplaySevenMessage = false;
+	bool hasHadPostGameplayEightMessage = false;
+
+	bool touchedOncePostGamePlayOne = false;
+	bool touchedOncePostGamePlayTwo = false;
+	bool touchedOncePostGamePlayThree = false;
+	bool touchedOncePostGamePlayFour = false;
+	bool touchedOncePostGamePlayFive = false;
+	bool touchedOncePostGamePlaySix = false;
+	bool touchedOncePostGamePlaySeven = false;
+	bool touchedOncePostGamePlayEight = false;
+
+	bool currentlyLearning = false;
+
+	bool startGameplayOne = true;
+	bool startGameplayTwo = false;
+	bool startGameplayThree = false;
+	bool startGameplayFour = false;
+	bool startGameplayFive = false;
+	bool startGameplaySix = false;
+	bool startGameplaySeven = false;
+	bool startGameplayEight = false;
+
+	bool gameplayOneDead = false;
+	bool gameplayTwoDead = false;
+	bool gameplayThreeDead = false;
+	bool gameplayFourDead = false;
+	bool gameplayFiveDead = false;
+	bool gameplaySixDead = false;
+	bool gameplaySevenDead = false;
+	bool gameplayEightDead = false;
+	bool gameplayOneCurrentlyHappening = false;
+	bool gameplayTwoCurrentlyHappening = false;
+	bool gameplayThreeCurrentlyHappening = false;
+	bool gameplayFourCurrentlyHappening = false;
+	bool gameplayFiveCurrentlyHappening = false;
+	bool gameplaySixCurrentlyHappening = false;
+	bool gameplaySevenCurrentlyHappening = false;
+	bool gameplayEightCurrentlyHappening = false;
+
+	bool currentlyTouchingPannelOne = false;
+	bool currentlyTouchingPannelTwo = false;
+	bool currentlyTouchingPannelThree = false;
+	bool currentlyTouchingPannelFour = false;
+	bool currentlyTouchingPannelFive = false;
+	bool currentlyTouchingPannelSix = false;
+	bool currentlyTouchingPannelSeven = false;
+	bool currentlyTouchingPannelEight = false;
+
+	Entity *energyCubeEntity;
+	Entity *enemyCube1Entity;
+	Entity *enemyCube2Entity;
+	Entity *enemyCube3Entity;
+	Entity *enemyCube4Entity;
+	Entity *enemyCube5Entity;
 };
 
 void TestGame::Init(const Window& window)
@@ -72,6 +211,10 @@ void TestGame::Init(const Window& window)
 		Texture("grey.png"), Texture("grey_disp.png"), 0.04f, -1.0f);
 	Material red("red", Texture("red.png"), 0.0f, 0,
 		Texture("red.png"), Texture("red_disp.png"), 0.04f, -1.0f);
+	Material white("white", Texture("white.jpg"), 0.0f, 0,
+		Texture("white.jpg"), Texture("white.jpg"), 0.04f, -1.0f);
+	Material green("green", Texture("green.png"), 0.0f, 0,
+		Texture("green.png"), Texture("green.png"), 0.04f, -1.0f);
 
 	//24/2/20 test - new terrain
 	Entity *newTerrainObject = new Entity(Vector3f(0, 0, 0), Quaternion(), 1.0f);
@@ -200,37 +343,39 @@ void TestGame::Init(const Window& window)
 
 	//19/3/20 - Wall Pannels
 	Material *engineCoreMaterial = new Material("red");
+	Material *engineCoreSeccondaryMaterial = new Material("white");
+	Material *engineCoreThirdMaterial = new Material("green");
 	Mesh *engineCore1Mesh = new Mesh("wallPannelType1.obj");
 	Mesh *engineCore2Mesh = new Mesh("wallPannelType1.obj");
 	Mesh *engineCore3Mesh = new Mesh("wallPannelType1.obj");
-	Mesh *engineCore4Mesh = new Mesh("wallPannelType1.obj");
-	Mesh *engineCore5Mesh = new Mesh("wallPannelType1.obj");
+	Mesh *engineCore4Mesh = new Mesh("wallPannelType2.obj");
+	Mesh *engineCore5Mesh = new Mesh("wallPannelType2.obj");
 	Mesh *engineCore6Mesh = new Mesh("wallPannelType1.obj");
-	Mesh *engineCore7Mesh = new Mesh("wallPannelType2.obj");
-	Mesh *engineCore8Mesh = new Mesh("wallPannelType2.obj");
-	MeshRenderer *engineCore1Renderer = new MeshRenderer(*engineCore1Mesh, *engineCoreMaterial);
-	MeshRenderer *engineCore2Renderer= new MeshRenderer(*engineCore2Mesh, *engineCoreMaterial);
-	MeshRenderer *engineCore3Renderer = new MeshRenderer(*engineCore3Mesh, *engineCoreMaterial);
-	MeshRenderer *engineCore4Renderer = new MeshRenderer(*engineCore4Mesh, *engineCoreMaterial);
-	MeshRenderer *engineCore5Renderer = new MeshRenderer(*engineCore5Mesh, *engineCoreMaterial);
-	MeshRenderer *engineCore6Renderer = new MeshRenderer(*engineCore6Mesh, *engineCoreMaterial);
-	MeshRenderer *engineCore7Renderer = new MeshRenderer(*engineCore7Mesh, *engineCoreMaterial);
-	MeshRenderer *engineCore8Renderer = new MeshRenderer(*engineCore8Mesh, *engineCoreMaterial);
-	Entity *engineCore1Entity = new Entity(Vector3f(-50, 8, -227), Quaternion(), 1.0f);
+	Mesh *engineCore7Mesh = new Mesh("wallPannelType1.obj");
+	Mesh *engineCore8Mesh = new Mesh("wallPannelType1.obj");
+	engineCore1Renderer = new MeshRenderer(*engineCore1Mesh, *engineCoreMaterial, *engineCoreSeccondaryMaterial, *engineCoreThirdMaterial);
+	engineCore2Renderer= new MeshRenderer(*engineCore2Mesh, *engineCoreMaterial, *engineCoreSeccondaryMaterial, *engineCoreThirdMaterial);
+	engineCore3Renderer = new MeshRenderer(*engineCore3Mesh, *engineCoreMaterial, *engineCoreSeccondaryMaterial, *engineCoreThirdMaterial);
+	engineCore4Renderer = new MeshRenderer(*engineCore4Mesh, *engineCoreMaterial, *engineCoreSeccondaryMaterial, *engineCoreThirdMaterial);
+	engineCore5Renderer = new MeshRenderer(*engineCore5Mesh, *engineCoreMaterial, *engineCoreSeccondaryMaterial, *engineCoreThirdMaterial);
+	engineCore6Renderer = new MeshRenderer(*engineCore6Mesh, *engineCoreMaterial, *engineCoreSeccondaryMaterial, *engineCoreThirdMaterial);
+	engineCore7Renderer = new MeshRenderer(*engineCore7Mesh, *engineCoreMaterial, *engineCoreSeccondaryMaterial, *engineCoreThirdMaterial);
+	engineCore8Renderer = new MeshRenderer(*engineCore8Mesh, *engineCoreMaterial, *engineCoreSeccondaryMaterial, *engineCoreThirdMaterial);
+	Entity *engineCore1Entity = new Entity(firstPannelPos, Quaternion(), 1.0f);
 	engineCore1Entity->AddComponent(engineCore1Renderer);
-	Entity *engineCore2Entity = new Entity(Vector3f(-75, 8, -227), Quaternion(), 1.0f);
+	Entity *engineCore2Entity = new Entity(seccondPannelPos, Quaternion(), 1.0f);
 	engineCore2Entity->AddComponent(engineCore2Renderer);
-	Entity *engineCore3Entity = new Entity(Vector3f(-100, 8, -227), Quaternion(), 1.0f);
+	Entity *engineCore3Entity = new Entity(thirdPannelPos, Quaternion(), 1.0f);
 	engineCore3Entity->AddComponent(engineCore3Renderer);
-	Entity *engineCore4Entity = new Entity(Vector3f(-50, 8, -173), Quaternion(), 1.0f);
+	Entity *engineCore4Entity = new Entity(fourthPannelPos, Quaternion(), 1.0f);
 	engineCore4Entity->AddComponent(engineCore4Renderer);
-	Entity *engineCore5Entity = new Entity(Vector3f(-75, 8, -173), Quaternion(), 1.0f);
+	Entity *engineCore5Entity = new Entity(fifthPannelPos, Quaternion(), 1.0f);
 	engineCore5Entity->AddComponent(engineCore5Renderer);
-	Entity *engineCore6Entity = new Entity(Vector3f(-100, 8, -173), Quaternion(), 1.0f);
+	Entity *engineCore6Entity = new Entity(sixthPannelPos, Quaternion(), 1.0f);
 	engineCore6Entity->AddComponent(engineCore6Renderer);
-	Entity *engineCore7Entity = new Entity(Vector3f(-117, 8, -189), Quaternion(), 1.0f);
+	Entity *engineCore7Entity = new Entity(seventhPannelPos, Quaternion(), 1.0f);
 	engineCore7Entity->AddComponent(engineCore7Renderer);
-	Entity *engineCore8Entity = new Entity(Vector3f(-117, 8, -215), Quaternion(), 1.0f);
+	Entity *engineCore8Entity = new Entity(eighthPannelPos, Quaternion(), 1.0f);
 	engineCore8Entity->AddComponent(engineCore8Renderer);
 	AddToScene(engineCore1Entity);
 	AddToScene(engineCore2Entity);
@@ -247,6 +392,52 @@ void TestGame::Init(const Window& window)
 	engineCoreEntity->AddComponent(engineCoreRenderer);
 	AddToScene(engineCoreEntity);*/
 	
+	//Energy Cube
+	Material *energyCubeMaterial = new Material("green");
+	energyCubeEntity = new Entity(Vector3f(0, 5, 0), Quaternion(), 1.0f);//Entity *firstEnergyCubeEntity = new Entity(Vector3f(0, 5, 0), Quaternion(), 1.0f);
+	Mesh *firstEnergyCubeMesh = new Mesh("energyCore.obj");
+	energyCubeRenderer = new MeshRenderer(*firstEnergyCubeMesh, *energyCubeMaterial);
+	energyCubeRenderer->setDraw(false);
+	energyCubeEntity->AddComponent(energyCubeRenderer);
+	AddToScene(energyCubeEntity);
+	/*Entity *seccondEnergyCubeEntity = new Entity(Vector3f(10, 5, 10), Quaternion(), 1.0f);
+	Mesh *seccondEnergyCubeMesh = new Mesh("energyCore.obj");
+	seccondEnergyCubeRenderer = new MeshRenderer(*seccondEnergyCubeMesh, *energyCubeMaterial);
+	seccondEnergyCubeRenderer->setDraw(false);
+	seccondEnergyCubeEntity->AddComponent(seccondEnergyCubeRenderer);
+	AddToScene(seccondEnergyCubeEntity);*/
+
+	//Enemy Cubes
+	Mesh *enemyCube1Mesh = new Mesh("energyCore.obj");
+	Mesh *enemyCube2Mesh = new Mesh("energyCore.obj");
+	Mesh *enemyCube3Mesh = new Mesh("energyCore.obj");
+	Mesh *enemyCube4Mesh = new Mesh("energyCore.obj");
+	Mesh *enemyCube5Mesh = new Mesh("energyCore.obj");
+	enemyCube1Renderer = new MeshRenderer(*enemyCube1Mesh, *engineCoreMaterial);//red cube
+	enemyCube1Renderer->setDraw(false);
+	enemyCube2Renderer = new MeshRenderer(*enemyCube2Mesh, *engineCoreMaterial);//red cube
+	enemyCube2Renderer->setDraw(false);
+	enemyCube3Renderer = new MeshRenderer(*enemyCube3Mesh, *engineCoreMaterial);//red cube
+	enemyCube3Renderer->setDraw(false);
+	enemyCube4Renderer = new MeshRenderer(*enemyCube4Mesh, *engineCoreMaterial);//red cube
+	enemyCube4Renderer->setDraw(false);
+	enemyCube5Renderer = new MeshRenderer(*enemyCube5Mesh, *engineCoreMaterial);//red cube
+	enemyCube5Renderer->setDraw(false);
+	enemyCube1Entity = new Entity(Vector3f(10, 5, 0), Quaternion(), 1.0f);
+	enemyCube1Entity->AddComponent(enemyCube1Renderer);
+	enemyCube2Entity = new Entity(Vector3f(20, 5, 0), Quaternion(), 1.0f);
+	enemyCube2Entity->AddComponent(enemyCube2Renderer);
+	enemyCube3Entity = new Entity(Vector3f(30, 5, 0), Quaternion(), 1.0f);
+	enemyCube3Entity->AddComponent(enemyCube3Renderer);
+	enemyCube4Entity = new Entity(Vector3f(40, 5, 0), Quaternion(), 1.0f);
+	enemyCube4Entity->AddComponent(enemyCube4Renderer);
+	enemyCube5Entity = new Entity(Vector3f(50, 5, 0), Quaternion(), 1.0f);
+	enemyCube5Entity->AddComponent(enemyCube5Renderer);
+	AddToScene(enemyCube1Entity);
+	AddToScene(enemyCube2Entity);
+	AddToScene(enemyCube3Entity);
+	AddToScene(enemyCube4Entity);
+	AddToScene(enemyCube5Entity);
 
 	//18/3/20 - Point Light
 	Entity *lightBulb = new Entity(Vector3f(-75, 10, -200), Quaternion(), 1.0f);
@@ -258,6 +449,8 @@ void TestGame::Init(const Window& window)
 	textRenderer = new TextRenderer();
 	textRenderer->Load("Gputeks-Regular.ttf", 25);
 	textRenderer->setText("Objective: Visit the Engine Learning Center");
+	textRenderer->setX(20);//19/3/20
+	textRenderer->setY(25);//19/3/20
 	AddTextOnScreen(textRenderer);
 }
 
@@ -317,10 +510,1363 @@ void TestGame::CheckTreeCollision()
 void TestGame::ChangeText()//18/3/20
 {
 	Vector3f *testPlayerPos = freeMoveObjects[0]->GetParent()->GetTransform()->GetPos();
-	Vector3f playerPos(testPlayerPos->GetX(), testPlayerPos->GetY() - 1.0f, testPlayerPos->GetZ());
-	if (abs(playerPos.GetX() - textChangePos->GetX()) < 5.0f + 5.0f / 2.0f)
-		if (abs(playerPos.GetZ() - textChangePos->GetZ()) < 5.0f + 5.0f / 2.0f)
-			textRenderer->setText("WELCOME");
+	Vector3f playerPos(testPlayerPos->GetX(), testPlayerPos->GetY() - 1.0f, testPlayerPos->GetZ()); 
+	if (!hasHadWelcomeMessage) {
+		if (abs(playerPos.GetX() - entranceToLearninCenterPos->GetX()) < 2.0f + 2.0f / 1.0f)
+			if (abs(playerPos.GetZ() - entranceToLearninCenterPos->GetZ()) < 2.0f + 2.0f / 1.0f) {
+				textRenderer->setText("Welcome to the Learning Center - Explains stuff");
+				textRenderer->setY(200);
+				hasHadWelcomeMessage = true;
+			}
+	}
+
+	//------------------------------------------------------------------------------------------------------------GAMEPLAY_ONE
+	if (!gameplayOneDead) {
+		if (startGameplayOne && !currentlyLearning) {
+			if (!pressedFirstButton) {
+				if (abs(playerPos.GetX() - firstPannelPos.GetX()) < 1.0f + 3.0f / 1.0f) {
+					if (abs(playerPos.GetZ() - firstPannelPos.GetZ()) < 1.0f + 3.0f / 1.0f) {
+						gameplayOneCurrentlyHappening = true;//LOCKED INTO THIS GAMEPLAY
+						textRenderer->setText("Press 'E'");
+						textRenderer->setY(300);
+						textRenderer->setX(100);
+						touchedOnce = true;
+						if (freeMoveObjects[0]->GetParent()->GetEngine()->GetWindow()->GetInput().GetKey(Input::KEY_E)) {
+							textRenderer->setText("Go collect Energy cube to put this Engine Core online");
+							textRenderer->setY(100);
+							textRenderer->setX(50);
+							engineCore1Renderer->setUseSeccondaryMaterial(true);
+							pressedFirstButton = true;
+							energyCubeRenderer->setDraw(true);
+						}
+					}
+					else {
+						if (touchedOnce)
+							if (!pressedFirstButton)
+								textRenderer->setText(" ");
+					}
+				}
+				else {
+					if (touchedOnce)
+						if (!pressedFirstButton)
+							textRenderer->setText(" ");
+				}
+			}
+			if (energyCubeRenderer->getDraw() || checkCollisionsWithEnergyComponents) {
+				if (!checkCollisionsWithEnergyComponents) {
+					if (abs(playerPos.GetX() - energyCubeRenderer->GetParent()->GetTransform()->GetPos()->GetX()) < 1.0f + 1.0f / 1.0f)
+						if (abs(playerPos.GetZ() - energyCubeRenderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 1.0f + 1.0f / 1.0f) {
+							energyCubeRenderer->setDraw(false);
+							enemyCube1Renderer->setDraw(true);
+							enemyCube2Renderer->setDraw(true);
+							enemyCube3Renderer->setDraw(true);
+							enemyCube4Renderer->setDraw(true);
+							enemyCube5Renderer->setDraw(true);
+							checkCollisionsWithEnergyComponents = true;
+						}
+				}
+				if (checkCollisionsWithEnergyComponents) {
+					if (checkTime) {
+						textRenderer->setText("Time Left: " + std::to_string(timmer));
+						--timmer;
+						if (timmer <= 0)
+							exit(0);
+					}
+					//printf("test");
+					if (abs(playerPos.GetX() - enemyCube1Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 1.0f + 1.0f / 1.0f)//cube1
+						if (abs(playerPos.GetZ() - enemyCube1Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 1.0f + 1.0f / 1.0f) {
+							enemyCube1Renderer->setDraw(false);
+							//checkTime = false;
+							//textRenderer->setText("Well done, head back to the learning center");
+						}
+					if (abs(playerPos.GetX() - enemyCube2Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 1.0f + 1.0f / 1.0f)//cube2
+						if (abs(playerPos.GetZ() - enemyCube2Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 1.0f + 1.0f / 1.0f) {
+							enemyCube2Renderer->setDraw(false);
+						}
+					if (abs(playerPos.GetX() - enemyCube3Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 1.0f + 1.0f / 1.0f)//cube3
+						if (abs(playerPos.GetZ() - enemyCube3Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 1.0f + 1.0f / 1.0f) {
+							enemyCube3Renderer->setDraw(false);
+						}
+					if (abs(playerPos.GetX() - enemyCube4Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 1.0f + 1.0f / 1.0f)//cube4
+						if (abs(playerPos.GetZ() - enemyCube4Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 1.0f + 1.0f / 1.0f) {
+							enemyCube4Renderer->setDraw(false);
+						}
+					if (abs(playerPos.GetX() - enemyCube5Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 1.0f + 1.0f / 1.0f)//cube5
+						if (abs(playerPos.GetZ() - enemyCube5Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 1.0f + 1.0f / 1.0f) {
+							enemyCube5Renderer->setDraw(false);
+						}
+					if (!enemyCube1Renderer->getDraw() & !enemyCube2Renderer->getDraw() & !enemyCube3Renderer->getDraw() & !enemyCube4Renderer->getDraw() & !enemyCube5Renderer->getDraw()) {
+						checkTime = false;
+						timmer = 1000;
+						textRenderer->setText("Well done, head back to the learning center");
+						engineCore1Renderer->setUseThirdMaterial(true);
+						checkCollisionsWithEnergyComponents = false;
+						gameplayOneFinished = true;
+					}
+				}
+			}
+			if (gameplayOneFinished & !hasHadPostGameplayOneMessage) {
+				if (abs(playerPos.GetX() - entranceToLearninCenterPos->GetX()) < 2.0f + 2.0f / 1.0f)
+					if (abs(playerPos.GetZ() - entranceToLearninCenterPos->GetZ()) < 2.0f + 2.0f / 1.0f) {
+						textRenderer->setText("Now the Core is online! Touch it to learn about that part of the engine");
+						textRenderer->setY(200);
+						textRenderer->setX(5);
+						hasHadPostGameplayOneMessage = true;
+					}
+			}
+			if (hasHadPostGameplayOneMessage) {
+				if (abs(playerPos.GetX() - firstPannelPos.GetX()) < 1.0f + 3.0f / 1.0f) {
+					if (abs(playerPos.GetZ() - firstPannelPos.GetZ()) < 1.0f + 3.0f / 1.0f) {
+						if (!currentlyLearning) {
+							textRenderer->setText("Press 'E' to open learning core.");
+							textRenderer->setY(300);
+							textRenderer->setX(5);
+							touchedOncePostGamePlayOne = true;
+							if (freeMoveObjects[0]->GetParent()->GetEngine()->GetWindow()->GetInput().GetKey(Input::KEY_E)) {
+								textRenderer->setText("Learning Stuff (press 'R' to close info)");
+								textRenderer->setY(300);
+								textRenderer->setX(50);
+								currentlyLearning = true;
+								startGameplayTwo = true;
+								gameplayOneCurrentlyHappening = false;
+								gameplayOneDead = true;
+							}
+						}
+					}
+					else {
+						if (touchedOncePostGamePlayOne)
+							if (!currentlyLearning)
+								textRenderer->setText(" ");
+					}
+				}
+				else {
+					if (touchedOncePostGamePlayOne)
+						if (!currentlyLearning)
+							textRenderer->setText(" ");
+				}
+			}
+		}
+	}
+
+	//------------------------------------------------------------------------------------------------------------GAMEPLAY TWO
+	if (!gameplayTwoDead) {
+		//printf("***---___InFirst___---***");
+		if (startGameplayTwo && !currentlyLearning) {
+			//printf("***---___InSeccond___---***");
+			if (!pressedSeccondButton) {
+				//printf("***---___InThird___---***");
+				if (abs(playerPos.GetX() - seccondPannelPos.GetX()) < 1.0f + 3.0f / 1.0f) {
+					//printf("***---___InFirst___---***");
+					if (abs(playerPos.GetZ() - seccondPannelPos.GetZ()) < 1.0f + 3.0f / 1.0f) {
+						//printf("***---___InSeccodn___---***");
+						    gameplayTwoCurrentlyHappening = true;
+							textRenderer->setText("Press 'E'");
+							textRenderer->setY(300);
+							textRenderer->setX(100);
+							touchedOnce2 = true;
+							if (freeMoveObjects[0]->GetParent()->GetEngine()->GetWindow()->GetInput().GetKey(Input::KEY_E)) {
+								//gameplayTwoCurrentlyHappening = true;
+								textRenderer->setText("Go collect Energy cube to put this Engine Core online");
+								textRenderer->setY(100);
+								textRenderer->setX(50);
+								engineCore2Renderer->setUseSeccondaryMaterial(true);
+								pressedSeccondButton = true;
+								energyCubeEntity->GetTransform()->SetPos(Vector3f(10, 3, 10));
+								energyCubeRenderer->setDraw(true);
+							}
+					}
+					else {
+						if (touchedOnce2)
+							if (!pressedSeccondButton)
+								textRenderer->setText(" ");
+					}
+				}
+				else {
+					if (touchedOnce2)
+						if (!pressedSeccondButton)
+							textRenderer->setText(" ");
+				}
+			}
+			if (energyCubeRenderer->getDraw() || checkCollisionsWithEnergyComponents) {
+				if (!checkCollisionsWithEnergyComponents) {
+					if (abs(playerPos.GetX() - energyCubeRenderer->GetParent()->GetTransform()->GetPos()->GetX()) < 1.0f + 1.0f / 1.0f)
+						if (abs(playerPos.GetZ() - energyCubeRenderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 1.0f + 1.0f / 1.0f) {
+							//textRenderer->setText("Well done, now collect all of the emergy core components before the time runs out");
+							energyCubeRenderer->setDraw(false);
+							enemyCube1Entity->GetTransform()->SetPos(Vector3f(10, 5, 10));
+							enemyCube1Renderer->setDraw(true);
+							enemyCube2Entity->GetTransform()->SetPos(Vector3f(20, 5, 20));
+							enemyCube2Renderer->setDraw(true);
+							enemyCube3Entity->GetTransform()->SetPos(Vector3f(30, 5, 30));
+							enemyCube3Renderer->setDraw(true);
+							enemyCube4Entity->GetTransform()->SetPos(Vector3f(40, 5, 40));
+							enemyCube4Renderer->setDraw(true);
+							enemyCube5Entity->GetTransform()->SetPos(Vector3f(50, 5, 50));
+							enemyCube5Renderer->setDraw(true);
+							checkCollisionsWithEnergyComponents = true;
+						}
+				}
+				if (checkCollisionsWithEnergyComponents) {
+					if (checkTime2) {
+						textRenderer->setText("Time Left: " + std::to_string(timmer));
+						--timmer;
+						if (timmer <= 0)
+							exit(0);
+					}
+					//printf("test");
+					if (abs(playerPos.GetX() - enemyCube1Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 1.0f + 1.0f / 1.0f)//cube1
+						if (abs(playerPos.GetZ() - enemyCube1Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 1.0f + 1.0f / 1.0f) {
+							enemyCube1Renderer->setDraw(false);
+							//checkTime = false;
+							//textRenderer->setText("Well done, head back to the learning center");
+						}
+					if (abs(playerPos.GetX() - enemyCube2Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 1.0f + 1.0f / 1.0f)//cube2
+						if (abs(playerPos.GetZ() - enemyCube2Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 1.0f + 1.0f / 1.0f) {
+							enemyCube2Renderer->setDraw(false);
+						}
+					if (abs(playerPos.GetX() - enemyCube3Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 1.0f + 1.0f / 1.0f)//cube3
+						if (abs(playerPos.GetZ() - enemyCube3Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 1.0f + 1.0f / 1.0f) {
+							enemyCube3Renderer->setDraw(false);
+						}
+					if (abs(playerPos.GetX() - enemyCube4Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 1.0f + 1.0f / 1.0f)//cube4
+						if (abs(playerPos.GetZ() - enemyCube4Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 1.0f + 1.0f / 1.0f) {
+							enemyCube4Renderer->setDraw(false);
+						}
+					if (abs(playerPos.GetX() - enemyCube5Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 1.0f + 1.0f / 1.0f)//cube5
+						if (abs(playerPos.GetZ() - enemyCube5Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 1.0f + 1.0f / 1.0f) {
+							enemyCube5Renderer->setDraw(false);
+						}
+					if (!enemyCube1Renderer->getDraw() & !enemyCube2Renderer->getDraw() & !enemyCube3Renderer->getDraw() & !enemyCube4Renderer->getDraw() & !enemyCube5Renderer->getDraw()) {
+						checkTime2 = false;
+						timmer = 1000;
+						textRenderer->setText("Well done, head back to the learning center");
+						engineCore2Renderer->setUseThirdMaterial(true);
+						checkCollisionsWithEnergyComponents = false;
+						gameplayTwoFinished = true;
+					}
+				}
+			}
+			if (gameplayTwoFinished & !hasHadPostGameplayTwoMessage) {
+				if (abs(playerPos.GetX() - entranceToLearninCenterPos->GetX()) < 2.0f + 2.0f / 1.0f)
+					if (abs(playerPos.GetZ() - entranceToLearninCenterPos->GetZ()) < 2.0f + 2.0f / 1.0f) {
+						textRenderer->setText("Now the Core is online! Touch it to learn about that part of the engine");
+						textRenderer->setY(200);
+						textRenderer->setX(5);
+						hasHadPostGameplayTwoMessage = true;
+					}
+			}
+			if (hasHadPostGameplayTwoMessage) {
+				if (abs(playerPos.GetX() - seccondPannelPos.GetX()) < 1.0f + 3.0f / 1.0f) {
+					if (abs(playerPos.GetZ() - seccondPannelPos.GetZ()) < 1.0f + 3.0f / 1.0f) {
+						if (!currentlyLearning) {
+							textRenderer->setText("Press 'E' to open learning core.");
+							textRenderer->setY(300);
+							textRenderer->setX(5);
+							touchedOncePostGamePlayTwo = true;
+						}
+						if (freeMoveObjects[0]->GetParent()->GetEngine()->GetWindow()->GetInput().GetKey(Input::KEY_E) && !currentlyLearning) {
+							textRenderer->setText("Learning Stuff (press 'R' to close info)");
+							textRenderer->setY(300);
+							textRenderer->setX(50);
+							currentlyLearning = true;
+							startGameplayThree = true;
+							gameplayTwoCurrentlyHappening = false;
+							gameplayTwoDead = true;
+						}
+					}
+					else {
+						if (touchedOncePostGamePlayTwo)
+							if (!currentlyLearning)
+								textRenderer->setText(" ");
+					}
+				}
+				else {
+					if (touchedOncePostGamePlayTwo)
+						if (!currentlyLearning)
+							textRenderer->setText(" ");
+				}
+			}
+		}
+	}
+
+	//------------------------------------------------------------------------------------------------------------GAMEPLAY THREE
+	if (!gameplayThreeDead) {
+		if (startGameplayThree && !currentlyLearning) {
+			if (!pressedThirdButton) {
+				if (abs(playerPos.GetX() - thirdPannelPos.GetX()) < 1.0f + 3.0f / 1.0f) {
+					if (abs(playerPos.GetZ() - thirdPannelPos.GetZ()) < 1.0f + 3.0f / 1.0f) {
+						gameplayThreeCurrentlyHappening = true;
+						textRenderer->setText("Press 'E'");
+						textRenderer->setY(300);
+						textRenderer->setX(100);
+						touchedOnce3 = true;
+						if (freeMoveObjects[0]->GetParent()->GetEngine()->GetWindow()->GetInput().GetKey(Input::KEY_E)) {
+							textRenderer->setText("Go collect Energy cube to put this Engine Core online");
+							textRenderer->setY(100);
+							textRenderer->setX(50);
+							engineCore3Renderer->setUseSeccondaryMaterial(true);
+							pressedThirdButton = true;
+							energyCubeEntity->GetTransform()->SetPos(Vector3f(20, 5, 20));
+							energyCubeRenderer->setDraw(true);
+						}
+					}
+					else {
+						if (touchedOnce3)
+							if (!pressedThirdButton)
+								textRenderer->setText(" ");
+					}
+				}
+				else {
+					if (touchedOnce3)
+						if (!pressedThirdButton)
+							textRenderer->setText(" ");
+				}
+			}
+			if (energyCubeRenderer->getDraw() || checkCollisionsWithEnergyComponents) {
+				if (!checkCollisionsWithEnergyComponents) {
+					if (abs(playerPos.GetX() - energyCubeRenderer->GetParent()->GetTransform()->GetPos()->GetX()) < 1.0f + 1.0f / 1.0f)
+						if (abs(playerPos.GetZ() - energyCubeRenderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 1.0f + 1.0f / 1.0f) {
+							energyCubeRenderer->setDraw(false);
+							enemyCube1Entity->GetTransform()->SetPos(Vector3f(20, 5, 20));
+							enemyCube1Renderer->setDraw(true);
+							enemyCube2Entity->GetTransform()->SetPos(Vector3f(30, 5, 30));
+							enemyCube2Renderer->setDraw(true);
+							enemyCube3Entity->GetTransform()->SetPos(Vector3f(40, 5, 40));
+							enemyCube3Renderer->setDraw(true);
+							enemyCube4Entity->GetTransform()->SetPos(Vector3f(50, 5, 50));
+							enemyCube4Renderer->setDraw(true);
+							enemyCube5Entity->GetTransform()->SetPos(Vector3f(60, 5, 60));
+							enemyCube5Renderer->setDraw(true);
+							checkCollisionsWithEnergyComponents = true;
+						}
+				}
+				if (checkCollisionsWithEnergyComponents) {
+					if (checkTime3) {
+						textRenderer->setText("Time Left: " + std::to_string(timmer));
+						--timmer;
+						if (timmer <= 0)
+							exit(0);
+					}
+					if (abs(playerPos.GetX() - enemyCube1Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 1.0f + 1.0f / 1.0f)//cube1
+						if (abs(playerPos.GetZ() - enemyCube1Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 1.0f + 1.0f / 1.0f) {
+							enemyCube1Renderer->setDraw(false);
+						}
+					if (abs(playerPos.GetX() - enemyCube2Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 1.0f + 1.0f / 1.0f)//cube2
+						if (abs(playerPos.GetZ() - enemyCube2Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 1.0f + 1.0f / 1.0f) {
+							enemyCube2Renderer->setDraw(false);
+						}
+					if (abs(playerPos.GetX() - enemyCube3Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 1.0f + 1.0f / 1.0f)//cube3
+						if (abs(playerPos.GetZ() - enemyCube3Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 1.0f + 1.0f / 1.0f) {
+							enemyCube3Renderer->setDraw(false);
+						}
+					if (abs(playerPos.GetX() - enemyCube4Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 1.0f + 1.0f / 1.0f)//cube4
+						if (abs(playerPos.GetZ() - enemyCube4Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 1.0f + 1.0f / 1.0f) {
+							enemyCube4Renderer->setDraw(false);
+						}
+					if (abs(playerPos.GetX() - enemyCube5Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 1.0f + 1.0f / 1.0f)//cube5
+						if (abs(playerPos.GetZ() - enemyCube5Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 1.0f + 1.0f / 1.0f) {
+							enemyCube5Renderer->setDraw(false);
+						}
+					if (!enemyCube1Renderer->getDraw() & !enemyCube2Renderer->getDraw() & !enemyCube3Renderer->getDraw() & !enemyCube4Renderer->getDraw() & !enemyCube5Renderer->getDraw()) {
+						checkTime3 = false;
+						timmer = 1000;
+						textRenderer->setText("Well done, head back to the learning center");
+						engineCore3Renderer->setUseThirdMaterial(true);
+						checkCollisionsWithEnergyComponents = false;
+						gameplayThreeFinished = true;
+					}
+				}
+			}
+			if (gameplayThreeFinished & !hasHadPostGameplayThreeMessage) {
+				if (abs(playerPos.GetX() - entranceToLearninCenterPos->GetX()) < 2.0f + 2.0f / 1.0f)
+					if (abs(playerPos.GetZ() - entranceToLearninCenterPos->GetZ()) < 2.0f + 2.0f / 1.0f) {
+						textRenderer->setText("Now the Core is online! Touch it to learn about that part of the engine");
+						textRenderer->setY(200);
+						textRenderer->setX(5);
+						hasHadPostGameplayThreeMessage = true;
+					}
+			}
+			if (hasHadPostGameplayThreeMessage) {
+				if (abs(playerPos.GetX() - thirdPannelPos.GetX()) < 1.0f + 3.0f / 1.0f) {
+					if (abs(playerPos.GetZ() - thirdPannelPos.GetZ()) < 1.0f + 3.0f / 1.0f) {
+						if (!currentlyLearning) {
+							textRenderer->setText("Press 'E' to open learning core.");
+							textRenderer->setY(300);
+							textRenderer->setX(5);
+							touchedOncePostGamePlayThree = true;
+						}
+						if (freeMoveObjects[0]->GetParent()->GetEngine()->GetWindow()->GetInput().GetKey(Input::KEY_E) && !currentlyLearning) {
+							textRenderer->setText("Learning Stuff (press 'R' to close info)");
+							textRenderer->setY(300);
+							textRenderer->setX(50);
+							currentlyLearning = true;
+							startGameplayFour = true;
+							gameplayThreeCurrentlyHappening = false;
+							gameplayThreeDead = true;
+						}
+					}
+					else {
+						if (touchedOncePostGamePlayThree)
+							if (!currentlyLearning)
+								textRenderer->setText(" ");
+					}
+				}
+				else {
+					if (touchedOncePostGamePlayThree)
+						if (!currentlyLearning)
+							textRenderer->setText(" ");
+				}
+			}
+		}
+	}
+
+	//------------------------------------------------------------------------------------------------------------GAMEPLAY FOUR
+	if (!gameplayFourDead) {
+		if (startGameplayFour && !currentlyLearning) {
+			if (!pressedFourthButton) {
+				if (abs(playerPos.GetX() - fourthPannelPos.GetX()) < 1.0f + 3.0f / 1.0f) {
+					if (abs(playerPos.GetZ() - fourthPannelPos.GetZ()) < 1.0f + 3.0f / 1.0f) {
+						gameplayFourCurrentlyHappening = true;
+						textRenderer->setText("Press 'E'");
+						textRenderer->setY(300);
+						textRenderer->setX(100);
+						touchedOnce4 = true;
+						if (freeMoveObjects[0]->GetParent()->GetEngine()->GetWindow()->GetInput().GetKey(Input::KEY_E)) {
+							textRenderer->setText("Go collect Energy cube to put this Engine Core online");
+							textRenderer->setY(100);
+							textRenderer->setX(50);
+							engineCore4Renderer->setUseSeccondaryMaterial(true);
+							pressedFourthButton = true;
+							energyCubeEntity->GetTransform()->SetPos(Vector3f(30, 5, 30));
+							energyCubeRenderer->setDraw(true);
+						}
+					}
+					else {
+						if (touchedOnce4)
+							if (!pressedFourthButton)
+								textRenderer->setText(" ");
+					}
+				}
+				else {
+					if (touchedOnce4)
+						if (!pressedFourthButton)
+							textRenderer->setText(" ");
+				}
+			}
+			if (energyCubeRenderer->getDraw() || checkCollisionsWithEnergyComponents) {
+				if (!checkCollisionsWithEnergyComponents) {
+					if (abs(playerPos.GetX() - energyCubeRenderer->GetParent()->GetTransform()->GetPos()->GetX()) < 1.0f + 1.0f / 1.0f)
+						if (abs(playerPos.GetZ() - energyCubeRenderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 1.0f + 1.0f / 1.0f) {
+							energyCubeRenderer->setDraw(false);
+							enemyCube1Entity->GetTransform()->SetPos(Vector3f(30, 5, 30));
+							enemyCube1Renderer->setDraw(true);
+							enemyCube2Entity->GetTransform()->SetPos(Vector3f(40, 5, 40));
+							enemyCube2Renderer->setDraw(true);
+							enemyCube3Entity->GetTransform()->SetPos(Vector3f(50, 5, 50));
+							enemyCube3Renderer->setDraw(true);
+							enemyCube4Entity->GetTransform()->SetPos(Vector3f(60, 5, 60));
+							enemyCube4Renderer->setDraw(true);
+							enemyCube5Entity->GetTransform()->SetPos(Vector3f(70, 5, 70));
+							enemyCube5Renderer->setDraw(true);
+							checkCollisionsWithEnergyComponents = true;
+						}
+				}
+				if (checkCollisionsWithEnergyComponents) {
+					if (checkTime4) {
+						textRenderer->setText("Time Left: " + std::to_string(timmer));
+						--timmer;
+						if (timmer <= 0)
+							exit(0);
+					}
+					if (abs(playerPos.GetX() - enemyCube1Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 1.0f + 1.0f / 1.0f)//cube1
+						if (abs(playerPos.GetZ() - enemyCube1Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 1.0f + 1.0f / 1.0f) {
+							enemyCube1Renderer->setDraw(false);
+						}
+					if (abs(playerPos.GetX() - enemyCube2Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 1.0f + 1.0f / 1.0f)//cube2
+						if (abs(playerPos.GetZ() - enemyCube2Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 1.0f + 1.0f / 1.0f) {
+							enemyCube2Renderer->setDraw(false);
+						}
+					if (abs(playerPos.GetX() - enemyCube3Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 1.0f + 1.0f / 1.0f)//cube3
+						if (abs(playerPos.GetZ() - enemyCube3Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 1.0f + 1.0f / 1.0f) {
+							enemyCube3Renderer->setDraw(false);
+						}
+					if (abs(playerPos.GetX() - enemyCube4Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 1.0f + 1.0f / 1.0f)//cube4
+						if (abs(playerPos.GetZ() - enemyCube4Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 1.0f + 1.0f / 1.0f) {
+							enemyCube4Renderer->setDraw(false);
+						}
+					if (abs(playerPos.GetX() - enemyCube5Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 1.0f + 1.0f / 1.0f)//cube5
+						if (abs(playerPos.GetZ() - enemyCube5Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 1.0f + 1.0f / 1.0f) {
+							enemyCube5Renderer->setDraw(false);
+						}
+					if (!enemyCube1Renderer->getDraw() & !enemyCube2Renderer->getDraw() & !enemyCube3Renderer->getDraw() & !enemyCube4Renderer->getDraw() & !enemyCube5Renderer->getDraw()) {
+						checkTime4 = false;
+						timmer = 1000;
+						textRenderer->setText("Well done, head back to the learning center");
+						engineCore4Renderer->setUseThirdMaterial(true);
+						checkCollisionsWithEnergyComponents = false;
+						gameplayFourFinished = true;
+					}
+				}
+			}
+			if (gameplayFourFinished & !hasHadPostGameplayFourMessage) {
+				if (abs(playerPos.GetX() - entranceToLearninCenterPos->GetX()) < 2.0f + 2.0f / 1.0f)
+					if (abs(playerPos.GetZ() - entranceToLearninCenterPos->GetZ()) < 2.0f + 2.0f / 1.0f) {
+						textRenderer->setText("Now the Core is online! Touch it to learn about that part of the engine");
+						textRenderer->setY(200);
+						textRenderer->setX(5);
+						hasHadPostGameplayFourMessage = true;
+					}
+			}
+			if (hasHadPostGameplayFourMessage) {
+				if (abs(playerPos.GetX() - fourthPannelPos.GetX()) < 1.0f + 3.0f / 1.0f) {
+					if (abs(playerPos.GetZ() - fourthPannelPos.GetZ()) < 1.0f + 3.0f / 1.0f) {
+						if (!currentlyLearning) {
+							textRenderer->setText("Press 'E' to open learning core.");
+							textRenderer->setY(300);
+							textRenderer->setX(5);
+							touchedOncePostGamePlayFour = true;
+						}
+						if (freeMoveObjects[0]->GetParent()->GetEngine()->GetWindow()->GetInput().GetKey(Input::KEY_E) && !currentlyLearning) {
+							textRenderer->setText("Learning Stuff (press 'R' to close info)");
+							textRenderer->setY(300);
+							textRenderer->setX(50);
+							currentlyLearning = true;
+							startGameplayFive = true;
+							gameplayFourCurrentlyHappening = false;
+							gameplayFourDead = true;
+						}
+					}
+					else {
+						if (touchedOncePostGamePlayFour)
+							if (!currentlyLearning)
+								textRenderer->setText(" ");
+					}
+				}
+				else {
+					if (touchedOncePostGamePlayFour)
+						if (!currentlyLearning)
+							textRenderer->setText(" ");
+				}
+			}
+		}
+	}
+
+	//------------------------------------------------------------------------------------------------------------GAMEPLAY FIVE
+	if (!gameplayFiveDead) {
+		if (startGameplayFive && !currentlyLearning) {
+			if (!pressedFifthButton) {
+				if (abs(playerPos.GetX() - fifthPannelPos.GetX()) < 1.0f + 3.0f / 1.0f) {
+					if (abs(playerPos.GetZ() - fifthPannelPos.GetZ()) < 1.0f + 3.0f / 1.0f) {
+						gameplayFiveCurrentlyHappening = true;
+						textRenderer->setText("Press 'E'");
+						textRenderer->setY(300);
+						textRenderer->setX(100);
+						touchedOnce5 = true;
+						if (freeMoveObjects[0]->GetParent()->GetEngine()->GetWindow()->GetInput().GetKey(Input::KEY_E)) {
+							textRenderer->setText("Go collect Energy cube to put this Engine Core online");
+							textRenderer->setY(100);
+							textRenderer->setX(50);
+							engineCore5Renderer->setUseSeccondaryMaterial(true);
+							pressedFifthButton = true;
+							energyCubeEntity->GetTransform()->SetPos(Vector3f(40, 5, 40));
+							energyCubeRenderer->setDraw(true);
+						}
+					}
+					else {
+						if (touchedOnce5)
+							if (!pressedFifthButton)
+								textRenderer->setText(" ");
+					}
+				}
+				else {
+					if (touchedOnce5)
+						if (!pressedFifthButton)
+							textRenderer->setText(" ");
+				}
+			}
+			if (energyCubeRenderer->getDraw() || checkCollisionsWithEnergyComponents) {
+				if (!checkCollisionsWithEnergyComponents) {
+					if (abs(playerPos.GetX() - energyCubeRenderer->GetParent()->GetTransform()->GetPos()->GetX()) < 1.0f + 1.0f / 1.0f)
+						if (abs(playerPos.GetZ() - energyCubeRenderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 1.0f + 1.0f / 1.0f) {
+							energyCubeRenderer->setDraw(false);
+							enemyCube1Entity->GetTransform()->SetPos(Vector3f(40, 5, 40));
+							enemyCube1Renderer->setDraw(true);
+							enemyCube2Entity->GetTransform()->SetPos(Vector3f(50, 5, 50));
+							enemyCube2Renderer->setDraw(true);
+							enemyCube3Entity->GetTransform()->SetPos(Vector3f(60, 5, 60));
+							enemyCube3Renderer->setDraw(true);
+							enemyCube4Entity->GetTransform()->SetPos(Vector3f(70, 5, 70));
+							enemyCube4Renderer->setDraw(true);
+							enemyCube5Entity->GetTransform()->SetPos(Vector3f(80, 5, 80));
+							enemyCube5Renderer->setDraw(true);
+							checkCollisionsWithEnergyComponents = true;
+						}
+				}
+				if (checkCollisionsWithEnergyComponents) {
+					if (checkTime5) {
+						textRenderer->setText("Time Left: " + std::to_string(timmer));
+						--timmer;
+						if (timmer <= 0)
+							exit(0);
+					}
+					if (abs(playerPos.GetX() - enemyCube1Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 1.0f + 1.0f / 1.0f)//cube1
+						if (abs(playerPos.GetZ() - enemyCube1Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 1.0f + 1.0f / 1.0f) {
+							enemyCube1Renderer->setDraw(false);
+						}
+					if (abs(playerPos.GetX() - enemyCube2Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 1.0f + 1.0f / 1.0f)//cube2
+						if (abs(playerPos.GetZ() - enemyCube2Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 1.0f + 1.0f / 1.0f) {
+							enemyCube2Renderer->setDraw(false);
+						}
+					if (abs(playerPos.GetX() - enemyCube3Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 1.0f + 1.0f / 1.0f)//cube3
+						if (abs(playerPos.GetZ() - enemyCube3Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 1.0f + 1.0f / 1.0f) {
+							enemyCube3Renderer->setDraw(false);
+						}
+					if (abs(playerPos.GetX() - enemyCube4Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 1.0f + 1.0f / 1.0f)//cube4
+						if (abs(playerPos.GetZ() - enemyCube4Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 1.0f + 1.0f / 1.0f) {
+							enemyCube4Renderer->setDraw(false);
+						}
+					if (abs(playerPos.GetX() - enemyCube5Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 1.0f + 1.0f / 1.0f)//cube5
+						if (abs(playerPos.GetZ() - enemyCube5Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 1.0f + 1.0f / 1.0f) {
+							enemyCube5Renderer->setDraw(false);
+						}
+					if (!enemyCube1Renderer->getDraw() & !enemyCube2Renderer->getDraw() & !enemyCube3Renderer->getDraw() & !enemyCube4Renderer->getDraw() & !enemyCube5Renderer->getDraw()) {
+						checkTime5 = false;
+						timmer = 1000;
+						textRenderer->setText("Well done, head back to the learning center");
+						engineCore5Renderer->setUseThirdMaterial(true);
+						checkCollisionsWithEnergyComponents = false;
+						gameplayFiveFinished = true;
+					}
+				}
+			}
+			if (gameplayFiveFinished & !hasHadPostGameplayFiveMessage) {
+				if (abs(playerPos.GetX() - entranceToLearninCenterPos->GetX()) < 2.0f + 2.0f / 1.0f)
+					if (abs(playerPos.GetZ() - entranceToLearninCenterPos->GetZ()) < 2.0f + 2.0f / 1.0f) {
+						textRenderer->setText("Now the Core is online! Touch it to learn about that part of the engine");
+						textRenderer->setY(200);
+						textRenderer->setX(5);
+						hasHadPostGameplayFiveMessage = true;
+					}
+			}
+			if (hasHadPostGameplayFiveMessage) {
+				if (abs(playerPos.GetX() - fifthPannelPos.GetX()) < 1.0f + 3.0f / 1.0f) {
+					if (abs(playerPos.GetZ() - fifthPannelPos.GetZ()) < 1.0f + 3.0f / 1.0f) {
+						if (!currentlyLearning) {
+							textRenderer->setText("Press 'E' to open learning core.");
+							textRenderer->setY(300);
+							textRenderer->setX(5);
+							touchedOncePostGamePlayFive = true;
+						}
+						if (freeMoveObjects[0]->GetParent()->GetEngine()->GetWindow()->GetInput().GetKey(Input::KEY_E) && !currentlyLearning) {
+							textRenderer->setText("Learning Stuff (press 'R' to close info)");
+							textRenderer->setY(300);
+							textRenderer->setX(50);
+							currentlyLearning = true;
+							startGameplaySix = true;
+							gameplayFiveCurrentlyHappening = false;
+							gameplayFiveDead = true;
+						}
+					}
+					else {
+						if (touchedOncePostGamePlayFive)
+							if (!currentlyLearning)
+								textRenderer->setText(" ");
+					}
+				}
+				else {
+					if (touchedOncePostGamePlayFive)
+						if (!currentlyLearning)
+							textRenderer->setText(" ");
+				}
+			}
+		}
+	}
+
+	//------------------------------------------------------------------------------------------------------------GAMEPLAY SIX
+	if (!gameplaySixDead) {
+		if (startGameplaySix && !currentlyLearning) {
+			if (!pressedSixthButton) {
+				if (abs(playerPos.GetX() - sixthPannelPos.GetX()) < 1.0f + 3.0f / 1.0f) {
+					if (abs(playerPos.GetZ() - sixthPannelPos.GetZ()) < 1.0f + 3.0f / 1.0f) {
+						gameplaySixCurrentlyHappening = true;
+						textRenderer->setText("Press 'E'");
+						textRenderer->setY(300);
+						textRenderer->setX(100);
+						touchedOnce6 = true;
+						if (freeMoveObjects[0]->GetParent()->GetEngine()->GetWindow()->GetInput().GetKey(Input::KEY_E)) {
+							textRenderer->setText("Go collect Energy cube to put this Engine Core online");
+							textRenderer->setY(100);
+							textRenderer->setX(50);
+							engineCore6Renderer->setUseSeccondaryMaterial(true);
+							pressedSixthButton = true;
+							energyCubeEntity->GetTransform()->SetPos(Vector3f(50, 5, 50));
+							energyCubeRenderer->setDraw(true);
+						}
+					}
+					else {
+						if (touchedOnce6)
+							if (!pressedSixthButton)
+								textRenderer->setText(" ");
+					}
+				}
+				else {
+					if (touchedOnce6)
+						if (!pressedSixthButton)
+							textRenderer->setText(" ");
+				}
+			}
+			if (energyCubeRenderer->getDraw() || checkCollisionsWithEnergyComponents) {
+				if (!checkCollisionsWithEnergyComponents) {
+					if (abs(playerPos.GetX() - energyCubeRenderer->GetParent()->GetTransform()->GetPos()->GetX()) < 1.0f + 1.0f / 1.0f)
+						if (abs(playerPos.GetZ() - energyCubeRenderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 1.0f + 1.0f / 1.0f) {
+							energyCubeRenderer->setDraw(false);
+							enemyCube1Entity->GetTransform()->SetPos(Vector3f(40, 5, 40));
+							enemyCube1Renderer->setDraw(true);
+							enemyCube2Entity->GetTransform()->SetPos(Vector3f(50, 5, 50));
+							enemyCube2Renderer->setDraw(true);
+							enemyCube3Entity->GetTransform()->SetPos(Vector3f(60, 5, 60));
+							enemyCube3Renderer->setDraw(true);
+							enemyCube4Entity->GetTransform()->SetPos(Vector3f(70, 5, 70));
+							enemyCube4Renderer->setDraw(true);
+							enemyCube5Entity->GetTransform()->SetPos(Vector3f(80, 5, 80));
+							enemyCube5Renderer->setDraw(true);
+							checkCollisionsWithEnergyComponents = true;
+						}
+				}
+				if (checkCollisionsWithEnergyComponents) {
+					if (checkTime6) {
+						textRenderer->setText("Time Left: " + std::to_string(timmer));
+						--timmer;
+						if (timmer <= 0)
+							exit(0);
+					}
+					if (abs(playerPos.GetX() - enemyCube1Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 1.0f + 1.0f / 1.0f)//cube1
+						if (abs(playerPos.GetZ() - enemyCube1Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 1.0f + 1.0f / 1.0f) {
+							enemyCube1Renderer->setDraw(false);
+						}
+					if (abs(playerPos.GetX() - enemyCube2Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 1.0f + 1.0f / 1.0f)//cube2
+						if (abs(playerPos.GetZ() - enemyCube2Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 1.0f + 1.0f / 1.0f) {
+							enemyCube2Renderer->setDraw(false);
+						}
+					if (abs(playerPos.GetX() - enemyCube3Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 1.0f + 1.0f / 1.0f)//cube3
+						if (abs(playerPos.GetZ() - enemyCube3Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 1.0f + 1.0f / 1.0f) {
+							enemyCube3Renderer->setDraw(false);
+						}
+					if (abs(playerPos.GetX() - enemyCube4Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 1.0f + 1.0f / 1.0f)//cube4
+						if (abs(playerPos.GetZ() - enemyCube4Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 1.0f + 1.0f / 1.0f) {
+							enemyCube4Renderer->setDraw(false);
+						}
+					if (abs(playerPos.GetX() - enemyCube5Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 1.0f + 1.0f / 1.0f)//cube5
+						if (abs(playerPos.GetZ() - enemyCube5Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 1.0f + 1.0f / 1.0f) {
+							enemyCube5Renderer->setDraw(false);
+						}
+					if (!enemyCube1Renderer->getDraw() & !enemyCube2Renderer->getDraw() & !enemyCube3Renderer->getDraw() & !enemyCube4Renderer->getDraw() & !enemyCube5Renderer->getDraw()) {
+						checkTime6 = false;
+						timmer = 1000;
+						textRenderer->setText("Well done, head back to the learning center");
+						engineCore6Renderer->setUseThirdMaterial(true);
+						checkCollisionsWithEnergyComponents = false;
+						gameplaySixFinished = true;
+					}
+				}
+			}
+			if (gameplaySixFinished & !hasHadPostGameplaySixMessage) {
+				if (abs(playerPos.GetX() - entranceToLearninCenterPos->GetX()) < 2.0f + 2.0f / 1.0f)
+					if (abs(playerPos.GetZ() - entranceToLearninCenterPos->GetZ()) < 2.0f + 2.0f / 1.0f) {
+						textRenderer->setText("Now the Core is online! Touch it to learn about that part of the engine");
+						textRenderer->setY(200);
+						textRenderer->setX(5);
+						hasHadPostGameplaySixMessage = true;
+					}
+			}
+			if (hasHadPostGameplaySixMessage) {
+				if (abs(playerPos.GetX() - sixthPannelPos.GetX()) < 1.0f + 3.0f / 1.0f) {
+					if (abs(playerPos.GetZ() - sixthPannelPos.GetZ()) < 1.0f + 3.0f / 1.0f) {
+						if (!currentlyLearning) {
+							textRenderer->setText("Press 'E' to open learning core.");
+							textRenderer->setY(300);
+							textRenderer->setX(5);
+							touchedOncePostGamePlaySix = true;
+						}
+						if (freeMoveObjects[0]->GetParent()->GetEngine()->GetWindow()->GetInput().GetKey(Input::KEY_E) && !currentlyLearning) {
+							textRenderer->setText("Learning Stuff (press 'R' to close info)");
+							textRenderer->setY(300);
+							textRenderer->setX(50);
+							currentlyLearning = true;
+							startGameplaySeven = true;
+							gameplaySixCurrentlyHappening = false;
+							gameplaySixDead = true;
+						}
+					}
+					else {
+						if (touchedOncePostGamePlaySix)
+							if (!currentlyLearning)
+								textRenderer->setText(" ");
+					}
+				}
+				else {
+					if (touchedOncePostGamePlaySix)
+						if (!currentlyLearning)
+							textRenderer->setText(" ");
+				}
+			}
+		}
+	}
+
+	//------------------------------------------------------------------------------------------------------------GAMEPLAY SEVEN
+	if (!gameplaySevenDead) {
+		if (startGameplaySeven && !currentlyLearning) {
+			if (!pressedSeventhButton) {
+				if (abs(playerPos.GetX() - seventhPannelPos.GetX()) < 1.0f + 3.0f / 1.0f) {
+					if (abs(playerPos.GetZ() - seventhPannelPos.GetZ()) < 1.0f + 3.0f / 1.0f) {
+						gameplaySevenCurrentlyHappening = true;
+						textRenderer->setText("Press 'E'");
+						textRenderer->setY(300);
+						textRenderer->setX(100);
+						touchedOnce7 = true;
+						if (freeMoveObjects[0]->GetParent()->GetEngine()->GetWindow()->GetInput().GetKey(Input::KEY_E)) {
+							textRenderer->setText("Go collect Energy cube to put this Engine Core online");
+							textRenderer->setY(100);
+							textRenderer->setX(50);
+							engineCore7Renderer->setUseSeccondaryMaterial(true);
+							pressedSeventhButton = true;
+							energyCubeEntity->GetTransform()->SetPos(Vector3f(60, 5, 60));
+							energyCubeRenderer->setDraw(true);
+						}
+					}
+					else {
+						if (touchedOnce7)
+							if (!pressedSeventhButton)
+								textRenderer->setText(" ");
+					}
+				}
+				else {
+					if (touchedOnce7)
+						if (!pressedSeventhButton)
+							textRenderer->setText(" ");
+				}
+			}
+			if (energyCubeRenderer->getDraw() || checkCollisionsWithEnergyComponents) {
+				if (!checkCollisionsWithEnergyComponents) {
+					if (abs(playerPos.GetX() - energyCubeRenderer->GetParent()->GetTransform()->GetPos()->GetX()) < 1.0f + 1.0f / 1.0f)
+						if (abs(playerPos.GetZ() - energyCubeRenderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 1.0f + 1.0f / 1.0f) {
+							energyCubeRenderer->setDraw(false);
+							enemyCube1Entity->GetTransform()->SetPos(Vector3f(40, 5, 40));
+							enemyCube1Renderer->setDraw(true);
+							enemyCube2Entity->GetTransform()->SetPos(Vector3f(50, 5, 50));
+							enemyCube2Renderer->setDraw(true);
+							enemyCube3Entity->GetTransform()->SetPos(Vector3f(60, 5, 60));
+							enemyCube3Renderer->setDraw(true);
+							enemyCube4Entity->GetTransform()->SetPos(Vector3f(70, 5, 70));
+							enemyCube4Renderer->setDraw(true);
+							enemyCube5Entity->GetTransform()->SetPos(Vector3f(80, 5, 80));
+							enemyCube5Renderer->setDraw(true);
+							checkCollisionsWithEnergyComponents = true;
+						}
+				}
+				if (checkCollisionsWithEnergyComponents) {
+					if (checkTime7) {
+						textRenderer->setText("Time Left: " + std::to_string(timmer));
+						--timmer;
+						if (timmer <= 0)
+							exit(0);
+					}
+					if (abs(playerPos.GetX() - enemyCube1Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 1.0f + 1.0f / 1.0f)//cube1
+						if (abs(playerPos.GetZ() - enemyCube1Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 1.0f + 1.0f / 1.0f) {
+							enemyCube1Renderer->setDraw(false);
+						}
+					if (abs(playerPos.GetX() - enemyCube2Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 1.0f + 1.0f / 1.0f)//cube2
+						if (abs(playerPos.GetZ() - enemyCube2Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 1.0f + 1.0f / 1.0f) {
+							enemyCube2Renderer->setDraw(false);
+						}
+					if (abs(playerPos.GetX() - enemyCube3Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 1.0f + 1.0f / 1.0f)//cube3
+						if (abs(playerPos.GetZ() - enemyCube3Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 1.0f + 1.0f / 1.0f) {
+							enemyCube3Renderer->setDraw(false);
+						}
+					if (abs(playerPos.GetX() - enemyCube4Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 1.0f + 1.0f / 1.0f)//cube4
+						if (abs(playerPos.GetZ() - enemyCube4Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 1.0f + 1.0f / 1.0f) {
+							enemyCube4Renderer->setDraw(false);
+						}
+					if (abs(playerPos.GetX() - enemyCube5Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 1.0f + 1.0f / 1.0f)//cube5
+						if (abs(playerPos.GetZ() - enemyCube5Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 1.0f + 1.0f / 1.0f) {
+							enemyCube5Renderer->setDraw(false);
+						}
+					if (!enemyCube1Renderer->getDraw() & !enemyCube2Renderer->getDraw() & !enemyCube3Renderer->getDraw() & !enemyCube4Renderer->getDraw() & !enemyCube5Renderer->getDraw()) {
+						checkTime7 = false;
+						timmer = 1000;
+						textRenderer->setText("Well done, head back to the learning center");
+						engineCore7Renderer->setUseThirdMaterial(true);
+						checkCollisionsWithEnergyComponents = false;
+						gameplaySevenFinished = true;
+					}
+				}
+			}
+			if (gameplaySevenFinished & !hasHadPostGameplaySevenMessage) {
+				if (abs(playerPos.GetX() - entranceToLearninCenterPos->GetX()) < 2.0f + 2.0f / 1.0f)
+					if (abs(playerPos.GetZ() - entranceToLearninCenterPos->GetZ()) < 2.0f + 2.0f / 1.0f) {
+						textRenderer->setText("Now the Core is online! Touch it to learn about that part of the engine");
+						textRenderer->setY(200);
+						textRenderer->setX(5);
+						hasHadPostGameplaySevenMessage = true;
+					}
+			}
+			if (hasHadPostGameplaySevenMessage) {
+				if (abs(playerPos.GetX() - seventhPannelPos.GetX()) < 1.0f + 3.0f / 1.0f) {
+					if (abs(playerPos.GetZ() - seventhPannelPos.GetZ()) < 1.0f + 3.0f / 1.0f) {
+						if (!currentlyLearning) {
+							textRenderer->setText("Press 'E' to open learning core.");
+							textRenderer->setY(300);
+							textRenderer->setX(5);
+							touchedOncePostGamePlaySeven = true;
+						}
+						if (freeMoveObjects[0]->GetParent()->GetEngine()->GetWindow()->GetInput().GetKey(Input::KEY_E) && !currentlyLearning) {
+							textRenderer->setText("Learning Stuff (press 'R' to close info)");
+							textRenderer->setY(300);
+							textRenderer->setX(50);
+							currentlyLearning = true;
+							startGameplayEight = true;
+							gameplaySevenCurrentlyHappening = false;
+							gameplaySevenDead = true;
+						}
+					}
+					else {
+						if (touchedOncePostGamePlaySeven)
+							if (!currentlyLearning)
+								textRenderer->setText(" ");
+					}
+				}
+				else {
+					if (touchedOncePostGamePlaySeven)
+						if (!currentlyLearning)
+							textRenderer->setText(" ");
+				}
+			}
+		}
+	}
+
+	//------------------------------------------------------------------------------------------------------------GAMEPLAY EIGHT
+	if (!gameplayEightDead) {
+		if (startGameplayEight && !currentlyLearning) {
+			if (!pressedEighthButton) {
+				if (abs(playerPos.GetX() - eighthPannelPos.GetX()) < 1.0f + 3.0f / 1.0f) {
+					if (abs(playerPos.GetZ() - eighthPannelPos.GetZ()) < 1.0f + 3.0f / 1.0f) {
+						gameplayEightCurrentlyHappening = true;
+						textRenderer->setText("Press 'E'");
+						textRenderer->setY(300);
+						textRenderer->setX(100);
+						touchedOnce8 = true;
+						if (freeMoveObjects[0]->GetParent()->GetEngine()->GetWindow()->GetInput().GetKey(Input::KEY_E)) {
+							textRenderer->setText("Go collect Energy cube to put this Engine Core online");
+							textRenderer->setY(100);
+							textRenderer->setX(50);
+							engineCore8Renderer->setUseSeccondaryMaterial(true);
+							pressedEighthButton = true;
+							energyCubeEntity->GetTransform()->SetPos(Vector3f(70, 5, 70));
+							energyCubeRenderer->setDraw(true);
+						}
+					}
+					else {
+						if (touchedOnce8)
+							if (!pressedEighthButton)
+								textRenderer->setText(" ");
+					}
+				}
+				else {
+					if (touchedOnce8)
+						if (!pressedEighthButton)
+							textRenderer->setText(" ");
+				}
+			}
+			if (energyCubeRenderer->getDraw() || checkCollisionsWithEnergyComponents) {
+				if (!checkCollisionsWithEnergyComponents) {
+					if (abs(playerPos.GetX() - energyCubeRenderer->GetParent()->GetTransform()->GetPos()->GetX()) < 1.0f + 1.0f / 1.0f)
+						if (abs(playerPos.GetZ() - energyCubeRenderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 1.0f + 1.0f / 1.0f) {
+							energyCubeRenderer->setDraw(false);
+							enemyCube1Entity->GetTransform()->SetPos(Vector3f(50, 5, 50));
+							enemyCube1Renderer->setDraw(true);
+							enemyCube2Entity->GetTransform()->SetPos(Vector3f(60, 5, 60));
+							enemyCube2Renderer->setDraw(true);
+							enemyCube3Entity->GetTransform()->SetPos(Vector3f(70, 5, 70));
+							enemyCube3Renderer->setDraw(true);
+							enemyCube4Entity->GetTransform()->SetPos(Vector3f(80, 5, 80));
+							enemyCube4Renderer->setDraw(true);
+							enemyCube5Entity->GetTransform()->SetPos(Vector3f(90, 5, 90));
+							enemyCube5Renderer->setDraw(true);
+							checkCollisionsWithEnergyComponents = true;
+						}
+				}
+				if (checkCollisionsWithEnergyComponents) {
+					if (checkTime8) {
+						textRenderer->setText("Time Left: " + std::to_string(timmer));
+						--timmer;
+						if (timmer <= 0)
+							exit(0);
+					}
+					if (abs(playerPos.GetX() - enemyCube1Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 1.0f + 1.0f / 1.0f)//cube1
+						if (abs(playerPos.GetZ() - enemyCube1Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 1.0f + 1.0f / 1.0f) {
+							enemyCube1Renderer->setDraw(false);
+						}
+					if (abs(playerPos.GetX() - enemyCube2Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 1.0f + 1.0f / 1.0f)//cube2
+						if (abs(playerPos.GetZ() - enemyCube2Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 1.0f + 1.0f / 1.0f) {
+							enemyCube2Renderer->setDraw(false);
+						}
+					if (abs(playerPos.GetX() - enemyCube3Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 1.0f + 1.0f / 1.0f)//cube3
+						if (abs(playerPos.GetZ() - enemyCube3Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 1.0f + 1.0f / 1.0f) {
+							enemyCube3Renderer->setDraw(false);
+						}
+					if (abs(playerPos.GetX() - enemyCube4Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 1.0f + 1.0f / 1.0f)//cube4
+						if (abs(playerPos.GetZ() - enemyCube4Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 1.0f + 1.0f / 1.0f) {
+							enemyCube4Renderer->setDraw(false);
+						}
+					if (abs(playerPos.GetX() - enemyCube5Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 1.0f + 1.0f / 1.0f)//cube5
+						if (abs(playerPos.GetZ() - enemyCube5Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 1.0f + 1.0f / 1.0f) {
+							enemyCube5Renderer->setDraw(false);
+						}
+					if (!enemyCube1Renderer->getDraw() & !enemyCube2Renderer->getDraw() & !enemyCube3Renderer->getDraw() & !enemyCube4Renderer->getDraw() & !enemyCube5Renderer->getDraw()) {
+						checkTime8 = false;
+						timmer = 1000;
+						textRenderer->setText("Well done, head back to the learning center");
+						engineCore8Renderer->setUseThirdMaterial(true);
+						checkCollisionsWithEnergyComponents = false;
+						gameplayEightFinished = true;
+					}
+				}
+			}
+			if (gameplayEightFinished & !hasHadPostGameplayEightMessage) {
+				if (abs(playerPos.GetX() - entranceToLearninCenterPos->GetX()) < 2.0f + 2.0f / 1.0f)
+					if (abs(playerPos.GetZ() - entranceToLearninCenterPos->GetZ()) < 2.0f + 2.0f / 1.0f) {
+						textRenderer->setText("Now the Core is online! Touch it to learn about that part of the engine");
+						textRenderer->setY(200);
+						textRenderer->setX(5);
+						hasHadPostGameplayEightMessage = true;
+					}
+			}
+			if (hasHadPostGameplayEightMessage) {
+				if (abs(playerPos.GetX() - eighthPannelPos.GetX()) < 1.0f + 3.0f / 1.0f) {
+					if (abs(playerPos.GetZ() - eighthPannelPos.GetZ()) < 1.0f + 3.0f / 1.0f) {
+						if (!currentlyLearning) {
+							textRenderer->setText("Press 'E' to open learning core.");
+							textRenderer->setY(300);
+							textRenderer->setX(5);
+							touchedOncePostGamePlayEight = true;
+						}
+						if (freeMoveObjects[0]->GetParent()->GetEngine()->GetWindow()->GetInput().GetKey(Input::KEY_E) && !currentlyLearning) {
+							textRenderer->setText("Learning Stuff (press 'R' to close info)");
+							textRenderer->setY(300);
+							textRenderer->setX(50);
+							currentlyLearning = true;
+							gameplayEightCurrentlyHappening = false;
+							gameplayEightDead = true;
+						}
+					}
+					else {
+						if (touchedOncePostGamePlayEight)
+							if (!currentlyLearning)
+								textRenderer->setText(" ");
+					}
+				}
+				else {
+					if (touchedOncePostGamePlayEight)
+						if (!currentlyLearning)
+							textRenderer->setText(" ");
+				}
+			}
+		}
+	}
+
+	//------------------------------------------------------------------------------------------------------------GENERIC LOGIC
+	if (freeMoveObjects[0]->GetParent()->GetEngine()->GetWindow()->GetInput().GetKey(Input::KEY_R) && currentlyLearning) {
+		//textRenderer->setText(" ");
+		currentlyLearning = false;
+	}
+	//GAMEPLAY 1 ENDGAME
+	if (hasHadPostGameplayOneMessage && gameplayOneDead) {
+		if (!gameplayTwoCurrentlyHappening & !gameplayThreeCurrentlyHappening & !gameplayFourCurrentlyHappening & !gameplayFiveCurrentlyHappening & !gameplaySixCurrentlyHappening & !gameplaySevenCurrentlyHappening & !gameplayEightCurrentlyHappening) {
+			if (abs(playerPos.GetX() - firstPannelPos.GetX()) < 1.0f + 3.0f / 1.0f) {
+				if (abs(playerPos.GetZ() - firstPannelPos.GetZ()) < 1.0f + 3.0f / 1.0f) {
+					if (!currentlyLearning) {
+						currentlyTouchingPannelOne = true;
+						textRenderer->setText("Press 'E' to open learning core.");
+						textRenderer->setY(300);
+						textRenderer->setX(5);
+						touchedOncePostGamePlayOne = true;
+						if (freeMoveObjects[0]->GetParent()->GetEngine()->GetWindow()->GetInput().GetKey(Input::KEY_E)) {
+							textRenderer->setText("Learning Stuff (press 'R' to close info)");
+							textRenderer->setY(300);
+							textRenderer->setX(50);
+							currentlyLearning = true;
+						}
+					}
+				}
+				else {
+					currentlyTouchingPannelOne = false;
+					if (touchedOncePostGamePlayOne)
+						if(!currentlyTouchingPannelTwo & !currentlyTouchingPannelThree & !currentlyTouchingPannelFour & !currentlyTouchingPannelFive & !currentlyTouchingPannelSix & !currentlyTouchingPannelSeven & !currentlyTouchingPannelEight)
+							if (!currentlyLearning)
+								textRenderer->setText(" ");
+				}
+			}
+			else {
+				currentlyTouchingPannelOne = false;
+				if (touchedOncePostGamePlayOne)
+					if (!currentlyTouchingPannelTwo & !currentlyTouchingPannelThree & !currentlyTouchingPannelFour & !currentlyTouchingPannelFive & !currentlyTouchingPannelSix & !currentlyTouchingPannelSeven & !currentlyTouchingPannelEight)
+						if (!currentlyLearning)
+							textRenderer->setText(" ");
+			}
+		}
+	}
+	//GAMEPLAY 2 ENDGAME
+	if (hasHadPostGameplayTwoMessage && gameplayTwoDead) {
+		if (!gameplayOneCurrentlyHappening & !gameplayThreeCurrentlyHappening & !gameplayFourCurrentlyHappening & !gameplayFiveCurrentlyHappening & !gameplaySixCurrentlyHappening & !gameplaySevenCurrentlyHappening & !gameplayEightCurrentlyHappening) {
+			if (abs(playerPos.GetX() - seccondPannelPos.GetX()) < 1.0f + 3.0f / 1.0f) {
+				if (abs(playerPos.GetZ() - seccondPannelPos.GetZ()) < 1.0f + 3.0f / 1.0f) {
+					if (!currentlyLearning) {
+						currentlyTouchingPannelTwo = true;
+						textRenderer->setText("Press 'E' to open learning core.");
+						textRenderer->setY(300);
+						textRenderer->setX(5);
+						touchedOncePostGamePlayTwo = true;
+						if (freeMoveObjects[0]->GetParent()->GetEngine()->GetWindow()->GetInput().GetKey(Input::KEY_E)) {
+							textRenderer->setText("Learning Stuff (press 'R' to close info)");
+							textRenderer->setY(300);
+							textRenderer->setX(50);
+							currentlyLearning = true;
+						}
+					}
+				}
+				else {
+					currentlyTouchingPannelTwo = false;
+					if (touchedOncePostGamePlayTwo)
+						if (!currentlyTouchingPannelOne & !currentlyTouchingPannelThree & !currentlyTouchingPannelFour & !currentlyTouchingPannelFive & !currentlyTouchingPannelSix & !currentlyTouchingPannelSeven & !currentlyTouchingPannelEight)
+							if (!currentlyLearning)
+								textRenderer->setText(" ");
+				}
+			}
+			else {
+				currentlyTouchingPannelTwo = false;
+				if (touchedOncePostGamePlayTwo)
+					if (!currentlyTouchingPannelOne & !currentlyTouchingPannelThree & !currentlyTouchingPannelFour & !currentlyTouchingPannelFive & !currentlyTouchingPannelSix & !currentlyTouchingPannelSeven & !currentlyTouchingPannelEight)
+						if (!currentlyLearning)
+							textRenderer->setText(" ");
+			}
+		}
+	}
+	//GAMEPLAY 3 ENDGAME
+	if (hasHadPostGameplayThreeMessage && gameplayThreeDead) {
+		if (!gameplayOneCurrentlyHappening & !gameplayTwoCurrentlyHappening & !gameplayFourCurrentlyHappening & !gameplayFiveCurrentlyHappening & !gameplaySixCurrentlyHappening & !gameplaySevenCurrentlyHappening & !gameplayEightCurrentlyHappening) {
+			if (abs(playerPos.GetX() - thirdPannelPos.GetX()) < 1.0f + 3.0f / 1.0f) {
+				if (abs(playerPos.GetZ() - thirdPannelPos.GetZ()) < 1.0f + 3.0f / 1.0f) {
+					if (!currentlyLearning) {
+						currentlyTouchingPannelThree = true;
+						textRenderer->setText("Press 'E' to open learning core.");
+						textRenderer->setY(300);
+						textRenderer->setX(5);
+						touchedOncePostGamePlayThree = true;
+						if (freeMoveObjects[0]->GetParent()->GetEngine()->GetWindow()->GetInput().GetKey(Input::KEY_E)) {
+							textRenderer->setText("Learning Stuff (press 'R' to close info)");
+							textRenderer->setY(300);
+							textRenderer->setX(50);
+							currentlyLearning = true;
+						}
+					}
+				}
+				else {
+					currentlyTouchingPannelThree = false;
+					if (touchedOncePostGamePlayThree)
+						if (!currentlyTouchingPannelOne & !currentlyTouchingPannelTwo & !currentlyTouchingPannelFour & !currentlyTouchingPannelFive & !currentlyTouchingPannelSix & !currentlyTouchingPannelSeven & !currentlyTouchingPannelEight)
+							if (!currentlyLearning)
+								textRenderer->setText(" ");
+				}
+			}
+			else {
+				currentlyTouchingPannelThree = false;
+				if (touchedOncePostGamePlayThree)
+					if (!currentlyTouchingPannelOne & !currentlyTouchingPannelTwo & !currentlyTouchingPannelFour & !currentlyTouchingPannelFive & !currentlyTouchingPannelSix & !currentlyTouchingPannelSeven & !currentlyTouchingPannelEight)
+						if (!currentlyLearning)
+							textRenderer->setText(" ");
+			}
+		}
+	}
+	//GAMEPLAY 4 ENDGAME
+	if (hasHadPostGameplayFourMessage && gameplayFourDead) {
+		if (!gameplayOneCurrentlyHappening & !gameplayTwoCurrentlyHappening & !gameplayThreeCurrentlyHappening & !gameplayFiveCurrentlyHappening & !gameplaySixCurrentlyHappening & !gameplaySevenCurrentlyHappening & !gameplayEightCurrentlyHappening) {
+			if (abs(playerPos.GetX() - fourthPannelPos.GetX()) < 1.0f + 3.0f / 1.0f) {
+				if (abs(playerPos.GetZ() - fourthPannelPos.GetZ()) < 1.0f + 3.0f / 1.0f) {
+					if (!currentlyLearning) {
+						currentlyTouchingPannelFour = true;
+						textRenderer->setText("Press 'E' to open learning core.");
+						textRenderer->setY(300);
+						textRenderer->setX(5);
+						touchedOncePostGamePlayFour = true;
+						if (freeMoveObjects[0]->GetParent()->GetEngine()->GetWindow()->GetInput().GetKey(Input::KEY_E)) {
+							textRenderer->setText("Learning Stuff (press 'R' to close info)");
+							textRenderer->setY(300);
+							textRenderer->setX(50);
+							currentlyLearning = true;
+						}
+					}
+				}
+				else {
+					currentlyTouchingPannelFour = false;
+					if (touchedOncePostGamePlayFour)
+						if (!currentlyTouchingPannelOne & !currentlyTouchingPannelTwo & !currentlyTouchingPannelThree & !currentlyTouchingPannelFive & !currentlyTouchingPannelSix & !currentlyTouchingPannelSeven & !currentlyTouchingPannelEight)
+							if (!currentlyLearning)
+								textRenderer->setText(" ");
+				}
+			}
+			else {
+				currentlyTouchingPannelFour = false;
+				if (touchedOncePostGamePlayFour)
+					if (!currentlyTouchingPannelOne & !currentlyTouchingPannelTwo & !currentlyTouchingPannelThree & !currentlyTouchingPannelFive & !currentlyTouchingPannelSix & !currentlyTouchingPannelSeven & !currentlyTouchingPannelEight)
+						if (!currentlyLearning)
+							textRenderer->setText(" ");
+			}
+		}
+	}
+	//GAMEPLAY 5 ENDGAME
+	if (hasHadPostGameplayFiveMessage && gameplayFiveDead) {
+		if (!gameplayOneCurrentlyHappening & !gameplayTwoCurrentlyHappening & !gameplayThreeCurrentlyHappening & !gameplayFourCurrentlyHappening & !gameplaySixCurrentlyHappening & !gameplaySevenCurrentlyHappening & !gameplayEightCurrentlyHappening) {
+			if (abs(playerPos.GetX() - fifthPannelPos.GetX()) < 1.0f + 3.0f / 1.0f) {
+				if (abs(playerPos.GetZ() - fifthPannelPos.GetZ()) < 1.0f + 3.0f / 1.0f) {
+					if (!currentlyLearning) {
+						currentlyTouchingPannelFive = true;
+						textRenderer->setText("Press 'E' to open learning core.");
+						textRenderer->setY(300);
+						textRenderer->setX(5);
+						touchedOncePostGamePlayFive = true;
+						if (freeMoveObjects[0]->GetParent()->GetEngine()->GetWindow()->GetInput().GetKey(Input::KEY_E)) {
+							textRenderer->setText("Learning Stuff (press 'R' to close info)");
+							textRenderer->setY(300);
+							textRenderer->setX(50);
+							currentlyLearning = true;
+						}
+					}
+				}
+				else {
+					currentlyTouchingPannelFive = false;
+					if (touchedOncePostGamePlayFive)
+						if (!currentlyTouchingPannelOne & !currentlyTouchingPannelTwo & !currentlyTouchingPannelThree & !currentlyTouchingPannelFour & !currentlyTouchingPannelSix & !currentlyTouchingPannelSeven & !currentlyTouchingPannelEight)
+							if (!currentlyLearning)
+								textRenderer->setText(" ");
+				}
+			}
+			else {
+				currentlyTouchingPannelFive = false;
+				if (touchedOncePostGamePlayFive)
+					if (!currentlyTouchingPannelOne & !currentlyTouchingPannelTwo & !currentlyTouchingPannelThree & !currentlyTouchingPannelFour & !currentlyTouchingPannelSix & !currentlyTouchingPannelSeven & !currentlyTouchingPannelEight)
+						if (!currentlyLearning)
+							textRenderer->setText(" ");
+			}
+		}
+	}
+	//GAMEPLAY 6 ENDGAME
+	if (hasHadPostGameplaySixMessage && gameplaySixDead) {
+		if (!gameplayOneCurrentlyHappening & !gameplayTwoCurrentlyHappening & !gameplayThreeCurrentlyHappening & !gameplayFourCurrentlyHappening & !gameplayFiveCurrentlyHappening & !gameplaySevenCurrentlyHappening & !gameplayEightCurrentlyHappening) {
+			if (abs(playerPos.GetX() - sixthPannelPos.GetX()) < 1.0f + 3.0f / 1.0f) {
+				if (abs(playerPos.GetZ() - sixthPannelPos.GetZ()) < 1.0f + 3.0f / 1.0f) {
+					if (!currentlyLearning) {
+						currentlyTouchingPannelSix = true;
+						textRenderer->setText("Press 'E' to open learning core.");
+						textRenderer->setY(300);
+						textRenderer->setX(5);
+						touchedOncePostGamePlaySix = true;
+						if (freeMoveObjects[0]->GetParent()->GetEngine()->GetWindow()->GetInput().GetKey(Input::KEY_E)) {
+							textRenderer->setText("Learning Stuff (press 'R' to close info)");
+							textRenderer->setY(300);
+							textRenderer->setX(50);
+							currentlyLearning = true;
+						}
+					}
+				}
+				else {
+					currentlyTouchingPannelSix = false;
+					if (touchedOncePostGamePlaySix)
+						if (!currentlyTouchingPannelOne & !currentlyTouchingPannelTwo & !currentlyTouchingPannelThree & !currentlyTouchingPannelFour & !currentlyTouchingPannelFive & !currentlyTouchingPannelSeven & !currentlyTouchingPannelEight)
+							if (!currentlyLearning)
+								textRenderer->setText(" ");
+				}
+			}
+			else {
+				currentlyTouchingPannelSix = false;
+				if (touchedOncePostGamePlaySix)
+					if (!currentlyTouchingPannelOne & !currentlyTouchingPannelTwo & !currentlyTouchingPannelThree & !currentlyTouchingPannelFour & !currentlyTouchingPannelFive & !currentlyTouchingPannelSeven & !currentlyTouchingPannelEight)
+						if (!currentlyLearning)
+							textRenderer->setText(" ");
+			}
+		}
+	}
+	//GAMEPLAY 7 ENDGAME
+	if (hasHadPostGameplaySevenMessage && gameplaySevenDead) {
+		if (!gameplayOneCurrentlyHappening & !gameplayTwoCurrentlyHappening & !gameplayThreeCurrentlyHappening & !gameplayFourCurrentlyHappening & !gameplayFiveCurrentlyHappening & !gameplaySixCurrentlyHappening & !gameplayEightCurrentlyHappening) {
+			if (abs(playerPos.GetX() - seventhPannelPos.GetX()) < 1.0f + 3.0f / 1.0f) {
+				if (abs(playerPos.GetZ() - seventhPannelPos.GetZ()) < 1.0f + 3.0f / 1.0f) {
+					if (!currentlyLearning) {
+						currentlyTouchingPannelSeven = true;
+						textRenderer->setText("Press 'E' to open learning core.");
+						textRenderer->setY(300);
+						textRenderer->setX(5);
+						touchedOncePostGamePlaySeven = true;
+						if (freeMoveObjects[0]->GetParent()->GetEngine()->GetWindow()->GetInput().GetKey(Input::KEY_E)) {
+							textRenderer->setText("Learning Stuff (press 'R' to close info)");
+							textRenderer->setY(300);
+							textRenderer->setX(50);
+							currentlyLearning = true;
+						}
+					}
+				}
+				else {
+					currentlyTouchingPannelSeven = false;
+					if (touchedOncePostGamePlaySeven)
+						if (!currentlyTouchingPannelOne & !currentlyTouchingPannelTwo & !currentlyTouchingPannelThree & !currentlyTouchingPannelFour & !currentlyTouchingPannelFive & !currentlyTouchingPannelSix & !currentlyTouchingPannelEight)
+							if (!currentlyLearning)
+								textRenderer->setText(" ");
+				}
+			}
+			else {
+				currentlyTouchingPannelSeven = false;
+				if (touchedOncePostGamePlaySeven)
+					if (!currentlyTouchingPannelOne & !currentlyTouchingPannelTwo & !currentlyTouchingPannelThree & !currentlyTouchingPannelFour & !currentlyTouchingPannelFive & !currentlyTouchingPannelSix & !currentlyTouchingPannelEight)
+						if (!currentlyLearning)
+							textRenderer->setText(" ");
+			}
+		}
+	}
+	//GAMEPLAY 8 ENDGAME
+	if (hasHadPostGameplayEightMessage && gameplayEightDead) {
+		if (!gameplayOneCurrentlyHappening & !gameplayTwoCurrentlyHappening & !gameplayThreeCurrentlyHappening & !gameplayFourCurrentlyHappening & !gameplayFiveCurrentlyHappening & !gameplaySixCurrentlyHappening & !gameplaySevenCurrentlyHappening) {
+			if (abs(playerPos.GetX() - eighthPannelPos.GetX()) < 1.0f + 3.0f / 1.0f) {
+				if (abs(playerPos.GetZ() - eighthPannelPos.GetZ()) < 1.0f + 3.0f / 1.0f) {
+					if (!currentlyLearning) {
+						currentlyTouchingPannelEight = true;
+						textRenderer->setText("Press 'E' to open learning core.");
+						textRenderer->setY(300);
+						textRenderer->setX(5);
+						touchedOncePostGamePlayEight = true;
+						if (freeMoveObjects[0]->GetParent()->GetEngine()->GetWindow()->GetInput().GetKey(Input::KEY_E)) {
+							textRenderer->setText("Learning Stuff (press 'R' to close info)");
+							textRenderer->setY(300);
+							textRenderer->setX(50);
+							currentlyLearning = true;
+						}
+					}
+				}
+				else {
+					currentlyTouchingPannelEight = false;
+					if (touchedOncePostGamePlayEight)
+						if (!currentlyTouchingPannelOne & !currentlyTouchingPannelTwo & !currentlyTouchingPannelThree & !currentlyTouchingPannelFour & !currentlyTouchingPannelFive & !currentlyTouchingPannelSix & !currentlyTouchingPannelSeven)
+							if (!currentlyLearning)
+								textRenderer->setText(" ");
+				}
+			}
+			else {
+				currentlyTouchingPannelEight = false;
+				if (touchedOncePostGamePlayEight)
+					if (!currentlyTouchingPannelOne & !currentlyTouchingPannelTwo & !currentlyTouchingPannelThree & !currentlyTouchingPannelFour & !currentlyTouchingPannelFive & !currentlyTouchingPannelSix & !currentlyTouchingPannelSeven)
+						if (!currentlyLearning)
+							textRenderer->setText(" ");
+			}
+		}
+	}
 }
 
 void TestGame::updateSunAngle()
@@ -360,7 +1906,7 @@ void TestGame::CheckCollisionWithModel()//19/3/20
 	//19/3/20
 	Vector3f *testPlayerPos = freeMoveObjects[0]->GetParent()->GetTransform()->GetPos();
 	Vector3f playerPos(testPlayerPos->GetX(), testPlayerPos->GetY() - 1.0f, testPlayerPos->GetZ());
-	Vector3f playerScale(0.5f, 0.5f, 0.5f);
+	Vector3f playerScale(1.0f, 1.0f, 1.0f);
 	for (int i = 0; i < meshRendererCollisionObjects.size(); i++) {
 		Vector3f* meshPos = meshRendererCollisionObjects[i]->GetParent()->GetTransform()->GetPos();
 		if (abs(playerPos.GetX() - meshPos->GetX()) < playerScale.GetX() + meshRendererCollisionScales[i].GetX() / 1.0f)

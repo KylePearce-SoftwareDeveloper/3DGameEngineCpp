@@ -33,6 +33,7 @@ public:
 	
 	inline RenderingEngine* GetRenderingEngine() { return m_renderingEngine; }
 	virtual Game* GetGame() { return m_game; }//2/2/20 test
+	virtual Window* GetWindow() { return m_window; };//19/3/20
 protected:
 private:
 	bool             m_isRunning;       //Whether or not the engine is running

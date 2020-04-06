@@ -161,7 +161,7 @@ void TextRenderer::RenderTextRenderer(const Shader& shader, const RenderingEngin
 
 	glUniform1i(glGetUniformLocation(TextShader.GetShaderData()->GetProgram(), "H_text"), 0);
 
-	RenderText(text, 20, 25, 1);//18/3/20
+	RenderText(text, x, y, 1);//18/3/20
 	glEnable(GL_DEPTH_TEST);
 	glDisable(GL_BLEND);
 
