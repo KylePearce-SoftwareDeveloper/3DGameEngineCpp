@@ -24,9 +24,9 @@
 #include <vector>
 #include <cassert>
 
-#include <assimp/Importer.hpp>
-#include <assimp/scene.h>
-#include <assimp/postprocess.h>
+//#include <assimp/Importer.hpp>
+//#include <assimp/scene.h>
+//#include <assimp/postprocess.h>
 
 std::map<std::string, MeshData*> Mesh::s_resourceMap;
 //std::vector<Vector3f> meshVertices;//2/2/20 test
@@ -287,91 +287,97 @@ Mesh::Mesh(const std::string& fileName) :
 			std::cout << "Mesh load failed!: " << fileName << std::endl;
 			assert(0 == 0);
 		}
-		
-		const aiMesh* model = scene->mMeshes[0];
-		
-		std::vector<Vector3f> positions;
+
+		/*std::vector<Vector3f> positions;
 		std::vector<Vector2f> texCoords;
 		std::vector<Vector3f> normals;
 		std::vector<Vector3f> tangents;
-		std::vector<unsigned int> indices;
+		std::vector<unsigned int> indices;*/
+		
+		processNode(scene->mRootNode, scene);//New Mesh Logic
 
-		const aiVector3D aiZeroVector(0.0f, 0.0f, 0.0f);
-		for(unsigned int i = 0; i < model->mNumVertices; i++) 
-		{
-			const aiVector3D pos = model->mVertices[i];
-			const aiVector3D normal = model->mNormals[i];
-			const aiVector3D texCoord = model->HasTextureCoords(0) ? model->mTextureCoords[0][i] : aiZeroVector;
-			const aiVector3D tangent = model->mTangents[i];
+		//const aiNode *rootNode = scene->mRootNode;//New mesh Logic
+		//for (int i = 0; i < rootNode->mNumMeshes; i++) {//New mesh Logic
+		//	//const aiMesh* model = scene->mMeshes[0];
+		//	const aiMesh* model = scene->mMeshes[rootNode->mMeshes[i]];
 
-			positions.push_back(Vector3f(pos.x, pos.y, pos.z));
-			texCoords.push_back(Vector2f(texCoord.x, texCoord.y));
-			normals.push_back(Vector3f(normal.x, normal.y, normal.z));
-			tangents.push_back(Vector3f(tangent.x, tangent.y, tangent.z));
-		}
+		//	const aiVector3D aiZeroVector(0.0f, 0.0f, 0.0f);
+		//	for (unsigned int i = 0; i < model->mNumVertices; i++)
+		//	{
+		//		const aiVector3D pos = model->mVertices[i];
+		//		const aiVector3D normal = model->mNormals[i];
+		//		const aiVector3D texCoord = model->HasTextureCoords(0) ? model->mTextureCoords[0][i] : aiZeroVector;
+		//		const aiVector3D tangent = model->mTangents[i];
 
-		for(unsigned int i = 0; i < model->mNumFaces; i++)
-		{
-			const aiFace& face = model->mFaces[i];
-			assert(face.mNumIndices == 3);
-			indices.push_back(face.mIndices[0]);
-			indices.push_back(face.mIndices[1]);
-			indices.push_back(face.mIndices[2]);
-		}
+		//		positions.push_back(Vector3f(pos.x, pos.y, pos.z));
+		//		texCoords.push_back(Vector2f(texCoord.x, texCoord.y));
+		//		normals.push_back(Vector3f(normal.x, normal.y, normal.z));
+		//		tangents.push_back(Vector3f(tangent.x, tangent.y, tangent.z));
+		//	}
 
-		//17/2/20 -  new terrain collision method
-		/*for (int i = 0; i < positions.size(); i++) {
-			meshVerticesInts.push_back(Vector3i((int)positions[i].GetX(), (int)positions[i].GetY(), (int)positions[i].GetZ()));
-		}*/
-		//17/2/20 -  new terrain collision method (FLOAT VERSION)
-		for (int i = 0; i < positions.size(); i++) {
-			meshVerticesFloats.push_back(positions[i]);
-		}
+		//	for (unsigned int i = 0; i < model->mNumFaces; i++)
+		//	{
+		//		const aiFace& face = model->mFaces[i];
+		//		assert(face.mNumIndices == 3);
+		//		indices.push_back(face.mIndices[0]);
+		//		indices.push_back(face.mIndices[1]);
+		//		indices.push_back(face.mIndices[2]);
+		//	}
 
-		//meshVertices = positions;//2/2/20 test
-		//for (Vector3f currentVertex : positions) {//2/2/20 test, bit more reliable than above approach
-		//	meshVertices.push_back(currentVertex);
-		//}
-		//for (Vector3f currentVertex : meshVertices) {//6/2/20 
-		//	meshVerticesX.push_back((int)currentVertex.GetX());
-		//}
-		//for (Vector3f currentVertex : meshVertices) {//6/2/20
-		//	meshVerticesZ.push_back((int)currentVertex.GetZ());
-		//}
-		//for (Vector3f currentVertex : meshVertices) {//15/2/20
-		//	meshVerticesY.push_back((int)currentVertex.GetY());
-		//}
-		//-------------------------------------------------------------float version-------------------16/2/20
-		/*for (Vector3f currentVertex : meshVertices) { 
-			meshVerticesXFloat.push_back(currentVertex.GetX());
-		}
-		for (Vector3f currentVertex : meshVertices) {
-			meshVerticesZFloat.push_back(currentVertex.GetZ());
-		}
-		for (Vector3f currentVertex : meshVertices) {
-			meshVerticesYFloat.push_back(currentVertex.GetY());
-		}*/
+		//	for (int i = 0; i < positions.size(); i++) {
+		//		meshVerticesFloats.push_back(positions[i]);
+		//	}
 
-		/*
-		for (int i = 0; i < meshVertices.size(); i++) {//5/2/20 test, bit more reliable than above approach
-			meshVertices[i].SetX(meshVertices[i].GetX() * 2.0f);
-			meshVertices[i].SetY(meshVertices[i].GetY() * 2.0f);
-			meshVertices[i].SetZ(meshVertices[i].GetZ() * 2.0f);
-		}
-		*/
-		//4/2/20 test
-		/*
-		for (unsigned int currentindex : indices) {//2/2/20 test, bit more reliable than above approach
-			meshIndices.push_back(currentindex);
-		}
-		*/
-		//5/2/20 test
-		//for (unsigned int currentindex : model->mNumFaces) {//2/2/20 test, bit more reliable than above approach
-			//meshIndices.push_back(currentindex);
+		//	
 		//}
 		m_meshData = new MeshData(IndexedModel(indices, positions, texCoords, normals, tangents));
 		s_resourceMap.insert(std::pair<std::string, MeshData*>(fileName, m_meshData));
 	}
+}
+
+void Mesh::processNode(const aiNode *node, const aiScene *scene)//New Mesh Logic
+{
+	// process all the node's meshes (if any)
+	for (unsigned int i = 0; i < node->mNumMeshes; i++)
+	{
+			const aiMesh *mesh = scene->mMeshes[node->mMeshes[i]];
+			processMesh(mesh, scene);
+	}
+	// then do the same for each of its children
+	for (unsigned int i = 0; i < node->mNumChildren; i++)
+	{
+		processNode(node->mChildren[i], scene);
+	}
+}
+
+void Mesh::processMesh(const aiMesh *mesh, const aiScene *scene)//New Mesh Logic
+{
+	const aiVector3D aiZeroVector(0.0f, 0.0f, 0.0f);
+	for (unsigned int i = 0; i < mesh->mNumVertices; i++)
+	{
+		const aiVector3D pos = mesh->mVertices[i];
+		const aiVector3D normal = mesh->mNormals[i];
+		const aiVector3D texCoord = mesh->HasTextureCoords(0) ? mesh->mTextureCoords[0][i] : aiZeroVector;
+		const aiVector3D tangent = mesh->mTangents[i];
+
+		positions.push_back(Vector3f(pos.x, pos.y, pos.z));
+		texCoords.push_back(Vector2f(texCoord.x, texCoord.y));
+		normals.push_back(Vector3f(normal.x, normal.y, normal.z));
+		tangents.push_back(Vector3f(tangent.x, tangent.y, tangent.z));
+	}
+
+	for (unsigned int i = 0; i < mesh->mNumFaces; i++)
+	{
+		const aiFace& face = mesh->mFaces[i];
+		assert(face.mNumIndices == 3);
+		indices.push_back(face.mIndices[0]);
+		indices.push_back(face.mIndices[1]);
+		indices.push_back(face.mIndices[2]);
+	}
+
+	for (int i = 0; i < positions.size(); i++) {
+			meshVerticesFloats.push_back(positions[i]);
+		}
 }
 
 //std::vector<Vector3f> Mesh::getMeshVertices()//2/2/20

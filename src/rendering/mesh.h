@@ -25,6 +25,10 @@
 #include <map>
 #include <GL/glew.h>
 
+#include <assimp/Importer.hpp>
+#include <assimp/scene.h>
+#include <assimp/postprocess.h>
+
 class IndexedModel
 {
 public:
@@ -123,6 +127,9 @@ public:
 	//virtual int newTerrainheightFunc(Vector3i playerPos);//17/2/20 -  new terrain collision method
 	virtual float newTerrainHeightFuncFloat(Vector3f playerPos);//17/2/20 -  new terrain collision method (FLOAT VERSION)
 	virtual bool checkCollisionWithMesh(Vector3f playerPos, Vector3f entityOffset);//19/3/20
+
+	virtual void processNode(const aiNode *node, const aiScene *scene);//New Mesh Logic
+	virtual void processMesh(const aiMesh *mesh, const aiScene *scene);//New Mesh Logic
 protected:
 private:
 	static std::map<std::string, MeshData*> s_resourceMap;
@@ -131,6 +138,12 @@ private:
 	MeshData* m_meshData;
 
 	std::vector<Vector3f> meshVerticesFloats;//26/2/19 test
+
+	std::vector<Vector3f> positions;//New Mesh Logic
+	std::vector<Vector2f> texCoords;//New Mesh Logic
+	std::vector<Vector3f> normals;//New Mesh Logic
+	std::vector<Vector3f> tangents;//New Mesh Logic
+	std::vector<unsigned int> indices;//New Mesh Logic
 	
 	void operator=(Mesh& mesh) {}
 };

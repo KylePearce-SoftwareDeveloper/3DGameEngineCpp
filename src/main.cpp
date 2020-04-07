@@ -224,7 +224,7 @@ void TestGame::Init(const Window& window)
 
 	//24/2/20 test - new terrain
 	Entity *newTerrainObject = new Entity(Vector3f(0, 0, 0), Quaternion(), 1.0f);
-	Mesh *newTerrainMesh = new Mesh("terrainFinished.obj");
+	Mesh *newTerrainMesh = new Mesh("smootherTerrainTest2.obj");
 	meshObjects.push_back(newTerrainMesh);
 	Material *terraineMaterial = new Material("magenta");
 	MeshRenderer *newTerrainRenderer = new MeshRenderer(*newTerrainMesh, *terraineMaterial);
