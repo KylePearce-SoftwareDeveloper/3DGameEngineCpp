@@ -1,3 +1,8 @@
+/*
+* The text rendering system was created
+* entirely by Kyle Pearce
+*/
+
 #include <iostream>
 
 #include <glm/gtc/matrix_transform.hpp>

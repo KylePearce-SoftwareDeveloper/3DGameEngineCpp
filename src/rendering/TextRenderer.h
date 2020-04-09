@@ -1,3 +1,7 @@
+/*
+* The text rendering system was created
+* entirely by Kyle Pearce
+*/
 #ifndef TEXT_RENDERER_H
 #define TEXT_RENDERER_H
 
