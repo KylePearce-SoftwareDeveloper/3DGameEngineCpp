@@ -477,9 +477,9 @@ float Mesh::newTerrainHeightFuncFloat(Vector3f playerPos) {
 	auto testIterator = std::find_if(meshVerticesFloats.begin(), meshVerticesFloats.end(), [&](Vector3f pos)
 	{
 		//check the X axis
-		if (abs(playerPos.GetX() - pos.GetX()) < 5.0f + 5.0f / 2.0f) {
+		if (abs(playerPos.GetX() - pos.GetX()) < 5.0f + 5.0f / 1.0f) {
 			//check the Z axis
-			if (abs(playerPos.GetZ() - pos.GetZ()) < 5.0f + 5.0f / 2.0f) {
+			if (abs(playerPos.GetZ() - pos.GetZ()) < 5.0f + 5.0f / 1.0f) {
 				return true;
 			}
 			else {

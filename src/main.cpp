@@ -110,7 +110,7 @@ private:
 	MeshRenderer *enemyCube4Renderer;
 	MeshRenderer *enemyCube5Renderer;
 
-	int timmer = 10000;
+	int timmer = 2000;
 	bool checkCollisionsWithEnergyComponents = false;
 
 	bool checkTime = true;
@@ -215,6 +215,8 @@ void TestGame::Init(const Window& window)
 		Texture("white.jpg"), Texture("white.jpg"), 0.04f, -1.0f);
 	Material green("green", Texture("green.png"), 0.0f, 0,
 		Texture("green.png"), Texture("green.png"), 0.04f, -1.0f);
+	Material yellow("yellow", Texture("yellow.jpg"), 0.0f, 0,
+		Texture("yellow.jpg"), Texture("yellow_disp.jpg"), 0.04f, -1.0f);
 
 	//24/2/20 test - new terrain
 	Entity *newTerrainObject = new Entity(Vector3f(0, 0, 0), Quaternion(), 1.0f);
@@ -408,22 +410,23 @@ void TestGame::Init(const Window& window)
 	AddToScene(seccondEnergyCubeEntity);*/
 
 	//Enemy Cubes
+	Material *energyComponentMaterial = new Material("yellow");
 	Mesh *enemyCube1Mesh = new Mesh("energyCore.obj");
 	Mesh *enemyCube2Mesh = new Mesh("energyCore.obj");
 	Mesh *enemyCube3Mesh = new Mesh("energyCore.obj");
 	Mesh *enemyCube4Mesh = new Mesh("energyCore.obj");
 	Mesh *enemyCube5Mesh = new Mesh("energyCore.obj");
-	enemyCube1Renderer = new MeshRenderer(*enemyCube1Mesh, *engineCoreMaterial);//red cube
+	enemyCube1Renderer = new MeshRenderer(*enemyCube1Mesh, *energyComponentMaterial);
 	enemyCube1Renderer->setDraw(false);
-	enemyCube2Renderer = new MeshRenderer(*enemyCube2Mesh, *engineCoreMaterial);//red cube
+	enemyCube2Renderer = new MeshRenderer(*enemyCube2Mesh, *energyComponentMaterial);
 	enemyCube2Renderer->setDraw(false);
-	enemyCube3Renderer = new MeshRenderer(*enemyCube3Mesh, *engineCoreMaterial);//red cube
+	enemyCube3Renderer = new MeshRenderer(*enemyCube3Mesh, *energyComponentMaterial);
 	enemyCube3Renderer->setDraw(false);
-	enemyCube4Renderer = new MeshRenderer(*enemyCube4Mesh, *engineCoreMaterial);//red cube
+	enemyCube4Renderer = new MeshRenderer(*enemyCube4Mesh, *energyComponentMaterial);
 	enemyCube4Renderer->setDraw(false);
-	enemyCube5Renderer = new MeshRenderer(*enemyCube5Mesh, *engineCoreMaterial);//red cube
+	enemyCube5Renderer = new MeshRenderer(*enemyCube5Mesh, *energyComponentMaterial);
 	enemyCube5Renderer->setDraw(false);
-	enemyCube1Entity = new Entity(Vector3f(125, 0, -420), Quaternion(), 1.0f);
+	enemyCube1Entity = new Entity(Vector3f(130, 0, -425), Quaternion(), 1.0f);
 	enemyCube1Entity->AddComponent(enemyCube1Renderer);
 	enemyCube2Entity = new Entity(Vector3f(100, 0, -565), Quaternion(), 1.0f);
 	enemyCube2Entity->AddComponent(enemyCube2Renderer);
@@ -576,8 +579,8 @@ void TestGame::ChangeText()//18/3/20
 			}
 			if (energyCubeRenderer->getDraw() || checkCollisionsWithEnergyComponents) {
 				if (!checkCollisionsWithEnergyComponents) {
-					if (abs(playerPos.GetX() - energyCubeRenderer->GetParent()->GetTransform()->GetPos()->GetX()) < 1.0f + 1.0f / 1.0f)
-						if (abs(playerPos.GetZ() - energyCubeRenderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 1.0f + 1.0f / 1.0f) {
+					if (abs(playerPos.GetX() - energyCubeRenderer->GetParent()->GetTransform()->GetPos()->GetX()) < 2.0f + 2.0f / 1.0f)
+						if (abs(playerPos.GetZ() - energyCubeRenderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 2.0f + 2.0f / 1.0f) {
 							if(energyCubeRenderer->getDraw())
 								SoundEngine->play2D("../res/music/bleep.mp3", GL_FALSE);//AUDIO
 							energyCubeRenderer->setDraw(false);
@@ -602,41 +605,41 @@ void TestGame::ChangeText()//18/3/20
 							exit(0);
 					}
 					//printf("test");
-					if (abs(playerPos.GetX() - enemyCube1Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 1.0f + 1.0f / 1.0f)//cube1
-						if (abs(playerPos.GetZ() - enemyCube1Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 1.0f + 1.0f / 1.0f) {
+					if (abs(playerPos.GetX() - enemyCube1Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 2.0f + 2.0f / 1.0f)//cube1
+						if (abs(playerPos.GetZ() - enemyCube1Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 2.0f + 2.0f / 1.0f) {
 							if(enemyCube1Renderer->getDraw())
 								SoundEngine->play2D("../res/music/powerup.wav", GL_FALSE);//AUDIO
 							enemyCube1Renderer->setDraw(false);
 							//checkTime = false;
 							//textRenderer->setText("Well done, head back to the learning center");
 						}
-					if (abs(playerPos.GetX() - enemyCube2Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 1.0f + 1.0f / 1.0f)//cube2
-						if (abs(playerPos.GetZ() - enemyCube2Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 1.0f + 1.0f / 1.0f) {
+					if (abs(playerPos.GetX() - enemyCube2Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 2.0f + 2.0f / 1.0f)//cube2
+						if (abs(playerPos.GetZ() - enemyCube2Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 2.0f + 2.0f / 1.0f) {
 							if (enemyCube2Renderer->getDraw())
 								SoundEngine->play2D("../res/music/powerup.wav", GL_FALSE);//AUDIO
 							enemyCube2Renderer->setDraw(false);
 						}
-					if (abs(playerPos.GetX() - enemyCube3Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 1.0f + 1.0f / 1.0f)//cube3
-						if (abs(playerPos.GetZ() - enemyCube3Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 1.0f + 1.0f / 1.0f) {
+					if (abs(playerPos.GetX() - enemyCube3Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 2.0f + 2.0f / 1.0f)//cube3
+						if (abs(playerPos.GetZ() - enemyCube3Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 2.0f + 2.0f / 1.0f) {
 							if (enemyCube3Renderer->getDraw())
 								SoundEngine->play2D("../res/music/powerup.wav", GL_FALSE);//AUDIO
 							enemyCube3Renderer->setDraw(false);
 						}
-					if (abs(playerPos.GetX() - enemyCube4Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 1.0f + 1.0f / 1.0f)//cube4
-						if (abs(playerPos.GetZ() - enemyCube4Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 1.0f + 1.0f / 1.0f) {
+					if (abs(playerPos.GetX() - enemyCube4Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 2.0f + 2.0f / 1.0f)//cube4
+						if (abs(playerPos.GetZ() - enemyCube4Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 2.0f + 2.0f / 1.0f) {
 							if (enemyCube4Renderer->getDraw())
 								SoundEngine->play2D("../res/music/powerup.wav", GL_FALSE);//AUDIO
 							enemyCube4Renderer->setDraw(false);
 						}
-					if (abs(playerPos.GetX() - enemyCube5Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 1.0f + 1.0f / 1.0f)//cube5
-						if (abs(playerPos.GetZ() - enemyCube5Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 1.0f + 1.0f / 1.0f) {
+					if (abs(playerPos.GetX() - enemyCube5Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 2.0f + 2.0f / 1.0f)//cube5
+						if (abs(playerPos.GetZ() - enemyCube5Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 2.0f + 2.0f / 1.0f) {
 							if (enemyCube5Renderer->getDraw())
 								SoundEngine->play2D("../res/music/powerup.wav", GL_FALSE);//AUDIO
 							enemyCube5Renderer->setDraw(false);
 						}
 					if (!enemyCube1Renderer->getDraw() & !enemyCube2Renderer->getDraw() & !enemyCube3Renderer->getDraw() & !enemyCube4Renderer->getDraw() & !enemyCube5Renderer->getDraw()) {
 						checkTime = false;
-						timmer = 10000;
+						timmer = 2000;
 						textRenderer->setText("Well done, head back to the learning center");
 						engineCore1Renderer->setUseThirdMaterial(true);
 						checkCollisionsWithEnergyComponents = false;
@@ -751,8 +754,8 @@ void TestGame::ChangeText()//18/3/20
 			}
 			if (energyCubeRenderer->getDraw() || checkCollisionsWithEnergyComponents) {
 				if (!checkCollisionsWithEnergyComponents) {
-					if (abs(playerPos.GetX() - energyCubeRenderer->GetParent()->GetTransform()->GetPos()->GetX()) < 1.0f + 1.0f / 1.0f)
-						if (abs(playerPos.GetZ() - energyCubeRenderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 1.0f + 1.0f / 1.0f) {
+					if (abs(playerPos.GetX() - energyCubeRenderer->GetParent()->GetTransform()->GetPos()->GetX()) < 2.0f + 2.0f / 1.0f)
+						if (abs(playerPos.GetZ() - energyCubeRenderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 2.0f + 2.0f / 1.0f) {
 							if (energyCubeRenderer->getDraw())
 								SoundEngine->play2D("../res/music/bleep.mp3", GL_FALSE);//AUDIO
 							energyCubeRenderer->setDraw(false);
@@ -782,41 +785,41 @@ void TestGame::ChangeText()//18/3/20
 							exit(0);
 					}
 					//printf("test");
-					if (abs(playerPos.GetX() - enemyCube1Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 1.0f + 1.0f / 1.0f)//cube1
-						if (abs(playerPos.GetZ() - enemyCube1Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 1.0f + 1.0f / 1.0f) {
+					if (abs(playerPos.GetX() - enemyCube1Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 2.0f + 2.0f / 1.0f)//cube1
+						if (abs(playerPos.GetZ() - enemyCube1Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 2.0f + 2.0f / 1.0f) {
 							if (enemyCube1Renderer->getDraw())
 								SoundEngine->play2D("../res/music/powerup.wav", GL_FALSE);//AUDIO
 							enemyCube1Renderer->setDraw(false);
 							//checkTime = false;
 							//textRenderer->setText("Well done, head back to the learning center");
 						}
-					if (abs(playerPos.GetX() - enemyCube2Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 1.0f + 1.0f / 1.0f)//cube2
-						if (abs(playerPos.GetZ() - enemyCube2Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 1.0f + 1.0f / 1.0f) {
+					if (abs(playerPos.GetX() - enemyCube2Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 2.0f + 2.0f / 1.0f)//cube2
+						if (abs(playerPos.GetZ() - enemyCube2Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 2.0f + 2.0f / 1.0f) {
 							if (enemyCube2Renderer->getDraw())
 								SoundEngine->play2D("../res/music/powerup.wav", GL_FALSE);//AUDIO
 							enemyCube2Renderer->setDraw(false);
 						}
-					if (abs(playerPos.GetX() - enemyCube3Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 1.0f + 1.0f / 1.0f)//cube3
-						if (abs(playerPos.GetZ() - enemyCube3Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 1.0f + 1.0f / 1.0f) {
+					if (abs(playerPos.GetX() - enemyCube3Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 2.0f + 2.0f / 1.0f)//cube3
+						if (abs(playerPos.GetZ() - enemyCube3Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 2.0f + 2.0f / 1.0f) {
 							if (enemyCube3Renderer->getDraw())
 								SoundEngine->play2D("../res/music/powerup.wav", GL_FALSE);//AUDIO
 							enemyCube3Renderer->setDraw(false);
 						}
-					if (abs(playerPos.GetX() - enemyCube4Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 1.0f + 1.0f / 1.0f)//cube4
-						if (abs(playerPos.GetZ() - enemyCube4Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 1.0f + 1.0f / 1.0f) {
+					if (abs(playerPos.GetX() - enemyCube4Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 2.0f + 2.0f / 1.0f)//cube4
+						if (abs(playerPos.GetZ() - enemyCube4Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 2.0f + 2.0f / 1.0f) {
 							if (enemyCube4Renderer->getDraw())
 								SoundEngine->play2D("../res/music/powerup.wav", GL_FALSE);//AUDIO
 							enemyCube4Renderer->setDraw(false);
 						}
-					if (abs(playerPos.GetX() - enemyCube5Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 1.0f + 1.0f / 1.0f)//cube5
-						if (abs(playerPos.GetZ() - enemyCube5Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 1.0f + 1.0f / 1.0f) {
+					if (abs(playerPos.GetX() - enemyCube5Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 2.0f + 2.0f / 1.0f)//cube5
+						if (abs(playerPos.GetZ() - enemyCube5Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 2.0f + 2.0f / 1.0f) {
 							if (enemyCube5Renderer->getDraw())
 								SoundEngine->play2D("../res/music/powerup.wav", GL_FALSE);//AUDIO
 							enemyCube5Renderer->setDraw(false);
 						}
 					if (!enemyCube1Renderer->getDraw() & !enemyCube2Renderer->getDraw() & !enemyCube3Renderer->getDraw() & !enemyCube4Renderer->getDraw() & !enemyCube5Renderer->getDraw()) {
 						checkTime2 = false;
-						timmer = 10000;
+						timmer = 2000;
 						textRenderer->setText("Well done, head back to the learning center");
 						engineCore2Renderer->setUseThirdMaterial(true);
 						checkCollisionsWithEnergyComponents = false;
@@ -925,8 +928,8 @@ void TestGame::ChangeText()//18/3/20
 			}
 			if (energyCubeRenderer->getDraw() || checkCollisionsWithEnergyComponents) {
 				if (!checkCollisionsWithEnergyComponents) {
-					if (abs(playerPos.GetX() - energyCubeRenderer->GetParent()->GetTransform()->GetPos()->GetX()) < 1.0f + 1.0f / 1.0f)
-						if (abs(playerPos.GetZ() - energyCubeRenderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 1.0f + 1.0f / 1.0f) {
+					if (abs(playerPos.GetX() - energyCubeRenderer->GetParent()->GetTransform()->GetPos()->GetX()) < 2.0f + 2.0f / 1.0f)
+						if (abs(playerPos.GetZ() - energyCubeRenderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 2.0f + 2.0f / 1.0f) {
 							if (energyCubeRenderer->getDraw())
 								SoundEngine->play2D("../res/music/bleep.mp3", GL_FALSE);//AUDIO
 							energyCubeRenderer->setDraw(false);
@@ -955,39 +958,39 @@ void TestGame::ChangeText()//18/3/20
 						if (timmer <= 0)
 							exit(0);
 					}
-					if (abs(playerPos.GetX() - enemyCube1Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 1.0f + 1.0f / 1.0f)//cube1
-						if (abs(playerPos.GetZ() - enemyCube1Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 1.0f + 1.0f / 1.0f) {
+					if (abs(playerPos.GetX() - enemyCube1Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 2.0f + 2.0f / 1.0f)//cube1
+						if (abs(playerPos.GetZ() - enemyCube1Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 2.0f + 2.0f / 1.0f) {
 							if (enemyCube1Renderer->getDraw())
 								SoundEngine->play2D("../res/music/powerup.wav", GL_FALSE);//AUDIO
 							enemyCube1Renderer->setDraw(false);
 						}
-					if (abs(playerPos.GetX() - enemyCube2Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 1.0f + 1.0f / 1.0f)//cube2
-						if (abs(playerPos.GetZ() - enemyCube2Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 1.0f + 1.0f / 1.0f) {
+					if (abs(playerPos.GetX() - enemyCube2Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 2.0f + 2.0f / 1.0f)//cube2
+						if (abs(playerPos.GetZ() - enemyCube2Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 2.0f + 2.0f / 1.0f) {
 							if (enemyCube2Renderer->getDraw())
 								SoundEngine->play2D("../res/music/powerup.wav", GL_FALSE);//AUDIO
 							enemyCube2Renderer->setDraw(false);
 						}
-					if (abs(playerPos.GetX() - enemyCube3Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 1.0f + 1.0f / 1.0f)//cube3
-						if (abs(playerPos.GetZ() - enemyCube3Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 1.0f + 1.0f / 1.0f) {
+					if (abs(playerPos.GetX() - enemyCube3Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 2.0f + 2.0f / 1.0f)//cube3
+						if (abs(playerPos.GetZ() - enemyCube3Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 2.0f + 2.0f / 1.0f) {
 							if (enemyCube3Renderer->getDraw())
 								SoundEngine->play2D("../res/music/powerup.wav", GL_FALSE);//AUDIO
 							enemyCube3Renderer->setDraw(false);
 						}
-					if (abs(playerPos.GetX() - enemyCube4Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 1.0f + 1.0f / 1.0f)//cube4
-						if (abs(playerPos.GetZ() - enemyCube4Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 1.0f + 1.0f / 1.0f) {
+					if (abs(playerPos.GetX() - enemyCube4Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 2.0f + 2.0f / 1.0f)//cube4
+						if (abs(playerPos.GetZ() - enemyCube4Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 2.0f + 2.0f / 1.0f) {
 							if (enemyCube4Renderer->getDraw())
 								SoundEngine->play2D("../res/music/powerup.wav", GL_FALSE);//AUDIO
 							enemyCube4Renderer->setDraw(false);
 						}
-					if (abs(playerPos.GetX() - enemyCube5Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 1.0f + 1.0f / 1.0f)//cube5
-						if (abs(playerPos.GetZ() - enemyCube5Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 1.0f + 1.0f / 1.0f) {
+					if (abs(playerPos.GetX() - enemyCube5Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 2.0f + 2.0f / 1.0f)//cube5
+						if (abs(playerPos.GetZ() - enemyCube5Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 2.0f + 2.0f / 1.0f) {
 							if (enemyCube5Renderer->getDraw())
 								SoundEngine->play2D("../res/music/powerup.wav", GL_FALSE);//AUDIO
 							enemyCube5Renderer->setDraw(false);
 						}
 					if (!enemyCube1Renderer->getDraw() & !enemyCube2Renderer->getDraw() & !enemyCube3Renderer->getDraw() & !enemyCube4Renderer->getDraw() & !enemyCube5Renderer->getDraw()) {
 						checkTime3 = false;
-						timmer = 10000;
+						timmer = 2000;
 						textRenderer->setText("Well done, head back to the learning center");
 						engineCore3Renderer->setUseThirdMaterial(true);
 						checkCollisionsWithEnergyComponents = false;
@@ -1096,8 +1099,8 @@ void TestGame::ChangeText()//18/3/20
 			}
 			if (energyCubeRenderer->getDraw() || checkCollisionsWithEnergyComponents) {
 				if (!checkCollisionsWithEnergyComponents) {
-					if (abs(playerPos.GetX() - energyCubeRenderer->GetParent()->GetTransform()->GetPos()->GetX()) < 1.0f + 1.0f / 1.0f)
-						if (abs(playerPos.GetZ() - energyCubeRenderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 1.0f + 1.0f / 1.0f) {
+					if (abs(playerPos.GetX() - energyCubeRenderer->GetParent()->GetTransform()->GetPos()->GetX()) < 2.0f + 2.0f / 1.0f)
+						if (abs(playerPos.GetZ() - energyCubeRenderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 2.0f + 2.0f / 1.0f) {
 							if (energyCubeRenderer->getDraw())
 								SoundEngine->play2D("../res/music/bleep.mp3", GL_FALSE);//AUDIO
 							energyCubeRenderer->setDraw(false);
@@ -1126,39 +1129,39 @@ void TestGame::ChangeText()//18/3/20
 						if (timmer <= 0)
 							exit(0);
 					}
-					if (abs(playerPos.GetX() - enemyCube1Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 1.0f + 1.0f / 1.0f)//cube1
-						if (abs(playerPos.GetZ() - enemyCube1Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 1.0f + 1.0f / 1.0f) {
+					if (abs(playerPos.GetX() - enemyCube1Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 2.0f + 2.0f / 1.0f)//cube1
+						if (abs(playerPos.GetZ() - enemyCube1Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 2.0f + 2.0f / 1.0f) {
 							if (enemyCube1Renderer->getDraw())
 								SoundEngine->play2D("../res/music/powerup.wav", GL_FALSE);//AUDIO
 							enemyCube1Renderer->setDraw(false);
 						}
-					if (abs(playerPos.GetX() - enemyCube2Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 1.0f + 1.0f / 1.0f)//cube2
-						if (abs(playerPos.GetZ() - enemyCube2Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 1.0f + 1.0f / 1.0f) {
+					if (abs(playerPos.GetX() - enemyCube2Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 2.0f + 2.0f / 1.0f)//cube2
+						if (abs(playerPos.GetZ() - enemyCube2Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 2.0f + 2.0f / 1.0f) {
 							if (enemyCube2Renderer->getDraw())
 								SoundEngine->play2D("../res/music/powerup.wav", GL_FALSE);//AUDIO
 							enemyCube2Renderer->setDraw(false);
 						}
-					if (abs(playerPos.GetX() - enemyCube3Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 1.0f + 1.0f / 1.0f)//cube3
-						if (abs(playerPos.GetZ() - enemyCube3Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 1.0f + 1.0f / 1.0f) {
+					if (abs(playerPos.GetX() - enemyCube3Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 2.0f + 2.0f / 1.0f)//cube3
+						if (abs(playerPos.GetZ() - enemyCube3Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 2.0f + 2.0f / 1.0f) {
 							if (enemyCube3Renderer->getDraw())
 								SoundEngine->play2D("../res/music/powerup.wav", GL_FALSE);//AUDIO
 							enemyCube3Renderer->setDraw(false);
 						}
-					if (abs(playerPos.GetX() - enemyCube4Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 1.0f + 1.0f / 1.0f)//cube4
-						if (abs(playerPos.GetZ() - enemyCube4Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 1.0f + 1.0f / 1.0f) {
+					if (abs(playerPos.GetX() - enemyCube4Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 2.0f + 2.0f / 1.0f)//cube4
+						if (abs(playerPos.GetZ() - enemyCube4Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 2.0f + 2.0f / 1.0f) {
 							if (enemyCube4Renderer->getDraw())
 								SoundEngine->play2D("../res/music/powerup.wav", GL_FALSE);//AUDIO
 							enemyCube4Renderer->setDraw(false);
 						}
-					if (abs(playerPos.GetX() - enemyCube5Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 1.0f + 1.0f / 1.0f)//cube5
-						if (abs(playerPos.GetZ() - enemyCube5Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 1.0f + 1.0f / 1.0f) {
+					if (abs(playerPos.GetX() - enemyCube5Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 2.0f + 2.0f / 1.0f)//cube5
+						if (abs(playerPos.GetZ() - enemyCube5Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 2.0f + 2.0f / 1.0f) {
 							if (enemyCube5Renderer->getDraw())
 								SoundEngine->play2D("../res/music/powerup.wav", GL_FALSE);//AUDIO
 							enemyCube5Renderer->setDraw(false);
 						}
 					if (!enemyCube1Renderer->getDraw() & !enemyCube2Renderer->getDraw() & !enemyCube3Renderer->getDraw() & !enemyCube4Renderer->getDraw() & !enemyCube5Renderer->getDraw()) {
 						checkTime4 = false;
-						timmer = 10000;
+						timmer = 2000;
 						textRenderer->setText("Well done, head back to the learning center");
 						engineCore4Renderer->setUseThirdMaterial(true);
 						checkCollisionsWithEnergyComponents = false;
@@ -1267,8 +1270,8 @@ void TestGame::ChangeText()//18/3/20
 			}
 			if (energyCubeRenderer->getDraw() || checkCollisionsWithEnergyComponents) {
 				if (!checkCollisionsWithEnergyComponents) {
-					if (abs(playerPos.GetX() - energyCubeRenderer->GetParent()->GetTransform()->GetPos()->GetX()) < 1.0f + 1.0f / 1.0f)
-						if (abs(playerPos.GetZ() - energyCubeRenderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 1.0f + 1.0f / 1.0f) {
+					if (abs(playerPos.GetX() - energyCubeRenderer->GetParent()->GetTransform()->GetPos()->GetX()) < 2.0f + 2.0f / 1.0f)
+						if (abs(playerPos.GetZ() - energyCubeRenderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 2.0f + 2.0f / 1.0f) {
 							if (energyCubeRenderer->getDraw())
 								SoundEngine->play2D("../res/music/bleep.mp3", GL_FALSE);//AUDIO
 							energyCubeRenderer->setDraw(false);
@@ -1297,39 +1300,39 @@ void TestGame::ChangeText()//18/3/20
 						if (timmer <= 0)
 							exit(0);
 					}
-					if (abs(playerPos.GetX() - enemyCube1Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 1.0f + 1.0f / 1.0f)//cube1
-						if (abs(playerPos.GetZ() - enemyCube1Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 1.0f + 1.0f / 1.0f) {
+					if (abs(playerPos.GetX() - enemyCube1Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 2.0f + 2.0f / 1.0f)//cube1
+						if (abs(playerPos.GetZ() - enemyCube1Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 2.0f + 2.0f / 1.0f) {
 							if (enemyCube1Renderer->getDraw())
 								SoundEngine->play2D("../res/music/powerup.wav", GL_FALSE);//AUDIO
 							enemyCube1Renderer->setDraw(false);
 						}
-					if (abs(playerPos.GetX() - enemyCube2Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 1.0f + 1.0f / 1.0f)//cube2
-						if (abs(playerPos.GetZ() - enemyCube2Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 1.0f + 1.0f / 1.0f) {
+					if (abs(playerPos.GetX() - enemyCube2Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 2.0f + 2.0f / 1.0f)//cube2
+						if (abs(playerPos.GetZ() - enemyCube2Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 2.0f + 2.0f / 1.0f) {
 							if (enemyCube2Renderer->getDraw())
 								SoundEngine->play2D("../res/music/powerup.wav", GL_FALSE);//AUDIO
 							enemyCube2Renderer->setDraw(false);
 						}
-					if (abs(playerPos.GetX() - enemyCube3Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 1.0f + 1.0f / 1.0f)//cube3
-						if (abs(playerPos.GetZ() - enemyCube3Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 1.0f + 1.0f / 1.0f) {
+					if (abs(playerPos.GetX() - enemyCube3Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 2.0f + 2.0f / 1.0f)//cube3
+						if (abs(playerPos.GetZ() - enemyCube3Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 2.0f + 2.0f / 1.0f) {
 							if (enemyCube3Renderer->getDraw())
 								SoundEngine->play2D("../res/music/powerup.wav", GL_FALSE);//AUDIO
 							enemyCube3Renderer->setDraw(false);
 						}
-					if (abs(playerPos.GetX() - enemyCube4Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 1.0f + 1.0f / 1.0f)//cube4
-						if (abs(playerPos.GetZ() - enemyCube4Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 1.0f + 1.0f / 1.0f) {
+					if (abs(playerPos.GetX() - enemyCube4Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 2.0f + 2.0f / 1.0f)//cube4
+						if (abs(playerPos.GetZ() - enemyCube4Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 2.0f + 2.0f / 1.0f) {
 							if (enemyCube4Renderer->getDraw())
 								SoundEngine->play2D("../res/music/powerup.wav", GL_FALSE);//AUDIO
 							enemyCube4Renderer->setDraw(false);
 						}
-					if (abs(playerPos.GetX() - enemyCube5Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 1.0f + 1.0f / 1.0f)//cube5
-						if (abs(playerPos.GetZ() - enemyCube5Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 1.0f + 1.0f / 1.0f) {
+					if (abs(playerPos.GetX() - enemyCube5Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 2.0f + 2.0f / 1.0f)//cube5
+						if (abs(playerPos.GetZ() - enemyCube5Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 2.0f + 2.0f / 1.0f) {
 							if (enemyCube5Renderer->getDraw())
 								SoundEngine->play2D("../res/music/powerup.wav", GL_FALSE);//AUDIO
 							enemyCube5Renderer->setDraw(false);
 						}
 					if (!enemyCube1Renderer->getDraw() & !enemyCube2Renderer->getDraw() & !enemyCube3Renderer->getDraw() & !enemyCube4Renderer->getDraw() & !enemyCube5Renderer->getDraw()) {
 						checkTime5 = false;
-						timmer = 10000;
+						timmer = 2000;
 						textRenderer->setText("Well done, head back to the learning center");
 						engineCore5Renderer->setUseThirdMaterial(true);
 						checkCollisionsWithEnergyComponents = false;
@@ -1438,8 +1441,8 @@ void TestGame::ChangeText()//18/3/20
 			}
 			if (energyCubeRenderer->getDraw() || checkCollisionsWithEnergyComponents) {
 				if (!checkCollisionsWithEnergyComponents) {
-					if (abs(playerPos.GetX() - energyCubeRenderer->GetParent()->GetTransform()->GetPos()->GetX()) < 1.0f + 1.0f / 1.0f)
-						if (abs(playerPos.GetZ() - energyCubeRenderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 1.0f + 1.0f / 1.0f) {
+					if (abs(playerPos.GetX() - energyCubeRenderer->GetParent()->GetTransform()->GetPos()->GetX()) < 2.0f + 2.0f / 1.0f)
+						if (abs(playerPos.GetZ() - energyCubeRenderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 2.0f + 2.0f / 1.0f) {
 							if (energyCubeRenderer->getDraw())
 								SoundEngine->play2D("../res/music/bleep.mp3", GL_FALSE);//AUDIO
 							energyCubeRenderer->setDraw(false);
@@ -1468,39 +1471,39 @@ void TestGame::ChangeText()//18/3/20
 						if (timmer <= 0)
 							exit(0);
 					}
-					if (abs(playerPos.GetX() - enemyCube1Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 1.0f + 1.0f / 1.0f)//cube1
-						if (abs(playerPos.GetZ() - enemyCube1Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 1.0f + 1.0f / 1.0f) {
+					if (abs(playerPos.GetX() - enemyCube1Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 2.0f + 2.0f / 1.0f)//cube1
+						if (abs(playerPos.GetZ() - enemyCube1Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 2.0f + 2.0f / 1.0f) {
 							if (enemyCube1Renderer->getDraw())
 								SoundEngine->play2D("../res/music/powerup.wav", GL_FALSE);//AUDIO
 							enemyCube1Renderer->setDraw(false);
 						}
-					if (abs(playerPos.GetX() - enemyCube2Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 1.0f + 1.0f / 1.0f)//cube2
-						if (abs(playerPos.GetZ() - enemyCube2Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 1.0f + 1.0f / 1.0f) {
+					if (abs(playerPos.GetX() - enemyCube2Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 2.0f + 2.0f / 1.0f)//cube2
+						if (abs(playerPos.GetZ() - enemyCube2Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 2.0f + 2.0f / 1.0f) {
 							if (enemyCube2Renderer->getDraw())
 								SoundEngine->play2D("../res/music/powerup.wav", GL_FALSE);//AUDIO
 							enemyCube2Renderer->setDraw(false);
 						}
-					if (abs(playerPos.GetX() - enemyCube3Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 1.0f + 1.0f / 1.0f)//cube3
-						if (abs(playerPos.GetZ() - enemyCube3Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 1.0f + 1.0f / 1.0f) {
+					if (abs(playerPos.GetX() - enemyCube3Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 2.0f + 2.0f / 1.0f)//cube3
+						if (abs(playerPos.GetZ() - enemyCube3Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 2.0f + 2.0f / 1.0f) {
 							if (enemyCube3Renderer->getDraw())
 								SoundEngine->play2D("../res/music/powerup.wav", GL_FALSE);//AUDIO
 							enemyCube3Renderer->setDraw(false);
 						}
-					if (abs(playerPos.GetX() - enemyCube4Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 1.0f + 1.0f / 1.0f)//cube4
-						if (abs(playerPos.GetZ() - enemyCube4Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 1.0f + 1.0f / 1.0f) {
+					if (abs(playerPos.GetX() - enemyCube4Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 2.0f + 2.0f / 1.0f)//cube4
+						if (abs(playerPos.GetZ() - enemyCube4Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 2.0f + 2.0f / 1.0f) {
 							if (enemyCube4Renderer->getDraw())
 								SoundEngine->play2D("../res/music/powerup.wav", GL_FALSE);//AUDIO
 							enemyCube4Renderer->setDraw(false);
 						}
-					if (abs(playerPos.GetX() - enemyCube5Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 1.0f + 1.0f / 1.0f)//cube5
-						if (abs(playerPos.GetZ() - enemyCube5Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 1.0f + 1.0f / 1.0f) {
+					if (abs(playerPos.GetX() - enemyCube5Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 2.0f + 2.0f / 1.0f)//cube5
+						if (abs(playerPos.GetZ() - enemyCube5Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 2.0f + 2.0f / 1.0f) {
 							if (enemyCube5Renderer->getDraw())
 								SoundEngine->play2D("../res/music/powerup.wav", GL_FALSE);//AUDIO
 							enemyCube5Renderer->setDraw(false);
 						}
 					if (!enemyCube1Renderer->getDraw() & !enemyCube2Renderer->getDraw() & !enemyCube3Renderer->getDraw() & !enemyCube4Renderer->getDraw() & !enemyCube5Renderer->getDraw()) {
 						checkTime6 = false;
-						timmer = 10000;
+						timmer = 2000;
 						textRenderer->setText("Well done, head back to the learning center");
 						engineCore6Renderer->setUseThirdMaterial(true);
 						checkCollisionsWithEnergyComponents = false;
@@ -1609,8 +1612,8 @@ void TestGame::ChangeText()//18/3/20
 			}
 			if (energyCubeRenderer->getDraw() || checkCollisionsWithEnergyComponents) {
 				if (!checkCollisionsWithEnergyComponents) {
-					if (abs(playerPos.GetX() - energyCubeRenderer->GetParent()->GetTransform()->GetPos()->GetX()) < 1.0f + 1.0f / 1.0f)
-						if (abs(playerPos.GetZ() - energyCubeRenderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 1.0f + 1.0f / 1.0f) {
+					if (abs(playerPos.GetX() - energyCubeRenderer->GetParent()->GetTransform()->GetPos()->GetX()) < 2.0f + 2.0f / 1.0f)
+						if (abs(playerPos.GetZ() - energyCubeRenderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 2.0f + 2.0f / 1.0f) {
 							if (energyCubeRenderer->getDraw())
 								SoundEngine->play2D("../res/music/bleep.mp3", GL_FALSE);//AUDIO
 							energyCubeRenderer->setDraw(false);
@@ -1639,39 +1642,39 @@ void TestGame::ChangeText()//18/3/20
 						if (timmer <= 0)
 							exit(0);
 					}
-					if (abs(playerPos.GetX() - enemyCube1Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 1.0f + 1.0f / 1.0f)//cube1
-						if (abs(playerPos.GetZ() - enemyCube1Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 1.0f + 1.0f / 1.0f) {
+					if (abs(playerPos.GetX() - enemyCube1Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 2.0f + 2.0f / 1.0f)//cube1
+						if (abs(playerPos.GetZ() - enemyCube1Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 2.0f + 2.0f / 1.0f) {
 							if (enemyCube1Renderer->getDraw())
 								SoundEngine->play2D("../res/music/powerup.wav", GL_FALSE);//AUDIO
 							enemyCube1Renderer->setDraw(false);
 						}
-					if (abs(playerPos.GetX() - enemyCube2Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 1.0f + 1.0f / 1.0f)//cube2
-						if (abs(playerPos.GetZ() - enemyCube2Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 1.0f + 1.0f / 1.0f) {
+					if (abs(playerPos.GetX() - enemyCube2Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 2.0f + 2.0f / 1.0f)//cube2
+						if (abs(playerPos.GetZ() - enemyCube2Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 2.0f + 2.0f / 1.0f) {
 							if (enemyCube2Renderer->getDraw())
 								SoundEngine->play2D("../res/music/powerup.wav", GL_FALSE);//AUDIO
 							enemyCube2Renderer->setDraw(false);
 						}
-					if (abs(playerPos.GetX() - enemyCube3Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 1.0f + 1.0f / 1.0f)//cube3
-						if (abs(playerPos.GetZ() - enemyCube3Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 1.0f + 1.0f / 1.0f) {
+					if (abs(playerPos.GetX() - enemyCube3Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 2.0f + 2.0f / 1.0f)//cube3
+						if (abs(playerPos.GetZ() - enemyCube3Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 2.0f + 2.0f / 1.0f) {
 							if (enemyCube3Renderer->getDraw())
 								SoundEngine->play2D("../res/music/powerup.wav", GL_FALSE);//AUDIO
 							enemyCube3Renderer->setDraw(false);
 						}
-					if (abs(playerPos.GetX() - enemyCube4Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 1.0f + 1.0f / 1.0f)//cube4
-						if (abs(playerPos.GetZ() - enemyCube4Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 1.0f + 1.0f / 1.0f) {
+					if (abs(playerPos.GetX() - enemyCube4Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 2.0f + 2.0f / 1.0f)//cube4
+						if (abs(playerPos.GetZ() - enemyCube4Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 2.0f + 2.0f / 1.0f) {
 							if (enemyCube4Renderer->getDraw())
 								SoundEngine->play2D("../res/music/powerup.wav", GL_FALSE);//AUDIO
 							enemyCube4Renderer->setDraw(false);
 						}
-					if (abs(playerPos.GetX() - enemyCube5Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 1.0f + 1.0f / 1.0f)//cube5
-						if (abs(playerPos.GetZ() - enemyCube5Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 1.0f + 1.0f / 1.0f) {
+					if (abs(playerPos.GetX() - enemyCube5Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 2.0f + 2.0f / 1.0f)//cube5
+						if (abs(playerPos.GetZ() - enemyCube5Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 2.0f + 2.0f / 1.0f) {
 							if (enemyCube5Renderer->getDraw())
 								SoundEngine->play2D("../res/music/powerup.wav", GL_FALSE);//AUDIO
 							enemyCube5Renderer->setDraw(false);
 						}
 					if (!enemyCube1Renderer->getDraw() & !enemyCube2Renderer->getDraw() & !enemyCube3Renderer->getDraw() & !enemyCube4Renderer->getDraw() & !enemyCube5Renderer->getDraw()) {
 						checkTime7 = false;
-						timmer = 10000;
+						timmer = 2000;
 						textRenderer->setText("Well done, head back to the learning center");
 						engineCore7Renderer->setUseThirdMaterial(true);
 						checkCollisionsWithEnergyComponents = false;
@@ -1780,8 +1783,8 @@ void TestGame::ChangeText()//18/3/20
 			}
 			if (energyCubeRenderer->getDraw() || checkCollisionsWithEnergyComponents) {
 				if (!checkCollisionsWithEnergyComponents) {
-					if (abs(playerPos.GetX() - energyCubeRenderer->GetParent()->GetTransform()->GetPos()->GetX()) < 1.0f + 1.0f / 1.0f)
-						if (abs(playerPos.GetZ() - energyCubeRenderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 1.0f + 1.0f / 1.0f) {
+					if (abs(playerPos.GetX() - energyCubeRenderer->GetParent()->GetTransform()->GetPos()->GetX()) < 2.0f + 2.0f / 1.0f)
+						if (abs(playerPos.GetZ() - energyCubeRenderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 2.0f + 2.0f / 1.0f) {
 							if (energyCubeRenderer->getDraw())
 								SoundEngine->play2D("../res/music/bleep.mp3", GL_FALSE);//AUDIO
 							energyCubeRenderer->setDraw(false);
@@ -1810,39 +1813,39 @@ void TestGame::ChangeText()//18/3/20
 						if (timmer <= 0)
 							exit(0);
 					}
-					if (abs(playerPos.GetX() - enemyCube1Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 1.0f + 1.0f / 1.0f)//cube1
-						if (abs(playerPos.GetZ() - enemyCube1Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 1.0f + 1.0f / 1.0f) {
+					if (abs(playerPos.GetX() - enemyCube1Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 2.0f + 2.0f / 1.0f)//cube1
+						if (abs(playerPos.GetZ() - enemyCube1Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 2.0f + 2.0f / 1.0f) {
 							if (enemyCube1Renderer->getDraw())
 								SoundEngine->play2D("../res/music/powerup.wav", GL_FALSE);//AUDIO
 							enemyCube1Renderer->setDraw(false);
 						}
-					if (abs(playerPos.GetX() - enemyCube2Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 1.0f + 1.0f / 1.0f)//cube2
-						if (abs(playerPos.GetZ() - enemyCube2Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 1.0f + 1.0f / 1.0f) {
+					if (abs(playerPos.GetX() - enemyCube2Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 2.0f + 2.0f / 1.0f)//cube2
+						if (abs(playerPos.GetZ() - enemyCube2Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 2.0f + 2.0f / 1.0f) {
 							if (enemyCube2Renderer->getDraw())
 								SoundEngine->play2D("../res/music/powerup.wav", GL_FALSE);//AUDIO
 							enemyCube2Renderer->setDraw(false);
 						}
-					if (abs(playerPos.GetX() - enemyCube3Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 1.0f + 1.0f / 1.0f)//cube3
-						if (abs(playerPos.GetZ() - enemyCube3Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 1.0f + 1.0f / 1.0f) {
+					if (abs(playerPos.GetX() - enemyCube3Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 2.0f + 2.0f / 1.0f)//cube3
+						if (abs(playerPos.GetZ() - enemyCube3Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 2.0f + 2.0f / 1.0f) {
 							if (enemyCube3Renderer->getDraw())
 								SoundEngine->play2D("../res/music/powerup.wav", GL_FALSE);//AUDIO
 							enemyCube3Renderer->setDraw(false);
 						}
-					if (abs(playerPos.GetX() - enemyCube4Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 1.0f + 1.0f / 1.0f)//cube4
-						if (abs(playerPos.GetZ() - enemyCube4Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 1.0f + 1.0f / 1.0f) {
+					if (abs(playerPos.GetX() - enemyCube4Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 2.0f + 2.0f / 1.0f)//cube4
+						if (abs(playerPos.GetZ() - enemyCube4Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 2.0f + 2.0f / 1.0f) {
 							if (enemyCube4Renderer->getDraw())
 								SoundEngine->play2D("../res/music/powerup.wav", GL_FALSE);//AUDIO
 							enemyCube4Renderer->setDraw(false);
 						}
-					if (abs(playerPos.GetX() - enemyCube5Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 1.0f + 1.0f / 1.0f)//cube5
-						if (abs(playerPos.GetZ() - enemyCube5Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 1.0f + 1.0f / 1.0f) {
+					if (abs(playerPos.GetX() - enemyCube5Renderer->GetParent()->GetTransform()->GetPos()->GetX()) < 2.0f + 2.0f / 1.0f)//cube5
+						if (abs(playerPos.GetZ() - enemyCube5Renderer->GetParent()->GetTransform()->GetPos()->GetZ()) < 2.0f + 2.0f / 1.0f) {
 							if (enemyCube5Renderer->getDraw())
 								SoundEngine->play2D("../res/music/powerup.wav", GL_FALSE);//AUDIO
 							enemyCube5Renderer->setDraw(false);
 						}
 					if (!enemyCube1Renderer->getDraw() & !enemyCube2Renderer->getDraw() & !enemyCube3Renderer->getDraw() & !enemyCube4Renderer->getDraw() & !enemyCube5Renderer->getDraw()) {
 						checkTime8 = false;
-						timmer = 10000;
+						timmer = 2000;
 						textRenderer->setText("Well done, head back to the learning center");
 						engineCore8Renderer->setUseThirdMaterial(true);
 						checkCollisionsWithEnergyComponents = false;
