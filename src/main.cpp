@@ -28,6 +28,7 @@ public:
 	virtual void Init(const Window& window);
 	virtual void CheckTerrainHeight(); 
 	virtual void checkTreeHeight(Entity* treePos);
+	virtual void checkCollectableHeight(Entity* collectbaleObject);
 	virtual void updateSunAngle();
 	virtual float checkTreeHeightForShader(glm::vec3 treePos);
 	virtual void CheckTreeCollision();
@@ -109,7 +110,7 @@ private:
 	MeshRenderer *enemyCube4Renderer;
 	MeshRenderer *enemyCube5Renderer;
 
-	int timmer = 1000;
+	int timmer = 10000;
 	bool checkCollisionsWithEnergyComponents = false;
 
 	bool checkTime = true;
@@ -122,7 +123,7 @@ private:
 	bool checkTime8 = true;
 
 
-	bool gameplayOneFinished = false;
+	bool gameplayOneFinished = false;//test, put back to false
 	bool gameplayTwoFinished = false;
 	bool gameplayThreeFinished = false;
 	bool gameplayFourFinished = false;
@@ -152,7 +153,7 @@ private:
 	bool currentlyLearning = false;
 
 	bool startGameplayOne = true;
-	bool startGameplayTwo = false;
+	bool startGameplayTwo = false;//test, put back to false
 	bool startGameplayThree = false;
 	bool startGameplayFour = false;
 	bool startGameplayFive = false;
@@ -243,7 +244,7 @@ void TestGame::Init(const Window& window)
 	AddToScene((new Entity(Vector3f(24, -12, 5), Quaternion(Vector3f(0, 1, 0), ToRadians(30.0f))))
 		->AddComponent(new MeshRenderer(Mesh("sphere.obj"), Material("bricks"))));
 		
-	Entity *player = new Entity(Vector3f(0, 0, 0), Quaternion(), 1.0f);
+	Entity *player = new Entity(Vector3f(575, 0, -575), Quaternion(), 1.0f);
 	FreeMove *playerMovement = new FreeMove(50.0f);
 	freeMoveObjects.push_back(playerMovement);
 	FreeLook *playerLook = new FreeLook(window.GetCenter());
@@ -393,7 +394,7 @@ void TestGame::Init(const Window& window)
 	
 	//Energy Cube
 	Material *energyCubeMaterial = new Material("green");
-	energyCubeEntity = new Entity(Vector3f(0, 5, 0), Quaternion(), 1.0f);//Entity *firstEnergyCubeEntity = new Entity(Vector3f(0, 5, 0), Quaternion(), 1.0f);
+	energyCubeEntity = new Entity(Vector3f(125, 0, -335), Quaternion(), 1.0f);//Entity *firstEnergyCubeEntity = new Entity(Vector3f(0, 5, 0), Quaternion(), 1.0f);
 	Mesh *firstEnergyCubeMesh = new Mesh("energyCore.obj");
 	energyCubeRenderer = new MeshRenderer(*firstEnergyCubeMesh, *energyCubeMaterial);
 	energyCubeRenderer->setDraw(false);
@@ -422,15 +423,15 @@ void TestGame::Init(const Window& window)
 	enemyCube4Renderer->setDraw(false);
 	enemyCube5Renderer = new MeshRenderer(*enemyCube5Mesh, *engineCoreMaterial);//red cube
 	enemyCube5Renderer->setDraw(false);
-	enemyCube1Entity = new Entity(Vector3f(10, 5, 0), Quaternion(), 1.0f);
+	enemyCube1Entity = new Entity(Vector3f(125, 0, -420), Quaternion(), 1.0f);
 	enemyCube1Entity->AddComponent(enemyCube1Renderer);
-	enemyCube2Entity = new Entity(Vector3f(20, 5, 0), Quaternion(), 1.0f);
+	enemyCube2Entity = new Entity(Vector3f(100, 0, -565), Quaternion(), 1.0f);
 	enemyCube2Entity->AddComponent(enemyCube2Renderer);
-	enemyCube3Entity = new Entity(Vector3f(30, 5, 0), Quaternion(), 1.0f);
+	enemyCube3Entity = new Entity(Vector3f(-50, 0, -530), Quaternion(), 1.0f);
 	enemyCube3Entity->AddComponent(enemyCube3Renderer);
-	enemyCube4Entity = new Entity(Vector3f(40, 5, 0), Quaternion(), 1.0f);
+	enemyCube4Entity = new Entity(Vector3f(-250, 0, -525), Quaternion(), 1.0f);
 	enemyCube4Entity->AddComponent(enemyCube4Renderer);
-	enemyCube5Entity = new Entity(Vector3f(50, 5, 0), Quaternion(), 1.0f);
+	enemyCube5Entity = new Entity(Vector3f(-500, 0, -400), Quaternion(), 1.0f);
 	enemyCube5Entity->AddComponent(enemyCube5Renderer);
 	AddToScene(enemyCube1Entity);
 	AddToScene(enemyCube2Entity);
@@ -485,6 +486,21 @@ void TestGame::checkTreeHeight(Entity* treeObject)
 	
 }
 
+void TestGame::checkCollectableHeight(Entity* collectableObject)
+{
+	Vector3f *testCollectablePos = collectableObject->GetTransform()->GetPos();
+	Vector3f collectablePos(testCollectablePos->GetX(), testCollectablePos->GetY() - 1.0f, testCollectablePos->GetZ());
+	float terraineHeightAtCollectablePos = meshObjects[0]->newTerrainHeightFuncFloat(collectablePos);
+	if (terraineHeightAtCollectablePos == 10000.0f) {
+		printf("collectable height not found");
+		return;
+	}
+	else {
+		collectableObject->GetTransform()->GetPos()->SetY(terraineHeightAtCollectablePos + 5);
+	}
+
+}
+
 float TestGame::checkTreeHeightForShader(glm::vec3 treePosArg)
 {
 	Vector3f treePos(treePosArg.x, treePosArg.y, treePosArg.z);
@@ -503,8 +519,8 @@ void TestGame::CheckTreeCollision()
 	Vector3f *testPlayerPos = freeMoveObjects[0]->GetParent()->GetTransform()->GetPos();
 	Vector3f playerPos(testPlayerPos->GetX(), testPlayerPos->GetY() - 1.0f, testPlayerPos->GetZ());
 	for (int i = 0; i < 1000; i++) {
-		if (abs(playerPos.GetX() - translations[i].x) < 5.0f + 5.0f / 2.0f) 
-			if (abs(playerPos.GetZ() - translations[i].z) < 5.0f + 5.0f / 2.0f) {
+		if (abs(playerPos.GetX() - translations[i].x) < 3.0f + 3.0f / 2.0f) 
+			if (abs(playerPos.GetZ() - translations[i].z) < 3.0f + 3.0f / 2.0f) {
 				freeMoveObjects[0]->GetParent()->GetTransform()->SetPos(Vector3f(freeMoveObjects[0]->getOldPos()->GetX(), freeMoveObjects[0]->getOldPos()->GetY(), freeMoveObjects[0]->getOldPos()->GetZ()));
 				return;
 			}
@@ -542,6 +558,7 @@ void TestGame::ChangeText()//18/3/20
 							textRenderer->setX(50);
 							engineCore1Renderer->setUseSeccondaryMaterial(true);
 							pressedFirstButton = true;
+							checkCollectableHeight(energyCubeEntity);
 							energyCubeRenderer->setDraw(true);
 						}
 					}
@@ -564,10 +581,15 @@ void TestGame::ChangeText()//18/3/20
 							if(energyCubeRenderer->getDraw())
 								SoundEngine->play2D("../res/music/bleep.mp3", GL_FALSE);//AUDIO
 							energyCubeRenderer->setDraw(false);
+							checkCollectableHeight(enemyCube1Entity);
 							enemyCube1Renderer->setDraw(true);
+							checkCollectableHeight(enemyCube2Entity);
 							enemyCube2Renderer->setDraw(true);
+							checkCollectableHeight(enemyCube3Entity);
 							enemyCube3Renderer->setDraw(true);
+							checkCollectableHeight(enemyCube4Entity);
 							enemyCube4Renderer->setDraw(true);
+							checkCollectableHeight(enemyCube5Entity);
 							enemyCube5Renderer->setDraw(true);
 							checkCollisionsWithEnergyComponents = true;
 						}
@@ -614,7 +636,7 @@ void TestGame::ChangeText()//18/3/20
 						}
 					if (!enemyCube1Renderer->getDraw() & !enemyCube2Renderer->getDraw() & !enemyCube3Renderer->getDraw() & !enemyCube4Renderer->getDraw() & !enemyCube5Renderer->getDraw()) {
 						checkTime = false;
-						timmer = 1000;
+						timmer = 10000;
 						textRenderer->setText("Well done, head back to the learning center");
 						engineCore1Renderer->setUseThirdMaterial(true);
 						checkCollisionsWithEnergyComponents = false;
@@ -710,7 +732,8 @@ void TestGame::ChangeText()//18/3/20
 								textRenderer->setX(50);
 								engineCore2Renderer->setUseSeccondaryMaterial(true);
 								pressedSeccondButton = true;
-								energyCubeEntity->GetTransform()->SetPos(Vector3f(5, 3, 5));
+								energyCubeEntity->GetTransform()->SetPos(Vector3f(-275, 0, -200));
+								checkCollectableHeight(energyCubeEntity);
 								energyCubeRenderer->setDraw(true);
 							}
 					}
@@ -733,15 +756,20 @@ void TestGame::ChangeText()//18/3/20
 							if (energyCubeRenderer->getDraw())
 								SoundEngine->play2D("../res/music/bleep.mp3", GL_FALSE);//AUDIO
 							energyCubeRenderer->setDraw(false);
-							enemyCube1Entity->GetTransform()->SetPos(Vector3f(10, 5, 10));
+							enemyCube1Entity->GetTransform()->SetPos(Vector3f(-220, 0, -100));
+							checkCollectableHeight(enemyCube1Entity);
 							enemyCube1Renderer->setDraw(true);
-							enemyCube2Entity->GetTransform()->SetPos(Vector3f(20, 5, 20));
+							enemyCube2Entity->GetTransform()->SetPos(Vector3f(-250, 0, 0));
+							checkCollectableHeight(enemyCube2Entity);
 							enemyCube2Renderer->setDraw(true);
-							enemyCube3Entity->GetTransform()->SetPos(Vector3f(30, 5, 30));
+							enemyCube3Entity->GetTransform()->SetPos(Vector3f(-300, 0, 50));
+							checkCollectableHeight(enemyCube3Entity);
 							enemyCube3Renderer->setDraw(true);
-							enemyCube4Entity->GetTransform()->SetPos(Vector3f(40, 5, 40));
+							enemyCube4Entity->GetTransform()->SetPos(Vector3f(-350, 0, 150));
+							checkCollectableHeight(enemyCube4Entity);
 							enemyCube4Renderer->setDraw(true);
-							enemyCube5Entity->GetTransform()->SetPos(Vector3f(50, 5, 50));
+							enemyCube5Entity->GetTransform()->SetPos(Vector3f(-400, 0, 300));
+							checkCollectableHeight(enemyCube5Entity);
 							enemyCube5Renderer->setDraw(true);
 							checkCollisionsWithEnergyComponents = true;
 						}
@@ -788,7 +816,7 @@ void TestGame::ChangeText()//18/3/20
 						}
 					if (!enemyCube1Renderer->getDraw() & !enemyCube2Renderer->getDraw() & !enemyCube3Renderer->getDraw() & !enemyCube4Renderer->getDraw() & !enemyCube5Renderer->getDraw()) {
 						checkTime2 = false;
-						timmer = 1000;
+						timmer = 10000;
 						textRenderer->setText("Well done, head back to the learning center");
 						engineCore2Renderer->setUseThirdMaterial(true);
 						checkCollisionsWithEnergyComponents = false;
@@ -878,7 +906,8 @@ void TestGame::ChangeText()//18/3/20
 							textRenderer->setX(50);
 							engineCore3Renderer->setUseSeccondaryMaterial(true);
 							pressedThirdButton = true;
-							energyCubeEntity->GetTransform()->SetPos(Vector3f(15, 5, 15));
+							energyCubeEntity->GetTransform()->SetPos(Vector3f(-50, 0, 10));
+							checkCollectableHeight(energyCubeEntity);
 							energyCubeRenderer->setDraw(true);
 						}
 					}
@@ -901,15 +930,20 @@ void TestGame::ChangeText()//18/3/20
 							if (energyCubeRenderer->getDraw())
 								SoundEngine->play2D("../res/music/bleep.mp3", GL_FALSE);//AUDIO
 							energyCubeRenderer->setDraw(false);
-							enemyCube1Entity->GetTransform()->SetPos(Vector3f(20, 5, 20));
+							enemyCube1Entity->GetTransform()->SetPos(Vector3f(-100, 0, 150));
+							checkCollectableHeight(enemyCube1Entity);
 							enemyCube1Renderer->setDraw(true);
-							enemyCube2Entity->GetTransform()->SetPos(Vector3f(30, 5, 30));
+							enemyCube2Entity->GetTransform()->SetPos(Vector3f(-150, 0, 250));
+							checkCollectableHeight(enemyCube2Entity);
 							enemyCube2Renderer->setDraw(true);
-							enemyCube3Entity->GetTransform()->SetPos(Vector3f(40, 5, 40));
+							enemyCube3Entity->GetTransform()->SetPos(Vector3f(-155, 0, 350));
+							checkCollectableHeight(enemyCube3Entity);
 							enemyCube3Renderer->setDraw(true);
-							enemyCube4Entity->GetTransform()->SetPos(Vector3f(50, 5, 50));
+							enemyCube4Entity->GetTransform()->SetPos(Vector3f(-150, 0, 450));
+							checkCollectableHeight(enemyCube4Entity);
 							enemyCube4Renderer->setDraw(true);
-							enemyCube5Entity->GetTransform()->SetPos(Vector3f(60, 5, 60));
+							enemyCube5Entity->GetTransform()->SetPos(Vector3f(0, 0, 475));
+							checkCollectableHeight(enemyCube5Entity);
 							enemyCube5Renderer->setDraw(true);
 							checkCollisionsWithEnergyComponents = true;
 						}
@@ -953,7 +987,7 @@ void TestGame::ChangeText()//18/3/20
 						}
 					if (!enemyCube1Renderer->getDraw() & !enemyCube2Renderer->getDraw() & !enemyCube3Renderer->getDraw() & !enemyCube4Renderer->getDraw() & !enemyCube5Renderer->getDraw()) {
 						checkTime3 = false;
-						timmer = 1000;
+						timmer = 10000;
 						textRenderer->setText("Well done, head back to the learning center");
 						engineCore3Renderer->setUseThirdMaterial(true);
 						checkCollisionsWithEnergyComponents = false;
@@ -1043,7 +1077,8 @@ void TestGame::ChangeText()//18/3/20
 							textRenderer->setX(50);
 							engineCore4Renderer->setUseSeccondaryMaterial(true);
 							pressedFourthButton = true;
-							energyCubeEntity->GetTransform()->SetPos(Vector3f(25, 5, 25));
+							energyCubeEntity->GetTransform()->SetPos(Vector3f(50, 0, 450));
+							checkCollectableHeight(energyCubeEntity);
 							energyCubeRenderer->setDraw(true);
 						}
 					}
@@ -1066,15 +1101,20 @@ void TestGame::ChangeText()//18/3/20
 							if (energyCubeRenderer->getDraw())
 								SoundEngine->play2D("../res/music/bleep.mp3", GL_FALSE);//AUDIO
 							energyCubeRenderer->setDraw(false);
-							enemyCube1Entity->GetTransform()->SetPos(Vector3f(30, 5, 30));
+							enemyCube1Entity->GetTransform()->SetPos(Vector3f(50, 0, 400));
+							checkCollectableHeight(enemyCube1Entity);
 							enemyCube1Renderer->setDraw(true);
-							enemyCube2Entity->GetTransform()->SetPos(Vector3f(40, 5, 40));
+							enemyCube2Entity->GetTransform()->SetPos(Vector3f(75, 0, 300));
+							checkCollectableHeight(enemyCube2Entity);
 							enemyCube2Renderer->setDraw(true);
-							enemyCube3Entity->GetTransform()->SetPos(Vector3f(50, 5, 50));
+							enemyCube3Entity->GetTransform()->SetPos(Vector3f(100, 0, 200));
+							checkCollectableHeight(enemyCube3Entity);
 							enemyCube3Renderer->setDraw(true);
-							enemyCube4Entity->GetTransform()->SetPos(Vector3f(60, 5, 60));
+							enemyCube4Entity->GetTransform()->SetPos(Vector3f(0, 0, 200));
+							checkCollectableHeight(enemyCube4Entity);
 							enemyCube4Renderer->setDraw(true);
-							enemyCube5Entity->GetTransform()->SetPos(Vector3f(70, 5, 70));
+							enemyCube5Entity->GetTransform()->SetPos(Vector3f(-100, 0, 150));
+							checkCollectableHeight(enemyCube5Entity);
 							enemyCube5Renderer->setDraw(true);
 							checkCollisionsWithEnergyComponents = true;
 						}
@@ -1118,7 +1158,7 @@ void TestGame::ChangeText()//18/3/20
 						}
 					if (!enemyCube1Renderer->getDraw() & !enemyCube2Renderer->getDraw() & !enemyCube3Renderer->getDraw() & !enemyCube4Renderer->getDraw() & !enemyCube5Renderer->getDraw()) {
 						checkTime4 = false;
-						timmer = 1000;
+						timmer = 10000;
 						textRenderer->setText("Well done, head back to the learning center");
 						engineCore4Renderer->setUseThirdMaterial(true);
 						checkCollisionsWithEnergyComponents = false;
@@ -1208,7 +1248,8 @@ void TestGame::ChangeText()//18/3/20
 							textRenderer->setX(50);
 							engineCore5Renderer->setUseSeccondaryMaterial(true);
 							pressedFifthButton = true;
-							energyCubeEntity->GetTransform()->SetPos(Vector3f(35, 5, 35));
+							energyCubeEntity->GetTransform()->SetPos(Vector3f(400, 0, 100));
+							checkCollectableHeight(energyCubeEntity);
 							energyCubeRenderer->setDraw(true);
 						}
 					}
@@ -1231,15 +1272,20 @@ void TestGame::ChangeText()//18/3/20
 							if (energyCubeRenderer->getDraw())
 								SoundEngine->play2D("../res/music/bleep.mp3", GL_FALSE);//AUDIO
 							energyCubeRenderer->setDraw(false);
-							enemyCube1Entity->GetTransform()->SetPos(Vector3f(40, 5, 40));
+							enemyCube1Entity->GetTransform()->SetPos(Vector3f(475, 0, 0));
+							checkCollectableHeight(enemyCube1Entity);
 							enemyCube1Renderer->setDraw(true);
-							enemyCube2Entity->GetTransform()->SetPos(Vector3f(50, 5, 50));
+							enemyCube2Entity->GetTransform()->SetPos(Vector3f(475, 0, -100));
+							checkCollectableHeight(enemyCube2Entity);
 							enemyCube2Renderer->setDraw(true);
-							enemyCube3Entity->GetTransform()->SetPos(Vector3f(60, 5, 60));
+							enemyCube3Entity->GetTransform()->SetPos(Vector3f(475, 0, -200));
+							checkCollectableHeight(enemyCube3Entity);
 							enemyCube3Renderer->setDraw(true);
-							enemyCube4Entity->GetTransform()->SetPos(Vector3f(70, 5, 70));
+							enemyCube4Entity->GetTransform()->SetPos(Vector3f(475, 0, -300));
+							checkCollectableHeight(enemyCube4Entity);
 							enemyCube4Renderer->setDraw(true);
-							enemyCube5Entity->GetTransform()->SetPos(Vector3f(80, 5, 80));
+							enemyCube5Entity->GetTransform()->SetPos(Vector3f(400, 0, -390));
+							checkCollectableHeight(enemyCube5Entity);
 							enemyCube5Renderer->setDraw(true);
 							checkCollisionsWithEnergyComponents = true;
 						}
@@ -1283,7 +1329,7 @@ void TestGame::ChangeText()//18/3/20
 						}
 					if (!enemyCube1Renderer->getDraw() & !enemyCube2Renderer->getDraw() & !enemyCube3Renderer->getDraw() & !enemyCube4Renderer->getDraw() & !enemyCube5Renderer->getDraw()) {
 						checkTime5 = false;
-						timmer = 1000;
+						timmer = 10000;
 						textRenderer->setText("Well done, head back to the learning center");
 						engineCore5Renderer->setUseThirdMaterial(true);
 						checkCollisionsWithEnergyComponents = false;
@@ -1373,7 +1419,8 @@ void TestGame::ChangeText()//18/3/20
 							textRenderer->setX(50);
 							engineCore6Renderer->setUseSeccondaryMaterial(true);
 							pressedSixthButton = true;
-							energyCubeEntity->GetTransform()->SetPos(Vector3f(40, 5, 40));
+							energyCubeEntity->GetTransform()->SetPos(Vector3f(-575, 0, -575));
+							checkCollectableHeight(energyCubeEntity);
 							energyCubeRenderer->setDraw(true);
 						}
 					}
@@ -1396,15 +1443,20 @@ void TestGame::ChangeText()//18/3/20
 							if (energyCubeRenderer->getDraw())
 								SoundEngine->play2D("../res/music/bleep.mp3", GL_FALSE);//AUDIO
 							energyCubeRenderer->setDraw(false);
-							enemyCube1Entity->GetTransform()->SetPos(Vector3f(50, 5, 50));
+							enemyCube1Entity->GetTransform()->SetPos(Vector3f(-595, 0, -475));
+							checkCollectableHeight(enemyCube1Entity);
 							enemyCube1Renderer->setDraw(true);
-							enemyCube2Entity->GetTransform()->SetPos(Vector3f(60, 5, 60));
+							enemyCube2Entity->GetTransform()->SetPos(Vector3f(-595, 0, -275));
+							checkCollectableHeight(enemyCube2Entity);
 							enemyCube2Renderer->setDraw(true);
-							enemyCube3Entity->GetTransform()->SetPos(Vector3f(70, 5, 70));
+							enemyCube3Entity->GetTransform()->SetPos(Vector3f(-575, 0, -75));
+							checkCollectableHeight(enemyCube3Entity);
 							enemyCube3Renderer->setDraw(true);
-							enemyCube4Entity->GetTransform()->SetPos(Vector3f(80, 5, 80));
+							enemyCube4Entity->GetTransform()->SetPos(Vector3f(-475, 0, 75));
+							checkCollectableHeight(enemyCube4Entity);
 							enemyCube4Renderer->setDraw(true);
-							enemyCube5Entity->GetTransform()->SetPos(Vector3f(90, 5, 90));
+							enemyCube5Entity->GetTransform()->SetPos(Vector3f(-375, 0, 175));
+							checkCollectableHeight(enemyCube5Entity);
 							enemyCube5Renderer->setDraw(true);
 							checkCollisionsWithEnergyComponents = true;
 						}
@@ -1448,7 +1500,7 @@ void TestGame::ChangeText()//18/3/20
 						}
 					if (!enemyCube1Renderer->getDraw() & !enemyCube2Renderer->getDraw() & !enemyCube3Renderer->getDraw() & !enemyCube4Renderer->getDraw() & !enemyCube5Renderer->getDraw()) {
 						checkTime6 = false;
-						timmer = 1000;
+						timmer = 10000;
 						textRenderer->setText("Well done, head back to the learning center");
 						engineCore6Renderer->setUseThirdMaterial(true);
 						checkCollisionsWithEnergyComponents = false;
@@ -1538,7 +1590,8 @@ void TestGame::ChangeText()//18/3/20
 							textRenderer->setX(50);
 							engineCore7Renderer->setUseSeccondaryMaterial(true);
 							pressedSeventhButton = true;
-							energyCubeEntity->GetTransform()->SetPos(Vector3f(55, 5, 55));
+							energyCubeEntity->GetTransform()->SetPos(Vector3f(600, 0, 600));
+							checkCollectableHeight(energyCubeEntity);
 							energyCubeRenderer->setDraw(true);
 						}
 					}
@@ -1561,15 +1614,20 @@ void TestGame::ChangeText()//18/3/20
 							if (energyCubeRenderer->getDraw())
 								SoundEngine->play2D("../res/music/bleep.mp3", GL_FALSE);//AUDIO
 							energyCubeRenderer->setDraw(false);
-							enemyCube1Entity->GetTransform()->SetPos(Vector3f(60, 5, 60));
+							enemyCube1Entity->GetTransform()->SetPos(Vector3f(400, 0, 575));
+							checkCollectableHeight(enemyCube1Entity);
 							enemyCube1Renderer->setDraw(true);
-							enemyCube2Entity->GetTransform()->SetPos(Vector3f(70, 5, 70));
+							enemyCube2Entity->GetTransform()->SetPos(Vector3f(200, 0, 575));
+							checkCollectableHeight(enemyCube2Entity);
 							enemyCube2Renderer->setDraw(true);
-							enemyCube3Entity->GetTransform()->SetPos(Vector3f(80, 5, 80));
+							enemyCube3Entity->GetTransform()->SetPos(Vector3f(0, 0, 575));
+							checkCollectableHeight(enemyCube3Entity);
 							enemyCube3Renderer->setDraw(true);
-							enemyCube4Entity->GetTransform()->SetPos(Vector3f(90, 5, 90));
+							enemyCube4Entity->GetTransform()->SetPos(Vector3f(-200, 0, 500));
+							checkCollectableHeight(enemyCube4Entity);
 							enemyCube4Renderer->setDraw(true);
-							enemyCube5Entity->GetTransform()->SetPos(Vector3f(100, 5, 100));
+							enemyCube5Entity->GetTransform()->SetPos(Vector3f(-400, 0, 400));
+							checkCollectableHeight(enemyCube5Entity);
 							enemyCube5Renderer->setDraw(true);
 							checkCollisionsWithEnergyComponents = true;
 						}
@@ -1613,7 +1671,7 @@ void TestGame::ChangeText()//18/3/20
 						}
 					if (!enemyCube1Renderer->getDraw() & !enemyCube2Renderer->getDraw() & !enemyCube3Renderer->getDraw() & !enemyCube4Renderer->getDraw() & !enemyCube5Renderer->getDraw()) {
 						checkTime7 = false;
-						timmer = 1000;
+						timmer = 10000;
 						textRenderer->setText("Well done, head back to the learning center");
 						engineCore7Renderer->setUseThirdMaterial(true);
 						checkCollisionsWithEnergyComponents = false;
@@ -1703,7 +1761,8 @@ void TestGame::ChangeText()//18/3/20
 							textRenderer->setX(50);
 							engineCore8Renderer->setUseSeccondaryMaterial(true);
 							pressedEighthButton = true;
-							energyCubeEntity->GetTransform()->SetPos(Vector3f(65, 5, 65));
+							energyCubeEntity->GetTransform()->SetPos(Vector3f(360, 0, 380));
+							checkCollectableHeight(energyCubeEntity);
 							energyCubeRenderer->setDraw(true);
 						}
 					}
@@ -1726,15 +1785,20 @@ void TestGame::ChangeText()//18/3/20
 							if (energyCubeRenderer->getDraw())
 								SoundEngine->play2D("../res/music/bleep.mp3", GL_FALSE);//AUDIO
 							energyCubeRenderer->setDraw(false);
-							enemyCube1Entity->GetTransform()->SetPos(Vector3f(70, 5, 70));
+							enemyCube1Entity->GetTransform()->SetPos(Vector3f(200, 0, 200));
+							checkCollectableHeight(enemyCube1Entity);
 							enemyCube1Renderer->setDraw(true);
-							enemyCube2Entity->GetTransform()->SetPos(Vector3f(80, 5, 80));
+							enemyCube2Entity->GetTransform()->SetPos(Vector3f(100, 0, 100));
+							checkCollectableHeight(enemyCube2Entity);
 							enemyCube2Renderer->setDraw(true);
-							enemyCube3Entity->GetTransform()->SetPos(Vector3f(90, 5, 90));
+							enemyCube3Entity->GetTransform()->SetPos(Vector3f(0, 0, -100));
+							checkCollectableHeight(enemyCube3Entity);
 							enemyCube3Renderer->setDraw(true);
-							enemyCube4Entity->GetTransform()->SetPos(Vector3f(100, 5, 100));
+							enemyCube4Entity->GetTransform()->SetPos(Vector3f(-100, 0, -300));
+							checkCollectableHeight(enemyCube4Entity);
 							enemyCube4Renderer->setDraw(true);
-							enemyCube5Entity->GetTransform()->SetPos(Vector3f(110, 5, 110));
+							enemyCube5Entity->GetTransform()->SetPos(Vector3f(-200, 0, -400));
+							checkCollectableHeight(enemyCube5Entity);
 							enemyCube5Renderer->setDraw(true);
 							checkCollisionsWithEnergyComponents = true;
 						}
@@ -1778,7 +1842,7 @@ void TestGame::ChangeText()//18/3/20
 						}
 					if (!enemyCube1Renderer->getDraw() & !enemyCube2Renderer->getDraw() & !enemyCube3Renderer->getDraw() & !enemyCube4Renderer->getDraw() & !enemyCube5Renderer->getDraw()) {
 						checkTime8 = false;
-						timmer = 1000;
+						timmer = 10000;
 						textRenderer->setText("Well done, head back to the learning center");
 						engineCore8Renderer->setUseThirdMaterial(true);
 						checkCollisionsWithEnergyComponents = false;
