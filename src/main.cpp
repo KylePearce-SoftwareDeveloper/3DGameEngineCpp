@@ -451,9 +451,11 @@ void TestGame::Init(const Window& window)
 	//18/3/20
 	textRenderer = new TextRenderer();
 	textRenderer->Load("Gputeks-Regular.ttf", 25);
-	textRenderer->setText("Objective: Visit the Engine Learning Center");
-	textRenderer->setX(20);//19/3/20
-	textRenderer->setY(25);//19/3/20
+	textRenderer->setText("Click inside the game window for the game to capture the;"
+		                  "focus of your mouse. Use 'W', 'A', 'S', and 'D' keys to move.;"
+	                      "OBJECTIVE: Visit the Engine Learning Center");
+	textRenderer->setX(10);//19/3/20
+	textRenderer->setY(100);//19/3/20
 	AddTextOnScreen(textRenderer);
 
 	//irrklang::ISound::setVolume(0.5);
@@ -537,8 +539,14 @@ void TestGame::ChangeText()//18/3/20
 	if (!hasHadWelcomeMessage) {
 		if (abs(playerPos.GetX() - entranceToLearninCenterPos->GetX()) < 2.0f + 2.0f / 1.0f)
 			if (abs(playerPos.GetZ() - entranceToLearninCenterPos->GetZ()) < 2.0f + 2.0f / 1.0f) {
-				textRenderer->setText("Welcome to the Learning Center - Explains stuff");
+				textRenderer->setText("Welcome to the Engine Learning Center - As you can see;"
+									  "on the walls are eight Learning cores, all of which are;"
+									  "currently offline. You must enteract with then one by;"
+									  "one in a clockwise manner turning them back online to;"
+									  "then gain the information thay have stored about the;"
+									  "Game Engine.");
 				textRenderer->setY(200);
+				textRenderer->setX(10);
 				hasHadWelcomeMessage = true;
 			}
 	}
@@ -552,13 +560,13 @@ void TestGame::ChangeText()//18/3/20
 						gameplayOneCurrentlyHappening = true;//LOCKED INTO THIS GAMEPLAY
 						textRenderer->setText("Press 'E'");
 						textRenderer->setY(300);
-						textRenderer->setX(100);
+						textRenderer->setX(350);
 						touchedOnce = true;
 						if (freeMoveObjects[0]->GetParent()->GetEngine()->GetWindow()->GetInput().GetKey(Input::KEY_E)) {
 							SoundEngine->play2D("../res/music/bleep.wav", GL_FALSE);//AUDIO
 							textRenderer->setText("Go collect Energy cube to put this Engine Core online");
-							textRenderer->setY(100);
-							textRenderer->setX(50);
+							textRenderer->setY(30);
+							textRenderer->setX(45);
 							engineCore1Renderer->setUseSeccondaryMaterial(true);
 							pressedFirstButton = true;
 							checkCollectableHeight(energyCubeEntity);
@@ -599,7 +607,7 @@ void TestGame::ChangeText()//18/3/20
 				}
 				if (checkCollisionsWithEnergyComponents) {
 					if (checkTime) {
-						textRenderer->setText("Time Left: " + std::to_string(timmer));
+						textRenderer->setText("Now collect the energy components - Time Left: " + std::to_string(timmer));
 						--timmer;
 						if (timmer <= 0)
 							exit(0);
@@ -650,9 +658,10 @@ void TestGame::ChangeText()//18/3/20
 			if (gameplayOneFinished & !hasHadPostGameplayOneMessage) {
 				if (abs(playerPos.GetX() - entranceToLearninCenterPos->GetX()) < 2.0f + 2.0f / 1.0f)
 					if (abs(playerPos.GetZ() - entranceToLearninCenterPos->GetZ()) < 2.0f + 2.0f / 1.0f) {
-						textRenderer->setText("Now the Core is online! Touch it to learn about that part of the engine");
-						textRenderer->setY(200);
-						textRenderer->setX(5);
+						textRenderer->setText("Now the Core is back online! Go up and touch it to learn;"
+											  "the information it holds about the engine.");
+						textRenderer->setY(60);
+						textRenderer->setX(20);
 						hasHadPostGameplayOneMessage = true;
 					}
 			}
@@ -662,33 +671,33 @@ void TestGame::ChangeText()//18/3/20
 						if (!currentlyLearning) {
 							textRenderer->setText("Press 'E' to open learning core.");
 							textRenderer->setY(300);
-							textRenderer->setX(5);
+							textRenderer->setX(200);
 							touchedOncePostGamePlayOne = true;
 							if (freeMoveObjects[0]->GetParent()->GetEngine()->GetWindow()->GetInput().GetKey(Input::KEY_E)) {
 								SoundEngine->play2D("../res/music/bleep.wav", GL_FALSE);//AUDIO
 								textRenderer->setY(550);
 								textRenderer->setX(10);
-								textRenderer->setText("Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-									                  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-									                  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff");
+								textRenderer->setText("                   MESH RENDERING SYSTEM                   ;"
+									                  "A 'Mesh Renderer' is one type of component that can be     ;"
+									                  "added to a game object. The Mesh Renderer holds two        ;"
+													  "things, a Texture object and a Mesh object. The Mesh       ;"
+													  "object is simply a Mesh, in that it is a collection of     ;"
+													  "vertex, texture, normals and tangent coordinates, these    ;"
+													  "meshes are typically created and exported from Blender, a  ;"
+													  "3D moddeling software. The Texture object simply holds     ;"
+													  "data belonging to a specified .png or .jpg file that will  ;"
+													  "escentially be stretched over the previously mentioned     ;"
+													  "mesh object. Once a Mesh Renderer component has been       ;"
+													  "added to a game object, it will be drawn every frame,      ;"
+													  "and OpenGL will use all the data from the mesh object      ;"
+													  "(its vertices etc.) cobined with the Texture to draw the   ;"
+													  "final Mesh Renderer into the world. Examples of mesh       ;"
+													  "renderers you can see around you are the                   ;"
+													  "Engine learning cernter, the Learning Cores on the walls,  ;"
+													  "The Terrain outside allong with all the trees and the water;"
+													  "surrounding this island. As a rule of thunb, if you can see;"
+													  "it and collide with it, it's a Mesh Renderer.;"
+													  "              Press 'R' to close Learning Core              ");
 								currentlyLearning = true;
 								startGameplayTwo = true;
 								gameplayOneCurrentlyHappening = false;
@@ -725,14 +734,14 @@ void TestGame::ChangeText()//18/3/20
 						    gameplayTwoCurrentlyHappening = true;
 							textRenderer->setText("Press 'E'");
 							textRenderer->setY(300);
-							textRenderer->setX(100);
+							textRenderer->setX(350);
 							touchedOnce2 = true;
 							if (freeMoveObjects[0]->GetParent()->GetEngine()->GetWindow()->GetInput().GetKey(Input::KEY_E)) {
 								SoundEngine->play2D("../res/music/bleep.wav", GL_FALSE);//AUDIO
 								//gameplayTwoCurrentlyHappening = true;
 								textRenderer->setText("Go collect Energy cube to put this Engine Core online");
-								textRenderer->setY(100);
-								textRenderer->setX(50);
+								textRenderer->setY(30);
+								textRenderer->setX(45);
 								engineCore2Renderer->setUseSeccondaryMaterial(true);
 								pressedSeccondButton = true;
 								energyCubeEntity->GetTransform()->SetPos(Vector3f(-275, 0, -200));
@@ -779,7 +788,7 @@ void TestGame::ChangeText()//18/3/20
 				}
 				if (checkCollisionsWithEnergyComponents) {
 					if (checkTime2) {
-						textRenderer->setText("Time Left: " + std::to_string(timmer));
+						textRenderer->setText("Now collect the energy components - Time Left: " + std::to_string(timmer));
 						--timmer;
 						if (timmer <= 0)
 							exit(0);
@@ -830,9 +839,10 @@ void TestGame::ChangeText()//18/3/20
 			if (gameplayTwoFinished & !hasHadPostGameplayTwoMessage) {
 				if (abs(playerPos.GetX() - entranceToLearninCenterPos->GetX()) < 2.0f + 2.0f / 1.0f)
 					if (abs(playerPos.GetZ() - entranceToLearninCenterPos->GetZ()) < 2.0f + 2.0f / 1.0f) {
-						textRenderer->setText("Now the Core is online! Touch it to learn about that part of the engine");
-						textRenderer->setY(200);
-						textRenderer->setX(5);
+						textRenderer->setText("Now the Core is back online! Go up and touch it to learn;"
+							                  "the information it holds about the engine.");
+						textRenderer->setY(60);
+						textRenderer->setX(20);
 						hasHadPostGameplayTwoMessage = true;
 					}
 			}
@@ -842,32 +852,33 @@ void TestGame::ChangeText()//18/3/20
 						if (!currentlyLearning) {
 							textRenderer->setText("Press 'E' to open learning core.");
 							textRenderer->setY(300);
-							textRenderer->setX(5);
+							textRenderer->setX(200);
 							touchedOncePostGamePlayTwo = true;
 						}
 						if (freeMoveObjects[0]->GetParent()->GetEngine()->GetWindow()->GetInput().GetKey(Input::KEY_E) && !currentlyLearning) {
 							SoundEngine->play2D("../res/music/bleep.wav", GL_FALSE);//AUDIO
-							textRenderer->setText("Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-									                  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-									                  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff");
+							textRenderer->setText("                    LIGHTING AND SHADOWS                   ;"
+									              "In this game engine there are three types of lights that   ;"
+									              "light the game world. The first of which is the directional;"
+											      "light, this simulates the sun, it exists as a 3D directional;"
+												  "vector that is cast through every point on every mesh in   ;"
+												  "the game world, lighting any surfaces it touches. The      ;"
+												  "seccond type Of light is our point light, which simulates  ;"
+												  "a light bulb, it is behind you in this room. It exists as  ;"
+												  "a 3D point in space, from this point is casts rays in all  ;"
+											      "directions and lights any surfaces it touches, with the    ;"
+												  "light diminishing over distance, unlike the directional    ;"
+												  "light. And finally the last light is the ambient light, this;"
+												  "is simply a number value that is used to light every object ;"
+												  "in the scene by a very small amount, so that if the rays   ;"
+												  "cast from the other lights dont reach a point in the world ;"
+												  "it atleast is lit by the small ambient light value so that ;"
+												  "it is not completely black. Notice that the direction  of  ;"
+												  "the directional light (sun) changes every frame to simulate;"
+												  "time passing, go look at a trees shadow to see this. Also, ;"
+												  "if a ray for anyone of the lights has to pass through an   ;"
+								                  "object to reach a point, the engine knows not to light that;"
+												  "point, thus creating shadows. Press 'R' to close core;");
 							textRenderer->setY(550);
 							textRenderer->setX(10);
 							currentlyLearning = true;
@@ -900,13 +911,13 @@ void TestGame::ChangeText()//18/3/20
 						gameplayThreeCurrentlyHappening = true;
 						textRenderer->setText("Press 'E'");
 						textRenderer->setY(300);
-						textRenderer->setX(100);
+						textRenderer->setX(350);
 						touchedOnce3 = true;
 						if (freeMoveObjects[0]->GetParent()->GetEngine()->GetWindow()->GetInput().GetKey(Input::KEY_E)) {
 							SoundEngine->play2D("../res/music/bleep.wav", GL_FALSE);//AUDIO
 							textRenderer->setText("Go collect Energy cube to put this Engine Core online");
-							textRenderer->setY(100);
-							textRenderer->setX(50);
+							textRenderer->setY(30);
+							textRenderer->setX(45);
 							engineCore3Renderer->setUseSeccondaryMaterial(true);
 							pressedThirdButton = true;
 							energyCubeEntity->GetTransform()->SetPos(Vector3f(-50, 0, 10));
@@ -953,7 +964,7 @@ void TestGame::ChangeText()//18/3/20
 				}
 				if (checkCollisionsWithEnergyComponents) {
 					if (checkTime3) {
-						textRenderer->setText("Time Left: " + std::to_string(timmer));
+						textRenderer->setText("Now collect the energy components - Time Left: " + std::to_string(timmer));
 						--timmer;
 						if (timmer <= 0)
 							exit(0);
@@ -1001,9 +1012,10 @@ void TestGame::ChangeText()//18/3/20
 			if (gameplayThreeFinished & !hasHadPostGameplayThreeMessage) {
 				if (abs(playerPos.GetX() - entranceToLearninCenterPos->GetX()) < 2.0f + 2.0f / 1.0f)
 					if (abs(playerPos.GetZ() - entranceToLearninCenterPos->GetZ()) < 2.0f + 2.0f / 1.0f) {
-						textRenderer->setText("Now the Core is online! Touch it to learn about that part of the engine");
-						textRenderer->setY(200);
-						textRenderer->setX(5);
+						textRenderer->setText("Now the Core is back online! Go up and touch it to learn;"
+							                  "the information it holds about the engine.");
+						textRenderer->setY(60);
+						textRenderer->setX(20);
 						hasHadPostGameplayThreeMessage = true;
 					}
 			}
@@ -1013,32 +1025,32 @@ void TestGame::ChangeText()//18/3/20
 						if (!currentlyLearning) {
 							textRenderer->setText("Press 'E' to open learning core.");
 							textRenderer->setY(300);
-							textRenderer->setX(5);
+							textRenderer->setX(200);
 							touchedOncePostGamePlayThree = true;
 						}
 						if (freeMoveObjects[0]->GetParent()->GetEngine()->GetWindow()->GetInput().GetKey(Input::KEY_E) && !currentlyLearning) {
 							SoundEngine->play2D("../res/music/bleep.wav", GL_FALSE);//AUDIO
-							textRenderer->setText("Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-									                  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-									                  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff");
+							textRenderer->setText("                  COLLISION DETECTION SYSTEM               ;"
+									              "There are 5 things in total in this game world you can     ;"
+									              "collide with, the terrain, the trees, the Engine Learning  ;"
+												  "Center, the Learning Cores on the wall, and finally the    ;"
+												  "collectable items such as the energy cubes and their       ;"
+												  "energy cores. In the case of the terrain, the engine stores;"
+												  "every vertex of its mesh and checks every frame if the     ;"
+												  "players X and Z position collides with one the vertices X  ;"
+												  "and Z position, if so the players Y (height) position      ;"
+												  "becomes that vertices Y (height) position. This allows you ;"
+												  "to traverse around the world up and down the hills and     ;"
+												  "have the appropriate height value while doing so based on  ;"
+												  "the ground of the terrain you are currently standing on.   ;"
+												  "In the case of the Engine Learning Center walls, trees,    ;"
+												  "Learning Cores and the collectable items, the engine has   ;"
+												  "the position and scale value of each in 3D space and each  ;"
+												  "frame checks to see if the players current position and    ;"
+												  "scale values in 3D space is touching them, if so engine    ;"
+												  "stops the players movement, or in the case of the Learning ;"
+												  "Cores allows the user to press the interact button.        ;"
+												  "               Press 'R' to close learning Core             ");
 							textRenderer->setY(550);
 							textRenderer->setX(10);
 							currentlyLearning = true;
@@ -1071,13 +1083,13 @@ void TestGame::ChangeText()//18/3/20
 						gameplayFourCurrentlyHappening = true;
 						textRenderer->setText("Press 'E'");
 						textRenderer->setY(300);
-						textRenderer->setX(100);
+						textRenderer->setX(350);
 						touchedOnce4 = true;
 						if (freeMoveObjects[0]->GetParent()->GetEngine()->GetWindow()->GetInput().GetKey(Input::KEY_E)) {
 							SoundEngine->play2D("../res/music/bleep.wav", GL_FALSE);//AUDIO
 							textRenderer->setText("Go collect Energy cube to put this Engine Core online");
-							textRenderer->setY(100);
-							textRenderer->setX(50);
+							textRenderer->setY(30);
+							textRenderer->setX(45);
 							engineCore4Renderer->setUseSeccondaryMaterial(true);
 							pressedFourthButton = true;
 							energyCubeEntity->GetTransform()->SetPos(Vector3f(50, 0, 450));
@@ -1124,7 +1136,7 @@ void TestGame::ChangeText()//18/3/20
 				}
 				if (checkCollisionsWithEnergyComponents) {
 					if (checkTime4) {
-						textRenderer->setText("Time Left: " + std::to_string(timmer));
+						textRenderer->setText("Now collect the energy components - Time Left: " + std::to_string(timmer));
 						--timmer;
 						if (timmer <= 0)
 							exit(0);
@@ -1172,9 +1184,10 @@ void TestGame::ChangeText()//18/3/20
 			if (gameplayFourFinished & !hasHadPostGameplayFourMessage) {
 				if (abs(playerPos.GetX() - entranceToLearninCenterPos->GetX()) < 2.0f + 2.0f / 1.0f)
 					if (abs(playerPos.GetZ() - entranceToLearninCenterPos->GetZ()) < 2.0f + 2.0f / 1.0f) {
-						textRenderer->setText("Now the Core is online! Touch it to learn about that part of the engine");
-						textRenderer->setY(200);
-						textRenderer->setX(5);
+						textRenderer->setText("Now the Core is back online! Go up and touch it to learn;"
+							                  "the information it holds about the engine.");
+						textRenderer->setY(60);
+						textRenderer->setX(20);
 						hasHadPostGameplayFourMessage = true;
 					}
 			}
@@ -1184,32 +1197,32 @@ void TestGame::ChangeText()//18/3/20
 						if (!currentlyLearning) {
 							textRenderer->setText("Press 'E' to open learning core.");
 							textRenderer->setY(300);
-							textRenderer->setX(5);
+							textRenderer->setX(200);
 							touchedOncePostGamePlayFour = true;
 						}
 						if (freeMoveObjects[0]->GetParent()->GetEngine()->GetWindow()->GetInput().GetKey(Input::KEY_E) && !currentlyLearning) {
 							SoundEngine->play2D("../res/music/bleep.wav", GL_FALSE);//AUDIO
-							textRenderer->setText("Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-									                  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-									                  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff");
+							textRenderer->setText("                   Text Rendering System                   ;"
+									              "This engine uses the 'FreeType' library to help with       ;"
+									              "rendering text to the screen as OpenGL (the library this   ;"
+												  "engine uses for graphics rendering) does not directly      ;"
+												  "support the rendering of glyphs (letters and symbols) to   ;"
+												  "the screen. Simply put, this engine has a 'Text Renderer'  ;"
+												  "object that is added to the scene, this object consists of ;"
+												  "a 2D point in space (so that it is stuck flat to the       ;"
+											      "players screen) and a string of text, you are reading the  ;"
+												  "Text Renderer object right now! The FreeType library loads ;"
+												  "all the glyphs of a chosen font and then renders them onto ;"
+												  "quads that OpenGL can then draw, the quads enable 'blend'  ;"
+												  "so that when the drawing is complete only the letters are  ;"
+												  "visiable, thus allowing you to read this text.             ;"
+												  "This Text Renderer object is the only one in the engine    ;"
+												  "and will have its position and string of text changed      ;"
+												  "depending on actions from the player.                      ;"
+												  "Go ahead and press the 'R' key to watch the Text Renderer  ;"
+												  "object change its position and string of text in real time!;"
+												  "                                                           ;"
+												  "              Press 'R' to close Learning Core              ");
 							textRenderer->setY(550);
 							textRenderer->setX(10);
 							currentlyLearning = true;
@@ -1242,13 +1255,13 @@ void TestGame::ChangeText()//18/3/20
 						gameplayFiveCurrentlyHappening = true;
 						textRenderer->setText("Press 'E'");
 						textRenderer->setY(300);
-						textRenderer->setX(100);
+						textRenderer->setX(350);
 						touchedOnce5 = true;
 						if (freeMoveObjects[0]->GetParent()->GetEngine()->GetWindow()->GetInput().GetKey(Input::KEY_E)) {
 							SoundEngine->play2D("../res/music/bleep.wav", GL_FALSE);//AUDIO
 							textRenderer->setText("Go collect Energy cube to put this Engine Core online");
-							textRenderer->setY(100);
-							textRenderer->setX(50);
+							textRenderer->setY(30);
+							textRenderer->setX(45);
 							engineCore5Renderer->setUseSeccondaryMaterial(true);
 							pressedFifthButton = true;
 							energyCubeEntity->GetTransform()->SetPos(Vector3f(400, 0, 100));
@@ -1295,7 +1308,7 @@ void TestGame::ChangeText()//18/3/20
 				}
 				if (checkCollisionsWithEnergyComponents) {
 					if (checkTime5) {
-						textRenderer->setText("Time Left: " + std::to_string(timmer));
+						textRenderer->setText("Now collect the energy components - Time Left: " + std::to_string(timmer));
 						--timmer;
 						if (timmer <= 0)
 							exit(0);
@@ -1343,9 +1356,10 @@ void TestGame::ChangeText()//18/3/20
 			if (gameplayFiveFinished & !hasHadPostGameplayFiveMessage) {
 				if (abs(playerPos.GetX() - entranceToLearninCenterPos->GetX()) < 2.0f + 2.0f / 1.0f)
 					if (abs(playerPos.GetZ() - entranceToLearninCenterPos->GetZ()) < 2.0f + 2.0f / 1.0f) {
-						textRenderer->setText("Now the Core is online! Touch it to learn about that part of the engine");
-						textRenderer->setY(200);
-						textRenderer->setX(5);
+						textRenderer->setText("Now the Core is back online! Go up and touch it to learn;"
+							                  "the information it holds about the engine.");
+						textRenderer->setY(60);
+						textRenderer->setX(20);
 						hasHadPostGameplayFiveMessage = true;
 					}
 			}
@@ -1355,32 +1369,32 @@ void TestGame::ChangeText()//18/3/20
 						if (!currentlyLearning) {
 							textRenderer->setText("Press 'E' to open learning core.");
 							textRenderer->setY(300);
-							textRenderer->setX(5);
+							textRenderer->setX(200);
 							touchedOncePostGamePlayFive = true;
 						}
 						if (freeMoveObjects[0]->GetParent()->GetEngine()->GetWindow()->GetInput().GetKey(Input::KEY_E) && !currentlyLearning) {
 							SoundEngine->play2D("../res/music/bleep.wav", GL_FALSE);//AUDIO
-							textRenderer->setText("Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-									                  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-									                  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff");
+							textRenderer->setText("                     USER INPUT SYSTEM                     ;"
+									              "This engine has a 'Input' object, this object holds all    ;"
+									              "the key bindings of the standard computer keyboard. This   ;"
+												  "object also holds a list of all the keys that are being    ;"
+												  "pressed and another list of all the keys that have been    ;"
+												  "released, it also has functions that can query all of this ;"
+												  "information. Therefore this engine has a simple way to see ;"
+												  "if a button is currently being pressed, what exactly the   ;"
+												  "button is and what should happen as a result.              ;"
+												  "This input object also tracks the players                  ;"
+												  "mouse and will update the players cameras pitch and yaw    ;"
+												  "values appropriately.                                      ;"
+												  "                                                           ;"
+												  "It is this simple Input object and the other game objects  ;"
+												  "that query against it that make it possible for the engine ;"
+												  "to react when you press a button. This logic allows the    ;"
+												  "player to move and look around the world freely, and       ;"
+												  "interact with the Learning Cores.                          ;"
+												  "                                                           ;"
+												  "                                                           ;"
+												  "              Press 'R' to close Learning Core              ");
 							textRenderer->setY(550);
 							textRenderer->setX(10);
 							currentlyLearning = true;
@@ -1413,13 +1427,13 @@ void TestGame::ChangeText()//18/3/20
 						gameplaySixCurrentlyHappening = true;
 						textRenderer->setText("Press 'E'");
 						textRenderer->setY(300);
-						textRenderer->setX(100);
+						textRenderer->setX(350);
 						touchedOnce6 = true;
 						if (freeMoveObjects[0]->GetParent()->GetEngine()->GetWindow()->GetInput().GetKey(Input::KEY_E)) {
 							SoundEngine->play2D("../res/music/bleep.wav", GL_FALSE);//AUDIO
 							textRenderer->setText("Go collect Energy cube to put this Engine Core online");
-							textRenderer->setY(100);
-							textRenderer->setX(50);
+							textRenderer->setY(30);
+							textRenderer->setX(45);
 							engineCore6Renderer->setUseSeccondaryMaterial(true);
 							pressedSixthButton = true;
 							energyCubeEntity->GetTransform()->SetPos(Vector3f(-575, 0, -575));
@@ -1466,7 +1480,7 @@ void TestGame::ChangeText()//18/3/20
 				}
 				if (checkCollisionsWithEnergyComponents) {
 					if (checkTime6) {
-						textRenderer->setText("Time Left: " + std::to_string(timmer));
+						textRenderer->setText("Now collect the energy components - Time Left: " + std::to_string(timmer));
 						--timmer;
 						if (timmer <= 0)
 							exit(0);
@@ -1514,9 +1528,10 @@ void TestGame::ChangeText()//18/3/20
 			if (gameplaySixFinished & !hasHadPostGameplaySixMessage) {
 				if (abs(playerPos.GetX() - entranceToLearninCenterPos->GetX()) < 2.0f + 2.0f / 1.0f)
 					if (abs(playerPos.GetZ() - entranceToLearninCenterPos->GetZ()) < 2.0f + 2.0f / 1.0f) {
-						textRenderer->setText("Now the Core is online! Touch it to learn about that part of the engine");
-						textRenderer->setY(200);
-						textRenderer->setX(5);
+						textRenderer->setText("Now the Core is back online! Go up and touch it to learn;"
+							                  "the information it holds about the engine.");
+						textRenderer->setY(60);
+						textRenderer->setX(20);
 						hasHadPostGameplaySixMessage = true;
 					}
 			}
@@ -1526,32 +1541,32 @@ void TestGame::ChangeText()//18/3/20
 						if (!currentlyLearning) {
 							textRenderer->setText("Press 'E' to open learning core.");
 							textRenderer->setY(300);
-							textRenderer->setX(5);
+							textRenderer->setX(200);
 							touchedOncePostGamePlaySix = true;
 						}
 						if (freeMoveObjects[0]->GetParent()->GetEngine()->GetWindow()->GetInput().GetKey(Input::KEY_E) && !currentlyLearning) {
 							SoundEngine->play2D("../res/music/bleep.wav", GL_FALSE);//AUDIO
-							textRenderer->setText("Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-									                  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-									                  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff");
+							textRenderer->setText("                        AUDIO SYSTEM                       ;"
+									              "Much like the Text Rendering system, Audio is not directly ;"
+									              "supported by OpenGL. Therefore this engine uses a library  ;"
+												  "called 'IrrKlang'. This library is very easy to use, to    ;"
+												  "start with this engine creates a 'Sound Engine' object from;"
+												  "the IrrKlang library, then the engine when it's initialized;"
+												  "tells this new Sound Engine object to play our background  ;"
+												  "music on an infinite loop at a specified volume.           ;"
+												  "                                                           ;"
+												  "This same Sound Engine object is once again told to play   ;"
+												  "audio (not on a loop) when certain things in the game      ;"
+												  "happen, for example, when activating and enteracting with  ;"
+												  "the Learning Cores, collecting the energy cubes and each of;"
+												  "their energy components the Sound Engine object will play  ;"
+												  "different audio scores.                                    ;"
+												  "                                                           ;"
+												  "Using IrrKlang, the addition of audio into this engine is  ;"
+												  "easy. Audio is very important in an engine as it makes the ;"
+												  "game world come alive and create a more enjoyable and      ;"
+												  "immersive experience for the player.                       ;"
+												  "            Press 'R' to close the Learning Core           ");
 							textRenderer->setY(550);
 							textRenderer->setX(10);
 							currentlyLearning = true;
@@ -1584,13 +1599,13 @@ void TestGame::ChangeText()//18/3/20
 						gameplaySevenCurrentlyHappening = true;
 						textRenderer->setText("Press 'E'");
 						textRenderer->setY(300);
-						textRenderer->setX(100);
+						textRenderer->setX(350);
 						touchedOnce7 = true;
 						if (freeMoveObjects[0]->GetParent()->GetEngine()->GetWindow()->GetInput().GetKey(Input::KEY_E)) {
 							SoundEngine->play2D("../res/music/bleep.wav", GL_FALSE);//AUDIO
 							textRenderer->setText("Go collect Energy cube to put this Engine Core online");
-							textRenderer->setY(100);
-							textRenderer->setX(50);
+							textRenderer->setY(30);
+							textRenderer->setX(45);
 							engineCore7Renderer->setUseSeccondaryMaterial(true);
 							pressedSeventhButton = true;
 							energyCubeEntity->GetTransform()->SetPos(Vector3f(600, 0, 600));
@@ -1637,7 +1652,7 @@ void TestGame::ChangeText()//18/3/20
 				}
 				if (checkCollisionsWithEnergyComponents) {
 					if (checkTime7) {
-						textRenderer->setText("Time Left: " + std::to_string(timmer));
+						textRenderer->setText("Now collect the energy components - Time Left: " + std::to_string(timmer));
 						--timmer;
 						if (timmer <= 0)
 							exit(0);
@@ -1685,9 +1700,10 @@ void TestGame::ChangeText()//18/3/20
 			if (gameplaySevenFinished & !hasHadPostGameplaySevenMessage) {
 				if (abs(playerPos.GetX() - entranceToLearninCenterPos->GetX()) < 2.0f + 2.0f / 1.0f)
 					if (abs(playerPos.GetZ() - entranceToLearninCenterPos->GetZ()) < 2.0f + 2.0f / 1.0f) {
-						textRenderer->setText("Now the Core is online! Touch it to learn about that part of the engine");
-						textRenderer->setY(200);
-						textRenderer->setX(5);
+						textRenderer->setText("Now the Core is back online! Go up and touch it to learn;"
+							                  "the information it holds about the engine.");
+						textRenderer->setY(60);
+						textRenderer->setX(20);
 						hasHadPostGameplaySevenMessage = true;
 					}
 			}
@@ -1697,32 +1713,32 @@ void TestGame::ChangeText()//18/3/20
 						if (!currentlyLearning) {
 							textRenderer->setText("Press 'E' to open learning core.");
 							textRenderer->setY(300);
-							textRenderer->setX(5);
+							textRenderer->setX(200);
 							touchedOncePostGamePlaySeven = true;
 						}
 						if (freeMoveObjects[0]->GetParent()->GetEngine()->GetWindow()->GetInput().GetKey(Input::KEY_E) && !currentlyLearning) {
 							SoundEngine->play2D("../res/music/bleep.wav", GL_FALSE);//AUDIO
-							textRenderer->setText("Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-									                  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-									                  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff");
+							textRenderer->setText("                     THE PLAYER OBJECT                     ;"
+									              "You are the Player Object! you are one of the many objects ;"
+									              "added into the game world. Much like the Mesh Renderer     ;"
+												  "object that had two components (Mesh & Texture) the        ;"
+												  "player object is also made up of different components.     ;"
+												  "Three components in total make up the player object, a     ;"
+												  "'FreeMove' component, 'FreeLook' component and a 'Camera'  ;"
+												  "component. The FreeMove component interacts with the       ;"
+												  "Input object and detects when the user presses any of the  ;"
+												  "W,A,S or D keys and moves the game world in the oposite    ;"
+												  "direction, this simulates that the player is moving in the ;"
+												  "world. The FreeLook component similarly interacts with the ;"
+												  "Input object to detect when the user moves the mouse and   ;"
+												  "in response update the cameras pitch and yaw values.       ;"
+												  "And finally the camera component shows the player the      ;"
+												  "world through its viewport, this view port is moved by the ;"
+												  "FreeMove component and the view ports pitch&yaw values     ;"
+												  "are changed by the FreeLook component. All together these  ;"
+												  "three components allow the Player Object to move and look  ;"
+												  "around the game world freely.                              ;"
+												  "            Press 'R' to close the learning core            ");
 							textRenderer->setY(550);
 							textRenderer->setX(10);
 							currentlyLearning = true;
@@ -1755,13 +1771,13 @@ void TestGame::ChangeText()//18/3/20
 						gameplayEightCurrentlyHappening = true;
 						textRenderer->setText("Press 'E'");
 						textRenderer->setY(300);
-						textRenderer->setX(100);
+						textRenderer->setX(350);
 						touchedOnce8 = true;
 						if (freeMoveObjects[0]->GetParent()->GetEngine()->GetWindow()->GetInput().GetKey(Input::KEY_E)) {
 							SoundEngine->play2D("../res/music/bleep.wav", GL_FALSE);//AUDIO
 							textRenderer->setText("Go collect Energy cube to put this Engine Core online");
-							textRenderer->setY(100);
-							textRenderer->setX(50);
+							textRenderer->setY(30);
+							textRenderer->setX(45);
 							engineCore8Renderer->setUseSeccondaryMaterial(true);
 							pressedEighthButton = true;
 							energyCubeEntity->GetTransform()->SetPos(Vector3f(360, 0, 380));
@@ -1808,7 +1824,7 @@ void TestGame::ChangeText()//18/3/20
 				}
 				if (checkCollisionsWithEnergyComponents) {
 					if (checkTime8) {
-						textRenderer->setText("Time Left: " + std::to_string(timmer));
+						textRenderer->setText("Now collect the energy components - Time Left: " + std::to_string(timmer));
 						--timmer;
 						if (timmer <= 0)
 							exit(0);
@@ -1856,9 +1872,10 @@ void TestGame::ChangeText()//18/3/20
 			if (gameplayEightFinished & !hasHadPostGameplayEightMessage) {
 				if (abs(playerPos.GetX() - entranceToLearninCenterPos->GetX()) < 2.0f + 2.0f / 1.0f)
 					if (abs(playerPos.GetZ() - entranceToLearninCenterPos->GetZ()) < 2.0f + 2.0f / 1.0f) {
-						textRenderer->setText("Now the Core is online! Touch it to learn about that part of the engine");
-						textRenderer->setY(200);
-						textRenderer->setX(5);
+						textRenderer->setText("Now the Core is back online! Go up and touch it to learn;"
+							                  "the information it holds about the engine.");
+						textRenderer->setY(60);
+						textRenderer->setX(20);
 						hasHadPostGameplayEightMessage = true;
 					}
 			}
@@ -1868,32 +1885,32 @@ void TestGame::ChangeText()//18/3/20
 						if (!currentlyLearning) {
 							textRenderer->setText("Press 'E' to open learning core.");
 							textRenderer->setY(300);
-							textRenderer->setX(5);
+							textRenderer->setX(200);
 							touchedOncePostGamePlayEight = true;
 						}
 						if (freeMoveObjects[0]->GetParent()->GetEngine()->GetWindow()->GetInput().GetKey(Input::KEY_E) && !currentlyLearning) {
 							SoundEngine->play2D("../res/music/bleep.wav", GL_FALSE);//AUDIO
-							textRenderer->setText("Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-									                  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-									                  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff");
+							textRenderer->setText("                  HOW IT ALL FITS TOGETHER                 ;"
+									              "You have just learned about some of the key things in the  ;"
+									              "world around you, but how does it all fit together? Well,  ;"
+												  "the game world is a 'scene' in the engine, this scene has  ;"
+												  "Game Objects added into it (drawn in it), and each of these;"
+												  "Game Objects has one or more Game Components. So, this     ;"
+												  "game world (scene) has Mesh Renderers added to it          ;"
+												  "(the terrain, water, trees, Learning Center, Learning      ;"
+												  "Cores, and all the collectables), Lighting has been added  ;"
+												  "into our scene (directional light, point light and ambient ;"
+												  "light) that in turn create shadows. The collision detection;"
+												  "system ensures that the player collides with all the things;"
+												  "in the scene as desired, the Text Rendering object guides  ;"
+												  "the player through the world and acts as the narrative and ;"
+												  "the Input system detects any buttons or mouses touched     ;"
+												  "by the player and acts acordingly when done so. The Audio  ;"
+												  "system plays background music and tones when the user      ;"
+												  "interacts with the world. Finally the player object moves  ;"
+												  "and looks around the world with the goal of hopefully      ;"
+												  "learning something about Game Engine Design!               ;"
+												  "              Press 'R' to close Learning Core              ");
 							textRenderer->setY(550);
 							textRenderer->setX(10);
 							currentlyLearning = true;
@@ -1930,31 +1947,31 @@ void TestGame::ChangeText()//18/3/20
 						currentlyTouchingPannelOne = true;
 						textRenderer->setText("Press 'E' to open learning core.");
 						textRenderer->setY(300);
-						textRenderer->setX(5);
+						textRenderer->setX(200);
 						touchedOncePostGamePlayOne = true;
 						if (freeMoveObjects[0]->GetParent()->GetEngine()->GetWindow()->GetInput().GetKey(Input::KEY_E)) {
 							SoundEngine->play2D("../res/music/bleep.wav", GL_FALSE);//AUDIO
-							textRenderer->setText("Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-									                  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-									                  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff");
+							textRenderer->setText("                   MESH RENDERING SYSTEM                   ;"
+									                  "A 'Mesh Renderer' is one type of component that can be     ;"
+									                  "added to a game object. The Mesh Renderer holds two        ;"
+													  "things, a Texture object and a Mesh object. The Mesh       ;"
+													  "object is simply a Mesh, in that it is a collection of     ;"
+													  "vertex, texture, normals and tangent coordinates, these    ;"
+													  "meshes are typically created and exported from Blender, a  ;"
+													  "3D moddeling software. The Texture object simply holds     ;"
+													  "data belonging to a specified .png or .jpg file that will  ;"
+													  "escentially be stretched over the previously mentioned     ;"
+													  "mesh object. Once a Mesh Renderer component has been       ;"
+													  "added to a game object, it will be drawn every frame,      ;"
+													  "and OpenGL will use all the data from the mesh object      ;"
+													  "(its vertices etc.) cobined with the Texture to draw the   ;"
+													  "final Mesh Renderer into the world. Examples of mesh       ;"
+													  "renderers you can see around you are the                   ;"
+													  "Engine learning cernter, the Learning Cores on the walls,  ;"
+													  "The Terrain outside allong with all the trees and the water;"
+													  "surrounding this island. As a rule of thunb, if you can see;"
+													  "it and collide with it, it's a Mesh Renderer.;"
+								                      "              Press 'R' to close Learning Core              ");
 							textRenderer->setY(550);
 							textRenderer->setX(10);
 							currentlyLearning = true;
@@ -1987,31 +2004,32 @@ void TestGame::ChangeText()//18/3/20
 						currentlyTouchingPannelTwo = true;
 						textRenderer->setText("Press 'E' to open learning core.");
 						textRenderer->setY(300);
-						textRenderer->setX(5);
+						textRenderer->setX(200);
 						touchedOncePostGamePlayTwo = true;
 						if (freeMoveObjects[0]->GetParent()->GetEngine()->GetWindow()->GetInput().GetKey(Input::KEY_E)) {
 							SoundEngine->play2D("../res/music/bleep.wav", GL_FALSE);//AUDIO
-							textRenderer->setText("Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-									                  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-									                  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff");
+							textRenderer->setText("                    LIGHTING AND SHADOWS                   ;"
+									              "In this game engine there are three types of lights that   ;"
+									              "light the game world. The first of which is the directional;"
+											      "light, this simulates the sun, it exists as a 3D directional;"
+												  "vector that is cast through every point on every mesh in   ;"
+												  "the game world, lighting any surfaces it touches. The      ;"
+												  "seccond type Of light is our point light, which simulates  ;"
+												  "a light bulb, it is behind you in this room. It exists as  ;"
+												  "a 3D point in space, from this point is casts rays in all  ;"
+											      "directions and lights any surfaces it touches, with the    ;"
+												  "light diminishing over distance, unlike the directional    ;"
+												  "light. And finally the last light is the ambient light, this;"
+												  "is simply a number value that is used to light every object ;"
+												  "in the scene by a very small amount, so that if the rays   ;"
+												  "cast from the other lights dont reach a point in the world ;"
+												  "it atleast is lit by the small ambient light value so that ;"
+												  "it is not completely black. Notice that the direction  of  ;"
+												  "the directional light (sun) changes every frame to simulate;"
+												  "time passing, go look at a trees shadow to see this. Also, ;"
+												  "if a ray for anyone of the lights has to pass through an   ;"
+								                  "object to reach a point, the engine knows not to light that;"
+								                  "point, thus creating shadows. Press 'R' to close core;");
 							textRenderer->setY(550);
 							textRenderer->setX(10);
 							currentlyLearning = true;
@@ -2044,31 +2062,31 @@ void TestGame::ChangeText()//18/3/20
 						currentlyTouchingPannelThree = true;
 						textRenderer->setText("Press 'E' to open learning core.");
 						textRenderer->setY(300);
-						textRenderer->setX(5);
+						textRenderer->setX(200);
 						touchedOncePostGamePlayThree = true;
 						if (freeMoveObjects[0]->GetParent()->GetEngine()->GetWindow()->GetInput().GetKey(Input::KEY_E)) {
 							SoundEngine->play2D("../res/music/bleep.wav", GL_FALSE);//AUDIO
-							textRenderer->setText("Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-									                  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-									                  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff");
+							textRenderer->setText("                  COLLISION DETECTION SYSTEM               ;"
+									              "There are 5 things in total in this game world you can     ;"
+									              "collide with, the terrain, the trees, the Engine Learning  ;"
+												  "Center, the Learning Cores on the wall, and finally the    ;"
+												  "collectable items such as the energy cubes and their       ;"
+												  "energy cores. In the case of the terrain, the engine stores;"
+												  "every vertex of its mesh and checks every frame if the     ;"
+												  "players X and Z position collides with one the vertices X  ;"
+												  "and Z position, if so the players Y (height) position      ;"
+												  "becomes that vertices Y (height) position. This allows you ;"
+												  "to traverse around the world up and down the hills and     ;"
+												  "have the appropriate height value while doing so based on  ;"
+												  "the ground of the terrain you are currently standing on.   ;"
+												  "In the case of the Engine Learning Center walls, trees,    ;"
+												  "Learning Cores and the collectable items, the engine has   ;"
+												  "the position and scale value of each in 3D space and each  ;"
+												  "frame checks to see if the players current position and    ;"
+												  "scale values in 3D space is touching them, if so engine    ;"
+												  "stops the players movement, or in the case of the Learning ;"
+												  "Cores allows the user to press the interact button.        ;"
+								                  "               Press 'R' to close learning Core             ");
 							textRenderer->setY(550);
 							textRenderer->setX(10);
 							currentlyLearning = true;
@@ -2101,31 +2119,31 @@ void TestGame::ChangeText()//18/3/20
 						currentlyTouchingPannelFour = true;
 						textRenderer->setText("Press 'E' to open learning core.");
 						textRenderer->setY(300);
-						textRenderer->setX(5);
+						textRenderer->setX(200);
 						touchedOncePostGamePlayFour = true;
 						if (freeMoveObjects[0]->GetParent()->GetEngine()->GetWindow()->GetInput().GetKey(Input::KEY_E)) {
 							SoundEngine->play2D("../res/music/bleep.wav", GL_FALSE);//AUDIO
-							textRenderer->setText("Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-									                  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-									                  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff");
+							textRenderer->setText("                   Text Rendering System                   ;"
+									              "This engine uses the 'FreeType' library to help with       ;"
+									              "rendering text to the screen as OpenGL (the library this   ;"
+												  "engine uses for graphics rendering) does not directly      ;"
+												  "support the rendering of glyphs (letters and symbols) to   ;"
+												  "the screen. Simply put, this engine has a 'Text Renderer'  ;"
+												  "object that is added to the scene, this object consists of ;"
+												  "a 2D point in space (so that it is stuck flat to the       ;"
+											      "players screen) and a string of text, you are reading the  ;"
+												  "Text Renderer object right now! The FreeType library loads ;"
+												  "all the glyphs of a chosen font and then renders them onto ;"
+												  "quads that OpenGL can then draw, the quads enable 'blend'  ;"
+												  "so that when the drawing is complete only the letters are  ;"
+												  "visiable, thus allowing you to read this text.             ;"
+												  "This Text Renderer object is the only one in the engine    ;"
+												  "and will have its position and string of text changed      ;"
+												  "depending on actions from the player.                      ;"
+												  "Go ahead and press the 'R' key to watch the Text Renderer  ;"
+												  "object change its position and string of text in real time!;"
+												  "                                                           ;"
+								                  "              Press 'R' to close Learning Core              ");
 							textRenderer->setY(550);
 							textRenderer->setX(10);
 							currentlyLearning = true;
@@ -2158,31 +2176,31 @@ void TestGame::ChangeText()//18/3/20
 						currentlyTouchingPannelFive = true;
 						textRenderer->setText("Press 'E' to open learning core.");
 						textRenderer->setY(300);
-						textRenderer->setX(5);
+						textRenderer->setX(200);
 						touchedOncePostGamePlayFive = true;
 						if (freeMoveObjects[0]->GetParent()->GetEngine()->GetWindow()->GetInput().GetKey(Input::KEY_E)) {
 							SoundEngine->play2D("../res/music/bleep.wav", GL_FALSE);//AUDIO
-							textRenderer->setText("Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-									                  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-									                  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff");
+							textRenderer->setText("                     USER INPUT SYSTEM                     ;"
+									              "This engine has a 'Input' object, this object holds all    ;"
+									              "the key bindings of the standard computer keyboard. This   ;"
+												  "object also holds a list of all the keys that are being    ;"
+												  "pressed and another list of all the keys that have been    ;"
+												  "released, it also has functions that can query all of this ;"
+												  "information. Therefore this engine has a simple way to see ;"
+												  "if a button is currently being pressed, what exactly the   ;"
+												  "button is and what should happen as a result.              ;"
+												  "This input object also tracks the players                  ;"
+												  "mouse and will update the players cameras pitch and yaw    ;"
+												  "values appropriately.                                      ;"
+												  "                                                           ;"
+												  "It is this simple Input object and the other game objects  ;"
+												  "that query against it that make it possible for the engine ;"
+												  "to react when you press a button. This logic allows the    ;"
+												  "player to move and look around the world freely, and       ;"
+												  "interact with the Learning Cores.                          ;"
+												  "                                                           ;"
+												  "                                                           ;"
+								                  "              Press 'R' to close Learning Core              ");
 							textRenderer->setY(550);
 							textRenderer->setX(10);
 							currentlyLearning = true;
@@ -2215,31 +2233,31 @@ void TestGame::ChangeText()//18/3/20
 						currentlyTouchingPannelSix = true;
 						textRenderer->setText("Press 'E' to open learning core.");
 						textRenderer->setY(300);
-						textRenderer->setX(5);
+						textRenderer->setX(200);
 						touchedOncePostGamePlaySix = true;
 						if (freeMoveObjects[0]->GetParent()->GetEngine()->GetWindow()->GetInput().GetKey(Input::KEY_E)) {
 							SoundEngine->play2D("../res/music/bleep.wav", GL_FALSE);//AUDIO
-							textRenderer->setText("Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-									                  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-									                  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff");
+							textRenderer->setText("                        AUDIO SYSTEM                       ;"
+									              "Much like the Text Rendering system, Audio is not directly ;"
+									              "supported by OpenGL. Therefore this engine uses a library  ;"
+												  "called 'IrrKlang'. This library is very easy to use, to    ;"
+												  "start with this engine creates a 'Sound Engine' object from;"
+												  "the IrrKlang library, then the engine when it's initialized;"
+												  "tells this new Sound Engine object to play our background  ;"
+												  "music on an infinite loop at a specified volume.           ;"
+												  "                                                           ;"
+												  "This same Sound Engine object is once again told to play   ;"
+												  "audio (not on a loop) when certain things in the game      ;"
+												  "happen, for example, when activating and enteracting with  ;"
+												  "the Learning Cores, collecting the energy cubes and each of;"
+												  "their energy components the Sound Engine object will play  ;"
+												  "different audio scores.                                    ;"
+												  "                                                           ;"
+												  "Using IrrKlang, the addition of audio into this engine is  ;"
+												  "easy. Audio is very important in an engine as it makes the ;"
+												  "game world come alive and create a more enjoyable and      ;"
+												  "immersive experience for the player.                       ;"
+								                  "            Press 'R' to close the Learning Core           ");
 							textRenderer->setY(550);
 							textRenderer->setX(10);
 							currentlyLearning = true;
@@ -2272,31 +2290,31 @@ void TestGame::ChangeText()//18/3/20
 						currentlyTouchingPannelSeven = true;
 						textRenderer->setText("Press 'E' to open learning core.");
 						textRenderer->setY(300);
-						textRenderer->setX(5);
+						textRenderer->setX(200);
 						touchedOncePostGamePlaySeven = true;
 						if (freeMoveObjects[0]->GetParent()->GetEngine()->GetWindow()->GetInput().GetKey(Input::KEY_E)) {
 							SoundEngine->play2D("../res/music/bleep.wav", GL_FALSE);//AUDIO
-							textRenderer->setText("Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-									                  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-									                  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff");
+							textRenderer->setText("                     THE PLAYER OBJECT                     ;"
+									              "You are the Player Object! you are one of the many objects ;"
+									              "added into the game world. Much like the Mesh Renderer     ;"
+												  "object that had two components (Mesh & Texture) the        ;"
+												  "player object is also made up of different components.     ;"
+												  "Three components in total make up the player object, a     ;"
+												  "'FreeMove' component, 'FreeLook' component and a 'Camera'  ;"
+												  "component. The FreeMove component interacts with the       ;"
+												  "Input object and detects when the user presses any of the  ;"
+												  "W,A,S or D keys and moves the game world in the oposite    ;"
+												  "direction, this simulates that the player is moving in the ;"
+												  "world. The FreeLook component similarly interacts with the ;"
+												  "Input object to detect when the user moves the mouse and   ;"
+												  "in response update the cameras pitch and yaw values.       ;"
+												  "And finally the camera component shows the player the      ;"
+												  "world through its viewport, this view port is moved by the ;"
+												  "FreeMove component and the view ports pitch&yaw values     ;"
+												  "are changed by the FreeLook component. All together these  ;"
+												  "three components allow the Player Object to move and look  ;"
+												  "around the game world freely.                              ;"
+								                  "            Press 'R' to close the learning core            ");
 							textRenderer->setY(550);
 							textRenderer->setX(10);
 							currentlyLearning = true;
@@ -2329,31 +2347,31 @@ void TestGame::ChangeText()//18/3/20
 						currentlyTouchingPannelEight = true;
 						textRenderer->setText("Press 'E' to open learning core.");
 						textRenderer->setY(300);
-						textRenderer->setX(5);
+						textRenderer->setX(200);
 						touchedOncePostGamePlayEight = true;
 						if (freeMoveObjects[0]->GetParent()->GetEngine()->GetWindow()->GetInput().GetKey(Input::KEY_E)) {
 							SoundEngine->play2D("../res/music/bleep.wav", GL_FALSE);//AUDIO
-							textRenderer->setText("Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-									                  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-									                  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff;"
-													  "Learning Stuff Learning Stuff Learning Stuff Learning Stuff");
+							textRenderer->setText("                  HOW IT ALL FITS TOGETHER                 ;"
+									              "You have just learned about some of the key things in the  ;"
+									              "world around you, but how does it all fit together? Well,  ;"
+												  "the game world is a 'scene' in the engine, this scene has  ;"
+												  "Game Objects added into it (drawn in it), and each of these;"
+												  "Game Objects has one or more Game Components. So, this     ;"
+												  "game world (scene) has Mesh Renderers added to it          ;"
+												  "(the terrain, water, trees, Learning Center, Learning      ;"
+												  "Cores, and all the collectables), Lighting has been added  ;"
+												  "into our scene (directional light, point light and ambient ;"
+												  "light) that in turn create shadows. The collision detection;"
+												  "system ensures that the player collides with all the things;"
+												  "in the scene as desired, the Text Rendering object guides  ;"
+												  "the player through the world and acts as the narrative and ;"
+												  "the Input system detects any buttons or mouses touched     ;"
+												  "by the player and acts acordingly when done so. The Audio  ;"
+												  "system plays background music and tones when the user      ;"
+												  "interacts with the world. Finally the player object moves  ;"
+												  "and looks around the world with the goal of hopefully      ;"
+												  "learning something about Game Engine Design!               ;"
+								                  "              Press 'R' to close Learning Core              ");
 							textRenderer->setY(550);
 							textRenderer->setX(10);
 							currentlyLearning = true;
